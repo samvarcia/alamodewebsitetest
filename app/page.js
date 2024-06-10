@@ -30,9 +30,7 @@ export default function Home() {
         }}
         transition={{ ease: "easeInOut", duration: 5 }}
         >
-        <div className={styles.aboutLink}>
-          ABOUT
-        </div>
+        
       </motion.section>
         <section className={styles.slideOne}>
           <div className={styles.slideContent}>
