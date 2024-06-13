@@ -13,8 +13,9 @@ export default function Home() {
         <div className={styles.heroContent}>
           <Image 
             src="/logoalamode.svg"
-            width={250}
-            height={100}
+            width={280}
+            height={150}
+            className={styles.logo}
           />
           <div className={styles.heroText}>
             <h3>NEW YORK, LONDON,<br/> MILAN, PARIS</h3>
@@ -50,6 +51,14 @@ export default function Home() {
         </section>
         <section className={styles.slideFive}>
           <div className={styles.slideContent}>
+          </div>
+        </section>
+        <section className={styles.About}>
+          <div className={styles.slideContent}>
+            <div className={styles.aboutText}>
+              <p>Location à la mode is a model exclusive event series created to foster a sense of community within the often isolating modeling industry.</p>
+              <p className={styles.rightAbout}>As models travel with the fashion weeks internationally, we organize networking events and social functions that follow suit—from New York to London to Milan to Paris</p>
+            </div>
           </div>
         </section>
       </div>
