@@ -9,7 +9,6 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-        
           <Image 
             src="/logoalamode.svg"
             width={280}

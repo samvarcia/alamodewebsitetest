@@ -199,6 +199,7 @@ box-sizing: border-box;
     width: 80%;
     font-size: 1.2rem;
     margin-top: 10px;
+    text-align: justify;
   }
   .mobileHeroText{
     display: block;
