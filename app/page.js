@@ -18,7 +18,8 @@ export default function Home() {
             className={styles.logo}
           />
           <div className={styles.heroText}>
-            <h3>NEW YORK, LONDON,<br/> MILAN, PARIS</h3>
+            <h3 className={styles.heroTitle}>NEW YORK, LONDON,<br/> MILAN, PARIS</h3>
+            <h3 className={styles.mobileHeroText}>NEW YORK<br />LONDON<br />MILAN<br />PARIS</h3>
             <p>...PRACTICING MY MODEL WALK</p>
           </div>
         </div>
@@ -56,8 +57,8 @@ export default function Home() {
         <section className={styles.About}>
           <div className={styles.slideContent}>
             <div className={styles.aboutText}>
-              <p>Location à la mode is a model exclusive event series created to foster a sense of community within the often isolating modeling industry.</p>
-              <p className={styles.rightAbout}>As models travel with the fashion weeks internationally, we organize networking events and social functions that follow suit—from New York to London to Milan to Paris</p>
+              <h4>ABOUT</h4>
+              <p>Location à la mode is a model exclusive event series created to foster a sense of community within the often isolating modeling industry. As models travel with the fashion weeks internationally, we organize networking events and social functions that follow suit—from New York to London to Milan to Paris</p>
             </div>
           </div>
         </section>

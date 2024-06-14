@@ -40,10 +40,9 @@
 }
 .slides section{
   /* scroll-snap-align: start; */
-  background-size: cover;
 
   background-attachment: local;
-  background-position: center; /* Center the image */
+  background-size: cover;
   background-repeat: no-repeat; /* Do not repeat the image */
   /* background-size: auto; Resize the background image to cover the entire container */
   /* background-size: 100%; Resize the background image to cover the entire container */
@@ -53,21 +52,34 @@
   /* background-image: url("../public/bgslidetwo.jpg"); */
 
   /* background: linear-gradient(180deg, rgba(188, 1, 35, 0.80) 0%, rgba(0, 0, 0, 0.00) 44%), url("../public/bgslidetwo.jpg") lightgray 50% / cover no-repeat; */
-  background: radial-gradient(348.99% 48.39% at 50% 0%, #BC0123 14%, rgba(0, 0, 0, 0.00) 100%), url("../public/bgslidetwo.jpg") lightgray 50% / cover no-repeat;
+  background: radial-gradient(348.99% 48.39% at 50% 0%, #BC0123 14%, rgba(0, 0, 0, 0.00) 100%), url("../public/bgslidetwo.jpg") lightgray 20% / cover no-repeat;
+  /* background: radial-gradient(348.99% 48.39% at 50% 0%, #BC0123 10%, rgba(0, 0, 0, 0.00) 100%), url("../public/testbgslideone.png") lightgray 0px 81.939px / 100% 102.66% no-repeat; */
+  background-position-x: center; /* Center the image */
+  background-position-y: 5%; /* Center the image */
+  /* background-image: url("../public/testslideone.png"); */
+  /* background: radial-gradient(348.99% 48.39% at 50% 0%, #BC0123 14%, rgba(0, 0, 0, 0.00) 100%), url("../public/testslideone.png") lightgray 0px 81.939px / 100% 102.66% no-repeat; */
 }
-.slideTwo{
+  .slideTwo{
   background-image: url("../public/bgslideone.png");
+  background-position: center; /* Center the image */
+
 }
 .slideThree{
   background-image: url("../public/bgslidethree.png");
-  background-position: 40%;
+  background-position: center;
+  /* background-position: center; Center the image */
+
 }
 .slideFour{
   background-image: url("../public/bgslidefour.png");
+  background-position: center; /* Center the image */
+
 }
 .slideFive{
   /* background-image: url("../public/bgslidefive.png"); */
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 35.5%, #000 100%), url("../public/bgslidefive.png") lightgray 50% / cover no-repeat;
+  background-position: center; /* Center the image */
+
 }
 /* Keyframes for the transition */
 @keyframes backgroundTransition {
@@ -90,7 +102,9 @@
       background: radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.57) 30.62%, #BC0123 52.24%), #000;
   }
 }
-
+.mobileHeroText{
+  display: none;
+}
 .heroContent{
   width: 100%;
   display: flex;
@@ -111,19 +125,28 @@ box-sizing: border-box;
 .About{
   background-color: #000;
   padding: 20px;
+  display: flex;
+  align-items: center;
 }
 .aboutText{
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  /* border: 1px solid red; */
+  align-items: flex-end;
+  /* justify-content: flex-end; */ 
+  flex-direction: column;
+}
+.aboutText h4 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
 }
 .aboutText p {
   width: 45%;
   font-size: 1.7rem;
   font-weight: 300;
   letter-spacing: -1.4px;
-  line-height: 83%;
+  line-height: 95%;
   text-transform: capitalize;
+  text-align: right;
 }
 .rightAbout{
   text-align: right;
@@ -148,35 +171,56 @@ box-sizing: border-box;
 
 /* Mobile */
 @media (max-width: 700px) {
+  .slideFour{
+    background-position: 45%; /* Center the image */
+  }
+  .slideTwo{
+    background-position: 10%;
+  }
+  .slideThree{
+    background-position: 45%;
+  }
+  .About{
+  justify-content: flex-start;
+  }
   .aboutText {
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    /* flex-direction: column; */
   }
   .aboutText p {
     width: 80%;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-top: 20px;
+  }
+  .mobileHeroText{
+    display: block;
+  }
+  .heroTitle{
+    display: none;
   }
   .heroContent{
    /* flex-wrap: wrap; */
-   flex-direction: column;
-   justify-content: center;
+   /* flex-direction: column; */
+   justify-content: space-between;
+   align-items: center;
    /* align-items: space-between; */
    padding: 10px;
   }
   .heroText p {
     font-size: 0.8rem;
+    display: none;
   }
   .slideThree{
     background-size: cover;
-    background-position: 60%;
+    background-position: 40%;
   }
   .heroText h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   .logo{
-    width: 60%;
+    width: 40%;
+    max-width: 170px;
     fill: #fff;
   }
   .content {
