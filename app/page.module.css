@@ -110,13 +110,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   /* margin-bottom: 30px; */
   /* border: 1px solid blue; */
 /* margin: 30px; */
 box-sizing: border-box;
   padding:  20px;
+}
+.logo{
+  position: fixed;
+  bottom: 0;
+  max-width: 200px;
+  margin-left: 20px;
 }
 .heroText{
   text-align: right;
@@ -141,7 +147,7 @@ box-sizing: border-box;
 }
 .aboutText p {
   width: 45%;
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   font-weight: 300;
   letter-spacing: -1.4px;
   line-height: 95%;
@@ -151,6 +157,7 @@ box-sizing: border-box;
 .rightAbout{
   text-align: right;
 }
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
@@ -191,10 +198,11 @@ box-sizing: border-box;
   .aboutText p {
     width: 80%;
     font-size: 1.2rem;
-    margin-top: 20px;
+    margin-top: 10px;
   }
   .mobileHeroText{
     display: block;
+    line-height: 83%;
   }
   .heroTitle{
     display: none;
@@ -206,6 +214,7 @@ box-sizing: border-box;
    align-items: center;
    /* align-items: space-between; */
    padding: 10px;
+   margin-bottom: 15px;
   }
   .heroText p {
     font-size: 0.8rem;
@@ -219,9 +228,11 @@ box-sizing: border-box;
     font-size: 1.3rem;
   }
   .logo{
-    width: 40%;
+    width: 43%;
     max-width: 170px;
     fill: #fff;
+    margin-left: 10px;
+
   }
   .content {
     padding: 4rem;

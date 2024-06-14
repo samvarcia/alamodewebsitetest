@@ -10,13 +10,14 @@ export default function Home() {
   return (
     <main className={styles.main}>
         
-        <div className={styles.heroContent}>
           <Image 
             src="/logoalamode.svg"
             width={280}
             height={150}
             className={styles.logo}
           />
+        <div className={styles.heroContent}>
+          <div></div>
           <div className={styles.heroText}>
             <h3 className={styles.heroTitle}>NEW YORK, LONDON,<br/> MILAN, PARIS</h3>
             <h3 className={styles.mobileHeroText}>NEW YORK<br />LONDON<br />MILAN<br />PARIS</h3>
