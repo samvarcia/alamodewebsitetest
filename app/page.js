@@ -38,11 +38,11 @@ export default function Home() {
           <div className={styles.slideContent}>
           </div>
         </section>
-        <section className={styles.slideTwo}>
+        <section className={styles.slideThree}>
           <div className={styles.slideContent}>
           </div>
         </section>
-        <section className={styles.slideThree}>
+        <section className={styles.slideTwo}>
           <div className={styles.slideContent}>
           </div>
         </section>
