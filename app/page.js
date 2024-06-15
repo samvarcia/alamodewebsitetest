@@ -50,6 +50,10 @@ export default function Home() {
           <div className={styles.slideContent}>
           </div>
         </section>
+        <section className={styles.slideSix}>
+          <div className={styles.slideContent}>
+          </div>
+        </section>
         <section className={styles.slideFive}>
           <div className={styles.slideContent}>
           </div>
@@ -58,7 +62,7 @@ export default function Home() {
           <div className={styles.slideContent}>
             <div className={styles.aboutText}>
               <h4>ABOUT</h4>
-              <p>Location à la mode is a model exclusive event series created to foster a sense of community within the often isolating modeling industry. As models travel with the fashion weeks internationally, we organize networking events and social functions that follow suit—from New York to London to Milan to Paris</p>
+              <p>Location à la mode is a model exclusive event series created to foster a sense of community within the often isolating modeling industry. As models travel with the fashion weeks internationally, we organize networking events and social functions that follow suit—from New York to London to Milan to Paris.</p>
             </div>
           </div>
         </section>
