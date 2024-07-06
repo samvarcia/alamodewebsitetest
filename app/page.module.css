@@ -149,6 +149,20 @@ box-sizing: border-box;
   font-size: 1.6rem;
   margin-bottom: 10px;
 }
+.contact{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.contact a{
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: -1.4px;
+  line-height: 95%;
+}
 .aboutText p {
   width: 45%;
   font-size: 1.6rem;

@@ -13,6 +13,7 @@ export default function Home() {
             src="/logoalamode.svg"
             width={280}
             height={150}
+            priority
             className={styles.logo}
           />
         <div className={styles.heroContent}>
@@ -63,6 +64,10 @@ export default function Home() {
             <div className={styles.aboutText}>
               <h4>ABOUT</h4>
               <p>Location à la mode is a model exclusive event series created to foster a sense of community within the often isolating modeling industry. As models travel with the fashion weeks internationally, we organize networking events and social functions that follow suit—from New York to London to Milan to Paris.</p>
+              <div className={styles.contact}>
+                <a href="mailto: WHERE@LOCATIONALAMODE.COM" target="_blank">where@locationalamode.com</a>
+                <a href="https://www.instagram.com/location.alamode/" target="_blank">@locationalamode</a>
+              </div>
             </div>
           </div>
         </section>
