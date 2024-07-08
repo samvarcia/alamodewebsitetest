@@ -216,11 +216,15 @@ box-sizing: border-box;
     align-items: flex-end;
     /* flex-direction: column; */
   }
-  .aboutText p {
+  .aboutText p  {
     width: 80%;
     font-size: 1.3rem;
     margin-top: 10px;
     text-align: justify;
+  }
+  .contact a{
+    font-size: 1.3rem;
+    
   }
   .mobileHeroText{
     display: block;
