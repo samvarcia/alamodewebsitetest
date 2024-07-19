@@ -1,0 +1,17 @@
+.checkinHero{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+}
+.logo{
+    position: fixed;
+    bottom: 0;
+    max-width: 200px;
+    margin-left: 20px;
+  }
