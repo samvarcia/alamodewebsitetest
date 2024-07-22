@@ -4,30 +4,10 @@ import styles from "./page.module.css";
 import { motion, useAnimation } from 'framer-motion';
 import Link from "next/link";
 import { useState } from "react";
+import Form from "../components/Form";
 
 export default function Page() {
-    const [name, setName] = useState('');
-    const [lastName, setLastname] = useState('');
-    const [email, setEmail] = useState('');
-    const [modelsLink, setModelsLink] = useState('');
-    const [instagram, setInstagram] = useState('');
-    const [addOn, setAddOns] = useState('');
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      const res = await fetch('/api/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email }),
-      });
-      if (res.ok) {
-        alert('Submission successful!');
-        setName('');
-        setEmail('');
-      } else {
-        alert('Submission failed.');
-      }
-    };
+    
   return (
     <main className={styles.checkin}>
         <Image 
@@ -47,54 +27,7 @@ export default function Page() {
         >
         <h1>LONDON SS 25</h1>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.formName}>
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
-                    required
-                />
-                    <input
-                        type="text"
-                        value={lastName}
-                        onChange={(e) => setLastname(e.target.value)}
-                        placeholder="Last Name"
-                        required
-                    />
-            </div>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-            />
-            <input
-                type="text"
-                value={modelsLink}
-                onChange={(e) => setModelsLink(e.target.value)}
-                placeholder="Models.com"
-                required
-            />
-            <input
-                type="text"
-                value={instagram}
-                onChange={(e) => setInstagram(e.target.value)}
-                placeholder="Instagram"
-                required
-            />
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Add on"
-                required
-            />
-            <button type="submit">Submit</button>
-        </form>
-            
+        <Form/>
       </motion.section>
     </main>
   );
