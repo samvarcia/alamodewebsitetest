@@ -1,4 +1,7 @@
+.checkin{
+}
 .checkinHero{
+    background-color: black;
     height: 100vh;
     display: flex;
     align-items: center;

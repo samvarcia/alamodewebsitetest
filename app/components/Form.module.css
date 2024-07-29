@@ -2,3 +2,29 @@
     display: flex;
     flex-direction: column;
 }
+.partyOption{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.partySelection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100vh;
+}
+.partyImg{
+    width: 300px;
+}
+.options{
+    display: flex;
+}
+
+.partyOption {
+    cursor: pointer;
+  }
+  
+  .partyOption .selectedText {
+    color: #BC0123;
+  }

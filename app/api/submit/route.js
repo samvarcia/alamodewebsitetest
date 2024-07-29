@@ -16,15 +16,24 @@ export async function POST(request) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    const range = 'A2:F';
+    const range = 'A2:I';
     
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: range,
       valueInputOption: 'USER_ENTERED',
-      insertDataOption: 'INSERT_ROWS',  // This ensures new rows are inserted
+      insertDataOption: 'INSERT_ROWS',
       requestBody: {
-        values: [[body.location, body.firstName, body.lastName, body.email, body.modelsLink, body.instagramLink]],
+        values: [[
+          body.parties.join(', '),
+          body.firstName,
+          body.lastName,
+          body.email,
+          body.modelsLink,
+          body.instagramLink,
+          body.plusOne ? 'Yes' : 'No',
+          body.plusOneName,
+        ]],
       },
     });
 
