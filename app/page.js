@@ -19,9 +19,9 @@ export default function Home() {
         <div className={styles.heroContent}>
           <div></div>
           <div className={styles.heroText}>
-            <Link href={"/checkin"}>
+            {/* <Link href={"/checkin"}>
               <h1>LONDON CHECKIN</h1>
-            </Link>
+            </Link> */}
             <h3 className={styles.heroTitle}>NEW YORK, LONDON,<br/> MILAN, PARIS</h3>
             <h3 className={styles.mobileHeroText}>NEW YORK<br />LONDON<br />MILAN<br />PARIS</h3>
             <p>...PRACTICING MY MODEL WALK</p>

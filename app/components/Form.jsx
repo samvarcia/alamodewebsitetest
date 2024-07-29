@@ -66,6 +66,7 @@ export default function Form() {
           <option value="London">London</option>
           <option value="Milan">Milan</option>
           <option value="Paris">Paris</option>
+          <option value="Paris">New York</option>
         </select>
       </div>
       <div>
@@ -86,7 +87,6 @@ export default function Form() {
           placeholder="Last Name"
         />
       </div>
-      <div>
         <input
           type="email"
           name="email"
@@ -95,8 +95,6 @@ export default function Form() {
           required
           placeholder="Email"
         />
-      </div>
-      <div>
         <input
           type="url"
           name="modelsLink"
@@ -104,8 +102,7 @@ export default function Form() {
           onChange={handleChange}
           placeholder="Models.com Link"
         />
-      </div>
-      <div>
+
         <input
           type="url"
           name="instagramLink"
@@ -113,7 +110,6 @@ export default function Form() {
           onChange={handleChange}
           placeholder="Instagram Profile Link"
         />
-      </div>
       <button type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Submitting...' : 'Submit'}
       </button>

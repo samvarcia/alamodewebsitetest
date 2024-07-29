@@ -25,7 +25,7 @@ export default function Page() {
         }}
         transition={{ ease: "easeInOut", duration: 5 }}
         >
-        <h1>LONDON SS 25</h1>
+        <h1>CHECK IN SS 25</h1>
 
         <Form/>
       </motion.section>
