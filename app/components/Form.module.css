@@ -1,6 +1,117 @@
+.formContainer {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
 .form{
     display: flex;
+    flex-direction: column;    
+    width: 100%;
+    min-height: 500px; /* Adjust this value as needed */
+    position: relative;
+
+}
+.nameInfo {
+    display: flex;
+    gap: 100px;
+}
+.form input {
+    background-color: transparent;
+    font-family: inherit;
+    border: 1px solid #fff;
+    border-radius: 40px 40px 0px 0px;
+    border-bottom: none;
+    /* border-top: 1px #FFF;
+    border-right: 1px #FFF;
+    border-left: 1px #FFF; */
+    padding: 10px 30px 0px 30px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    font-size: 25px;
+    line-height: normal;
+    font-weight: 500;
+    letter-spacing: -1px;
+    color: #fff;
+    width: 100%; /* Ensure inputs take full width of the form */
+    -webkit-text-fill-color: #fff;
+    transition: all 0s 50000s; /* Long transition to prevent background color change */
+}
+.form input:focus,
+.form input:active {
+    outline: none;
+    background-color: transparent;
+}
+
+.plusOneSelection {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+.plusOneSelection p {
+    font-size: 25px;
+    line-height: normal;
+    font-weight: 300;
+    letter-spacing: -1px;
+}
+  .plusOneOptions {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .plusOneOption {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .plusOneOption.selected {
+    background-color: #fff;
+    color: #000;
+  }
+  
+  .plusOneOption:hover {
+    opacity: 0.8;
+  }
+
+.form input:-webkit-autofill,
+.form input:-webkit-autofill:hover,
+.form input:-webkit-autofill:focus,
+.form input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+    -webkit-text-fill-color: #fff !important;
+    caret-color: #fff;
+    font-size: 25px !important;
+    font-weight: 300 !important;
+    letter-spacing: -1px !important;
+    transition: all 0s 50000s;
+}
+
+.form button {
+    color: #000;
+    font-size: 22px;
+    /* height: 30px; */
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 400;
+    width: 200px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+.form input::placeholder{
+    color: #fff;
+}
+.extrainfo{
+    display: flex;
     flex-direction: column;
+    padding-bottom: 20px; /* Adjust based on your button height */
+
 }
 .partyOption{
     display: flex;
@@ -12,7 +123,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    padding: 30px;
     height: 100vh;
+}
+.partySelection p {
+    font-size: 2rem;
 }
 .partyImg{
     width: 300px;
@@ -24,7 +139,22 @@
 .partyOption {
     cursor: pointer;
   }
-  
+.partyOption h3 {
+    margin-top: 20px;
+}
   .partyOption .selectedText {
     color: #BC0123;
   }
+
+  .form input[name="plusOneName"] {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.form input[name="plusOneName"].visible {
+    max-height: 50px; /* Adjust based on your input height */
+    opacity: 1;
+    margin-bottom: 30px;
+}

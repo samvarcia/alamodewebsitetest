@@ -18,10 +18,10 @@ export default function Form() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const parties = [
+    { id: 'newyork', name: 'NEW YORK', imageWhite: '/newyork-party-white.svg', imageRed: '/newyork-party-red.svg' },
     { id: 'london', name: 'LONDON', imageWhite: '/london-party-white.svg', imageRed: '/london-party-red.svg' },
     { id: 'milan', name: 'MILAN', imageWhite: '/milan-party-white.svg', imageRed: '/milan-party-red.svg' },
     { id: 'paris', name: 'PARIS', imageWhite: '/paris-party-white.svg', imageRed: '/paris-party-red.svg' },
-    { id: 'newyork', name: 'NEW YORK', imageWhite: '/newyork-party-white.svg', imageRed: '/newyork-party-red.svg' },
   ];
 
   const handleChange = (e) => {
@@ -35,10 +35,16 @@ export default function Form() {
   const handlePartySelection = (partyId) => {
     setFormData(prev => ({
       ...prev,
-      parties: prev.parties.includes(partyId)
-        ? prev.parties.filter(id => id !== partyId)
-        : [...prev.parties, partyId]
+      parties: [partyId]
     }));
+    
+    // Delay the transition to the next step
+    setTimeout(() => {
+      setStep(2);
+    }, 800); // 500ms delay, adjust as needed
+  };
+  const handleBackToSelector = () => {
+    setStep(1);
   };
 
   const handleSubmit = async (e) => {
@@ -91,9 +97,23 @@ export default function Form() {
     setIsSubmitted(false);
   };
 
+  const renderSelectedParty = () => {
+    const selectedParty = parties.find(party => party.id === formData.parties[0]);
+    if (!selectedParty) return null;
+  
+    return (
+      <div className={styles.selectedParty} style={{ marginBottom: "20px", display: "flex", gap: "5px", alignItems: "flex-start", flexDirection: "column"}}>
+        <div className={styles.backArrow} onClick={handleBackToSelector} style={{ cursor: "pointer" }}>
+          <p>Back</p>
+        </div>
+        <h2>{selectedParty.name} SS 25</h2>
+      </div>
+    );
+  };
+
   const renderPartySelection = () => (
     <div className={styles.partySelection}>
-      <h2>Select the parties you will attend:</h2>
+      <h1>JOIN US IN:</h1>
       <div className={styles.options}>
         {parties.map(party => (
           <div 
@@ -108,73 +128,88 @@ export default function Form() {
               height={300} 
               className={styles.partyImg}
             />
-            <span className={formData.parties.includes(party.id) ? styles.selectedText : ''}>{party.name}</span>
+            <h3 className={formData.parties.includes(party.id) ? styles.selectedText : ''}>{party.name}</h3>
           </div>
         ))}
       </div>
-      <button type="button" onClick={handleNextStep}>Next</button>
+      {/* <button type="button" onClick={handleNextStep}>CONTINUE</button> */}
     </div>
   );
 
   const renderPersonalInfo = () => (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <input
-        type="text"
-        name="firstName"
-        value={formData.firstName}
-        onChange={handleChange}
-        required
-        placeholder="First Name"
-      />
-      <input
-        type="text"
-        name="lastName"
-        value={formData.lastName}
-        onChange={handleChange}
-        required
-        placeholder="Last Name"
-      />
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-        placeholder="Email"
-      />
-      <input
-        type="url"
-        name="modelsLink"
-        value={formData.modelsLink}
-        onChange={handleChange}
-        placeholder="Models.com Link"
-      />
-      <input
-        type="url"
-        name="instagramLink"
-        value={formData.instagramLink}
-        onChange={handleChange}
-        placeholder="Instagram Profile Link"
-      />
-      <label>
-        <input
-          type="checkbox"
-          name="plusOne"
-          checked={formData.plusOne}
-          onChange={handleChange}
-        />
-        Bringing a plus one?
-      </label>
-      {formData.plusOne && (
+      {renderSelectedParty()}
+      <div className={styles.nameInfo}>
         <input
           type="text"
-          name="plusOneName"
-          value={formData.plusOneName}
+          name="firstName"
+          value={formData.firstName}
           onChange={handleChange}
-          placeholder="Plus One's Name"
           required
+          placeholder="Name"
         />
-      )}
+        <input
+          type="text"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          required
+          placeholder="Last Name"
+        />
+      </div>
+      <div className={styles.extrainfo}>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          placeholder="Email"
+        />
+        <input
+          type="url"
+          name="modelsLink"
+          value={formData.modelsLink}
+          onChange={handleChange}
+          placeholder="Models.com or Agency Website"
+        />
+        <input
+          type="url"
+          name="instagramLink"
+          value={formData.instagramLink}
+          onChange={handleChange}
+          placeholder="Instagram Profile"
+        />
+        <div className={styles.plusOneSelection}>
+          <p>Bringing a plus one?</p>
+          <div className={styles.plusOneOptions}>
+          <span 
+            className={`${styles.plusOneOption} ${formData.plusOne ? styles.selected : ''}`}
+            onClick={() => setFormData(prev => ({ ...prev, plusOne: true }))}
+          >
+            Yes
+          </span>
+          <span 
+            className={`${styles.plusOneOption} ${!formData.plusOne ? styles.selected : ''}`}
+            onClick={() => setFormData(prev => ({ ...prev, plusOne: false, plusOneName: '' }))}
+          >
+            No
+          </span>
+        </div>
+        </div>
+        {formData.plusOne && (
+          <input
+            type="text"
+            name="plusOneName"
+            value={formData.plusOneName}
+            onChange={handleChange}
+            placeholder="Plus One's Name"
+            required
+            className={formData.plusOne ? styles.visible : ''}
+
+          />
+        )}
+      </div>
       <button type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Submitting...' : 'Submit'}
       </button>
@@ -185,7 +220,7 @@ export default function Form() {
     <div className={styles.confirmation}>
       <h2>Thank you for your submission!</h2>
       <p>Your invitation is being approved. If approved, an email will be sent to {formData.email} with further details.</p>
-      <button onClick={handleReset}>Submit Another Response</button>
+      <button onClick={handleReset}>GO BACK</button>
     </div>
   );
 
