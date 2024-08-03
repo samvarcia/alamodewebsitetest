@@ -1,27 +1,42 @@
 import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import nodemailer from 'nodemailer';
+import { v4 as uuidv4 } from 'uuid';
+import QRCode from 'qrcode';
 
-async function sendEmail(to, subject, text) {
-    let transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      secure: true, // use TLS
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-  
-    let info = await transporter.sendMail({
-      from: '"ALAMODETEST" <testalamodefly@gmail.com>',
-      to: to,
-      subject: subject,
-      text: text,
-    });
-  
-    console.log("Message sent: %s", info.messageId);
-  }
+async function sendEmail(to, subject, text, qrCodeDataUrl, qrCodeLink) {
+  let transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  let info = await transporter.sendMail({
+    from: '"ALAMODETEST" <testalamodefly@gmail.com>',
+    to: to,
+    subject: subject,
+    text: text,
+    html: `
+      <p>${text}</p>
+      <p>For testing purposes, you can also click this link to simulate scanning the QR code: 
+        <a href="${qrCodeLink}">${qrCodeLink}</a>
+      </p>
+    `,
+    attachments: [
+      {
+        filename: 'ticket_qr.png',
+        content: qrCodeDataUrl.split(';base64,').pop(),
+        encoding: 'base64'
+      }
+    ]
+  });
+
+  console.log("Message sent: %s", info.messageId);
+}
 
 export async function GET(request) {
   try {
@@ -36,7 +51,7 @@ export async function GET(request) {
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'A2:I', // Adjust based on your sheet structure
+      range: 'UNAPPROVED!A2:J',
     });
 
     const rows = response.data.values;
@@ -44,21 +59,60 @@ export async function GET(request) {
     if (rows.length) {
       for (const row of rows) {
         if (row[8] === 'Y') { // Assuming "Approved" is the 9th column (index 8)
-          const email = row[3]; // Assuming email is the 4th column (index 3)
-          const firstName = row[1]; // Assuming first name is the 2nd column (index 1)
-          const party = row[0]; // Assuming party is the 1st column (index 0)
+          const email = row[3];
+          const firstName = row[1];
+          const party = row[0];
 
-          // Send approval email
+          // Generate unique identifier
+          const attendeeId = uuidv4();
+
+          // Generate QR code
+          const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
+          const qrCodeDataUrl = await QRCode.toDataURL(qrCodeLink);
+
+          // Get the current number of rows in the APPROVED sheet
+          const currentRowsResponse = await sheets.spreadsheets.values.get({
+            spreadsheetId: process.env.GOOGLE_SHEET_ID,
+            range: 'APPROVED!A:A',
+          });
+
+          const nextRow = currentRowsResponse.data.values ? currentRowsResponse.data.values.length + 1 : 1;
+
+          // Add to approved sheet
+          await sheets.spreadsheets.values.update({
+            spreadsheetId: process.env.GOOGLE_SHEET_ID,
+            range: `APPROVED!A${nextRow}`,
+            valueInputOption: 'USER_ENTERED',
+            requestBody: {
+              values: [[
+                row[0],  // Party
+                row[1],  // First Name
+                row[2],  // Last Name
+                row[3],  // Email
+                row[4],  // Models Link
+                row[5],  // Instagram Link
+                row[6],  // Plus One (Yes/No)
+                row[7],  // Plus One Name
+                row[8],  // Approval Status
+                attendeeId,  // Unique Attendee ID
+                'Not Checked In'  // Initial Check-In Status
+              ]]
+            }
+          });
+
+          // Send approval email with QR code
           await sendEmail(
             email,
             `${party} Party Submission is Approved!`,
-            `Dear ${firstName},\n\nGreat news! Your submission for the ${party} Fashion Week Party has been approved. We look forward to seeing you at the event, QR.\n\nBest regards,\nYour Fashion Week Team`
+            `Dear ${firstName},\n\nGreat news! Your submission for the ${party} Fashion Week Party has been approved. Please find your ticket QR code attached.\n\nBest regards,\nYour Fashion Week Team`,
+            qrCodeDataUrl,
+            qrCodeLink
           );
 
-          // Update the "Approved" status to 'S' for "Sent"
+          // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
           await sheets.spreadsheets.values.update({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: `J${rows.indexOf(row) + 2}`, // +2 because rows are 1-indexed and we start from A2
+            range: `UNAPPROVED!J${rows.indexOf(row) + 2}`,
             valueInputOption: 'USER_ENTERED',
             requestBody: {
               values: [['S']]

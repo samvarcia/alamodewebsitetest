@@ -2,12 +2,11 @@ import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import nodemailer from 'nodemailer';
 
-// Email sending function
 async function sendEmail(to, subject, text) {
   let transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
-    secure: true, // use TLS
+    secure: true,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
@@ -29,7 +28,6 @@ export async function POST(request) {
     const body = await request.json();
     console.log("Received data:", body);
 
-    // Initialize Google Sheets API
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
       null,
@@ -39,7 +37,7 @@ export async function POST(request) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    const range = 'A2:J'; // Updated to include the new "Approved" column
+    const range = 'UNAPPROVED!A2:J';
     
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -63,7 +61,6 @@ export async function POST(request) {
 
     console.log("Google Sheets API response:", response.data);
 
-    // Send confirmation email
     await sendEmail(
       body.email,
       `${body.parties} Party Submission Received`,
