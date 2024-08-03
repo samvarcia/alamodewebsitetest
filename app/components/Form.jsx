@@ -171,7 +171,7 @@ export default function Form() {
           name="modelsLink"
           value={formData.modelsLink}
           onChange={handleChange}
-          placeholder="Models.com or Agency Website"
+          placeholder="Models.com or Agency Profile"
         />
         <input
           type="url"
@@ -211,7 +211,9 @@ export default function Form() {
         )}
       </div>
       <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Submitting...' : 'Submit'}
+        <h3>
+          {isSubmitting ? 'SUBMITTING...' : 'SUBMIT'}
+        </h3>
       </button>
     </form>
   );
