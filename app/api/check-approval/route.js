@@ -105,14 +105,13 @@ export async function GET(request) {
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <title>${party} Party Invitation</title>
           </head>
-          <body style="background-color: #D50000; color: #FFF; font-family: Arial, sans-serif; text-align: center; padding: 20px;">
+          <body style="background-color: radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14)25%, #BC0123 100%), #000); color: #FFF; font-family: Arial, sans-serif; text-align: center; padding: 20px;">
               <div style="max-width: 600px; margin: 0 auto;">
-                  <h1 style="font-size: 24px; margin-bottom: 20px;"> LOCATION A LA MODE ${party.toUpperCase()} SS 25</h1>
-                  <p style="font-size: 18px; margin-bottom: 10px;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
-                  <p style="font-size: 18px; margin-bottom: 10px;">PLUS ONES: ${plusOne.toUpperCase()}</p>
+                  <h1 style="font-size: 24px; margin-bottom: 20px; color: #fff"> LOCATION A LA MODE ${party.toUpperCase()} SS 25</h1>
+                  <p style="font-size: 18px; margin-bottom: 10px; color: #fff;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
+                  <p style="font-size: 18px; margin-bottom: 10px; color: #fff;">PLUS ONES: ${plusOne.toUpperCase()}</p>
                   <img src="cid:qrcode@alamode.com" alt="QR Code" style="max-width: 200px; margin: 20px 0;">
-                  <img src="https://locationalamode.com/logoalamode.svg" alt="Alamode" style="max-width: 300px; margin: 20px 0;">
-                  <p style="margin-top: 20px;">For testing purposes, you can also click this link to simulate scanning the QR code:</p>
+                  <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="Alamode" style="max-width: 100px; margin: 20px 0;">
                   <a href="${qrCodeLink}" style="color: #FFF; text-decoration: underline;">${qrCodeLink}</a>
               </div>
           </body>
