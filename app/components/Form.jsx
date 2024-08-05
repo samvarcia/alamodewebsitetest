@@ -127,6 +127,7 @@ export default function Form() {
               width={300} 
               height={300} 
               className={styles.partyImg}
+              layout="responsive"
             />
             <h3 className={formData.parties.includes(party.id) ? styles.selectedText : ''}>{party.name}</h3>
           </div>

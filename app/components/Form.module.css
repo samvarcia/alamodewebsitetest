@@ -1,238 +1,254 @@
 .formContainer {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
 }
-.form{
-    display: flex;
-    flex-direction: column;    
-    width: 100%;
-    min-height: 500px; /* Adjust this value as needed */
-    max-width: 1000px;
-    position: relative;
 
+.form {
+  display: flex;
+  flex-direction: column;    
+  width: 100%;
+  min-height: 500px;
+  max-width: 1000px;
+  position: relative;
 }
+
 .nameInfo {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    gap: 10px;
-    box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  box-sizing: border-box;
 }
+
 .form input {
-    background-color: transparent;
-    font-family: inherit;
-    border: 1px solid #fff;
-    border-radius: 40px 40px 0px 0px;
-    border-bottom: none;
-    /* border-top: 1px #FFF;
-    border-right: 1px #FFF;
-    border-left: 1px #FFF; */
-    padding: 10px 30px 0px 30px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    font-size: 1.7rem;
-    line-height: normal;
-    font-weight: 500;
-    letter-spacing: -1px;
-    color: #fff;
-    width: 100%; /* Ensure inputs take full width of the form */
-    -webkit-text-fill-color: #fff;
-    transition: all 0s 50000s; /* Long transition to prevent background color change */
+  background-color: transparent;
+  font-family: inherit;
+  border: 1px solid #fff;
+  border-radius: 40px 40px 0 0;
+  border-bottom: none;
+  padding: 10px 20px 0;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  color: #fff;
+  width: 100%;
+  -webkit-text-fill-color: #fff;
+  transition: background-color 0s 50000s;
 }
+
 .form input:focus,
 .form input:active {
-    outline: none;
-    background-color: transparent;
+  outline: none;
+  background-color: transparent;
 }
 
 .plusOneSelection {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-.plusOneSelection p {
-    font-size: 25px;
-    line-height: normal;
-    font-weight: 300;
-    letter-spacing: -1px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-  .plusOneOptions {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .plusOneOption {
-    cursor: pointer;
-    padding: 5px 10px;
-    border: 1px solid #fff;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .plusOneOption.selected {
-    background-color: #fff;
-    color: #000;
-  }
-  
-  .plusOneOption:hover {
-    opacity: 0.8;
-  }
+
+.plusOneSelection p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+}
+
+.plusOneOptions {
+  display: flex;
+  gap: 20px;
+}
+
+.plusOneOption {
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.plusOneOption.selected {
+  background-color: #fff;
+  color: #000;
+}
+
+.plusOneOption:hover {
+  opacity: 0.8;
+}
 
 .form input:-webkit-autofill,
 .form input:-webkit-autofill:hover,
 .form input:-webkit-autofill:focus,
 .form input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
-    -webkit-text-fill-color: #fff !important;
-    caret-color: #fff;
-    font-size: 25px !important;
-    font-weight: 300 !important;
-    letter-spacing: -1px !important;
-    transition: all 0s 50000s;
+  /* -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff; */
 }
 
 .confirmation button,
 .form button {
-    color: #fff;
-    font-size: 22px;
-    /* height: 30px; */
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: 500;
-    width: 160px;
-    background-color: transparent;
-    padding: 5px 10px;
-    border: 1px solid #fff;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  .form button{
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  width: 160px;
+  background-color: transparent;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.form button {
   position: absolute;
   bottom: 0;
   right: 0;
-    width: 200px;
+  width: 200px;
 }
-.form input::placeholder{
-    color: #fff;
-}
-.extrainfo{
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 20px; /* Adjust based on your button height */
 
+.form input::placeholder {
+  color: #fff;
 }
-.partyOption{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.partySelection{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 30px;
-    height: 100vh;
-}
-.partySelection h1 {
-  font-size: 2rem;
-}
-.partySelection p {
-    font-size: 2rem;
-}
-.partyImg{
-    width: 300px;
-}
-.options{
-    display: flex;
+
+.extrainfo {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 60px;
 }
 
 .partyOption {
-    cursor: pointer;
-  }
-.partyOption h3 {
-    margin-top: 20px;
-    font-size: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-  .partyOption .selectedText {
-    color: #BC0123;
-  }
 
-  .form input[name="plusOneName"] {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
+.partySelection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 30px;
+  min-height: 100vh;
+}
+
+.partySelection h1 {
+  font-size: 1.8rem;
+}
+
+.partySelection p {
+  font-size: 1.5rem;
+}
+
+.partyImg {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.partyOption {
+  cursor: pointer;
+}
+
+.partyOption h3 {
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.partyOption .selectedText {
+  color: #BC0123;
+}
+
+.form input[name="plusOneName"] {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
 }
 
 .form input[name="plusOneName"].visible {
-    max-height: 50px; /* Adjust based on your input height */
-    opacity: 1;
-    margin-bottom: 30px;
+  max-height: 50px;
+  opacity: 1;
+  margin-bottom: 30px;
 }
-.confirmation{
+
+.confirmation {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   min-height: 300px;
   text-align: center;
-  font-size: 1.2rem;
 }
+
 .confirmation h1 {
-  font-size: 2.5rem;
- 
+  font-size: 2rem;
 }
+
 .confirmation p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
+
 .selectedParty p {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .selectedParty h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
+
 @media (max-width: 768px) {
-  .form input {
-      font-size: 1.5rem; /* Smaller font size for smaller screens */
+  .nameInfo {
+      grid-template-columns: 1fr;
   }
 
+  .form input,
   .plusOneSelection p,
   .confirmation h1,
-  .selectedParty h2 {
-      font-size: 1.5rem; /* Adjusted for smaller screens */
-  }
-
+  .selectedParty h2,
   .partySelection h1,
   .partySelection p {
-      font-size: 1.5rem; /* Adjusted for smaller screens */
+      font-size: 1.1rem;
   }
 
   .partyOption h3 {
-      font-size: 1rem; /* Adjusted for smaller screens */
+      font-size: 1rem;
+  }
+
+  .form button {
+      width: 100%;
+      position: static;
+      margin-top: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .form input {
-      font-size: 1.2rem; /* Smaller font size for very small screens */
-  }
-
+  .form input,
   .plusOneSelection p,
   .confirmation h1,
-  .selectedParty h2 {
-      font-size: 1.2rem; /* Adjusted for very small screens */
-  }
-
+  .selectedParty h2,
   .partySelection h1,
   .partySelection p {
-      font-size: 1.2rem; /* Adjusted for very small screens */
+      font-size: 1rem;
   }
 
   .partyOption h3 {
-      font-size: 0.875rem; /* Adjusted for very small screens */
+      font-size: 0.9rem;
+  }
+
+  .options {
+      grid-template-columns: 1fr;
   }
 }
