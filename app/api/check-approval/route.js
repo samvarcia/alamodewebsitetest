@@ -105,15 +105,15 @@ export async function GET(request) {
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <title>${party} Party Invitation</title>
           </head>
-          <body style="background-color: #D50000; color: white; font-family: Arial, sans-serif; text-align: center; padding: 20px;">
+          <body style="background-color: #D50000; color: #FFF; font-family: Arial, sans-serif; text-align: center; padding: 20px;">
               <div style="max-width: 600px; margin: 0 auto;">
-                  <h1 style="font-size: 24px; margin-bottom: 20px;">${party.toUpperCase()}</h1>
+                  <h1 style="font-size: 24px; margin-bottom: 20px;"> LOCATION A LA MODE ${party.toUpperCase()} SS 25</h1>
                   <p style="font-size: 18px; margin-bottom: 10px;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
                   <p style="font-size: 18px; margin-bottom: 10px;">PLUS ONES: ${plusOne.toUpperCase()}</p>
                   <img src="cid:qrcode@alamode.com" alt="QR Code" style="max-width: 200px; margin: 20px 0;">
-                  <p style="font-size: 14px; margin-top: 30px;">a la mode</p>
+                  <img src="https://locationalamode.com/logoalamode.svg" alt="Alamode" style="max-width: 300px; margin: 20px 0;">
                   <p style="margin-top: 20px;">For testing purposes, you can also click this link to simulate scanning the QR code:</p>
-                  <a href="${qrCodeLink}" style="color: white; text-decoration: underline;">${qrCodeLink}</a>
+                  <a href="${qrCodeLink}" style="color: #FFF; text-decoration: underline;">${qrCodeLink}</a>
               </div>
           </body>
           </html>

@@ -220,8 +220,8 @@ export default function Form() {
 
   const renderConfirmation = () => (
     <div className={styles.confirmation}>
-      <h2>Thank you for your submission!</h2>
-      <p>Your invitation is being approved. If approved, an email will be sent to {formData.email} with further details.</p>
+      <h1>Thank you for your submission!</h1>
+      <p>Your invitation is under review. If approved, an email will be sent to {formData.email} with further details.</p>
       <button onClick={handleReset}>GO BACK</button>
     </div>
   );

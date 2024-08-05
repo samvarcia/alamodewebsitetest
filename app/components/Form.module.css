@@ -9,12 +9,15 @@
     flex-direction: column;    
     width: 100%;
     min-height: 500px; /* Adjust this value as needed */
+    max-width: 1000px;
     position: relative;
 
 }
 .nameInfo {
-    display: flex;
-    gap: 100px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 10px;
+    box-sizing: border-box;
 }
 .form input {
     background-color: transparent;
@@ -28,7 +31,7 @@
     padding: 10px 30px 0px 30px;
     box-sizing: border-box;
     margin-bottom: 20px;
-    font-size: 25px;
+    font-size: 1.7rem;
     line-height: normal;
     font-weight: 500;
     letter-spacing: -1px;
@@ -90,6 +93,7 @@
     transition: all 0s 50000s;
 }
 
+.confirmation button,
 .form button {
     color: #fff;
     font-size: 22px;
@@ -97,17 +101,19 @@
     cursor: pointer;
     font-family: inherit;
     font-weight: 500;
-    width: 200px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    width: 160px;
     background-color: transparent;
     padding: 5px 10px;
     border: 1px solid #fff;
     border-radius: 4px;
     transition: background-color 0.3s, color 0.3s;
   }
-
+  .form button{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+    width: 200px;
+}
 .form input::placeholder{
     color: #fff;
 }
@@ -130,6 +136,9 @@
     padding: 30px;
     height: 100vh;
 }
+.partySelection h1 {
+  font-size: 2rem;
+}
 .partySelection p {
     font-size: 2rem;
 }
@@ -145,6 +154,7 @@
   }
 .partyOption h3 {
     margin-top: 20px;
+    font-size: 1.3rem;
 }
   .partyOption .selectedText {
     color: #BC0123;
@@ -163,5 +173,66 @@
     margin-bottom: 30px;
 }
 .confirmation{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  min-height: 300px;
   text-align: center;
+  font-size: 1.2rem;
+}
+.confirmation h1 {
+  font-size: 2.5rem;
+ 
+}
+.confirmation p {
+  font-size: 1.2rem;
+}
+.selectedParty p {
+  font-size: 1.4rem;
+}
+
+.selectedParty h2 {
+  font-size: 2rem;
+}
+@media (max-width: 768px) {
+  .form input {
+      font-size: 1.5rem; /* Smaller font size for smaller screens */
+  }
+
+  .plusOneSelection p,
+  .confirmation h1,
+  .selectedParty h2 {
+      font-size: 1.5rem; /* Adjusted for smaller screens */
+  }
+
+  .partySelection h1,
+  .partySelection p {
+      font-size: 1.5rem; /* Adjusted for smaller screens */
+  }
+
+  .partyOption h3 {
+      font-size: 1rem; /* Adjusted for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .form input {
+      font-size: 1.2rem; /* Smaller font size for very small screens */
+  }
+
+  .plusOneSelection p,
+  .confirmation h1,
+  .selectedParty h2 {
+      font-size: 1.2rem; /* Adjusted for very small screens */
+  }
+
+  .partySelection h1,
+  .partySelection p {
+      font-size: 1.2rem; /* Adjusted for very small screens */
+  }
+
+  .partyOption h3 {
+      font-size: 0.875rem; /* Adjusted for very small screens */
+  }
 }
