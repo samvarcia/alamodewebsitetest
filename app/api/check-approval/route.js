@@ -97,25 +97,82 @@ export async function GET(request) {
           });
 
           // Generate HTML email content
+          // const htmlContent = `
+          // <!DOCTYPE html>
+          // <html lang="en">
+          // <head>
+          //     <meta charset="UTF-8">
+          //     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          //     <title>${party} Party Invitation</title>
+          // </head>
+          // <body style="background-color: radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14)25%, #BC0123 100%), #000); color: #FFF; font-family: Arial, sans-serif; text-align: center; padding: 20px;">
+          //     <div style="max-width: 600px; margin: 0 auto;">
+          //         <h1 style="font-size: 24px; margin-bottom: 20px; color: #fff"> LOCATION A LA MODE ${party.toUpperCase()} SS 25</h1>
+          //         <p style="font-size: 18px; margin-bottom: 10px; color: #fff;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
+          //         <p style="font-size: 18px; margin-bottom: 10px; color: #fff;">PLUS ONES: ${plusOne.toUpperCase()}</p>
+          //         <img src="cid:qrcode@alamode.com" alt="QR Code" style="max-width: 200px; margin: 20px 0;">
+          //         <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="Alamode" style="max-width: 100px; margin: 20px 0;">
+          //         <a href="${qrCodeLink}" style="color: #FFF; text-decoration: underline;">${qrCodeLink}</a>
+          //     </div>
+          // </body>
+          // </html>
+          // `;
           const htmlContent = `
           <!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>${party} Party Invitation</title>
-          </head>
-          <body style="background-color: radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14)25%, #BC0123 100%), #000); color: #FFF; font-family: Arial, sans-serif; text-align: center; padding: 20px;">
-              <div style="max-width: 600px; margin: 0 auto;">
-                  <h1 style="font-size: 24px; margin-bottom: 20px; color: #fff"> LOCATION A LA MODE ${party.toUpperCase()} SS 25</h1>
-                  <p style="font-size: 18px; margin-bottom: 10px; color: #fff;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
-                  <p style="font-size: 18px; margin-bottom: 10px; color: #fff;">PLUS ONES: ${plusOne.toUpperCase()}</p>
-                  <img src="cid:qrcode@alamode.com" alt="QR Code" style="max-width: 200px; margin: 20px 0;">
-                  <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="Alamode" style="max-width: 100px; margin: 20px 0;">
-                  <a href="${qrCodeLink}" style="color: #FFF; text-decoration: underline;">${qrCodeLink}</a>
-              </div>
-          </body>
-          </html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Location a la Mode ${party} Invitation</title>
+                <style>
+                    body, html {
+                        margin: 0;
+                        padding: 0;
+                        font-family: Arial, sans-serif;
+                        color: white;
+                        text-align: center;
+                    }
+                    .container {
+                        width: 100%;
+                        max-width: 600px;
+                        margin: 0 auto;
+                        background: linear-gradient(to bottom, #000000, #8B0000);
+                        padding: 20px 0;
+                        color: white;
+                        text-align: center;
+                    }
+                    h1, h2, h3, p {
+                        margin: 10px 0;
+                        color: white;
+
+                    }
+                    .qr-code {
+                        width: 200px;
+                        height: 200px;
+                        margin: 20px auto;
+                        background-color: white;
+                    }
+                    .logo {
+                        width: 150px;
+                        margin-top: 20px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h1>SS 25</h1>
+                    <h2>Location a la Mode - ${party.toUpperCase()}</h2>
+                    <h2>${firstName.toUpperCase()} ${lastName.toUpperCase()}</h2>
+                    <p>PLUS ONES: ${plusOne.toUpperCase()}</p>
+                    <p>{EVENT DATE - ADDRESS}</p>
+                    <div class="qr-code">
+                        <!-- Replace with actual QR code image -->
+                        <img src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200">
+                    </div>
+                    <img class="logo" src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="a la mode">
+                </div>
+            </body>
+            </html>
           `;
 
           // Send approval email with QR code
