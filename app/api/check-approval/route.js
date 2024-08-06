@@ -39,6 +39,8 @@ async function sendEmail(to, subject, text, qrCodeDataUrl, qrCodeLink) {
 }
 
 export async function GET(request) {
+  console.log("Starting approval check process");
+
   try {
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
@@ -48,6 +50,7 @@ export async function GET(request) {
     );
 
     const sheets = google.sheets({ version: 'v4', auth });
+    console.log("Fetching UNAPPROVED sheet data");
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -56,9 +59,15 @@ export async function GET(request) {
 
     const rows = response.data.values;
 
+    console.log(`Retrieved ${rows ? rows.length : 0} rows from UNAPPROVED sheet`);
+
     if (rows && rows.length) {
       for (const row of rows) {
+        console.log(`Checking row: ${JSON.stringify(row)}`);
+
         if (row[8] === 'Y') { // Assuming "Approved" is the 9th column (index 8)
+          console.log("Found an approved row");
+
           const email = row[3];
           const firstName = row[1];
           const party = row[0];
@@ -96,8 +105,13 @@ export async function GET(request) {
               values: [['S']]
             }
           });
+        } else {
+          console.log(`Row not approved. Approval status: ${row[8]}`);
+
         }
       }
+    } else {
+      console.log("No rows found in UNAPPROVED sheet");
     }
 
     return NextResponse.json({ message: 'Approval check completed' }, { status: 200 });
