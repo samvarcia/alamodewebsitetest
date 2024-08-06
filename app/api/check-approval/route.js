@@ -85,7 +85,7 @@ export async function GET(request) {
           console.log(`Generated attendee ID: ${attendeeId}`);
 
           console.log('Generating QR code');
-          const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
+          const qrCodeLink = `/checkin/${attendeeId}`;
           const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
 
           console.log('Fetching current row count from APPROVED sheet');
