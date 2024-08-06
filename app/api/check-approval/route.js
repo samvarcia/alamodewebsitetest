@@ -95,7 +95,7 @@ export async function GET(request) {
           });
 
           const nextRow = currentRowsResponse.data.values ? currentRowsResponse.data.values.length + 1 : 1;
-          console.log(`Next available row in APPROVED sheet: ${nextRow}`);
+          console.log(`Next availagggle row in APPROVED sheet: ${nextRow}`);
 
           console.log('Adding data to APPROVED sheet');
           await sheets.spreadsheets.values.update({
