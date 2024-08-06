@@ -3,6 +3,7 @@ import { google } from 'googleapis';
 
 export async function GET(request, { params }) {
   const { attendeeId } = params;
+  console.log(`Checking in attendee with ID: ${attendeeId}`);
 
   try {
     const auth = new google.auth.JWT(
@@ -16,18 +17,20 @@ export async function GET(request, { params }) {
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'APPROVED!A:K', // Adjusted to include all relevant columns
+      range: 'APPROVED!A2:K',
     });
 
     const rows = response.data.values;
-    const attendeeRow = rows.find(row => row[9] === attendeeId); // attendeeId should be in the 10th column (index 9)
+    console.log(`Retrieved ${rows.length} rows from APPROVED sheet`);
 
+    const attendeeRow = rows.find(row => row[9] === attendeeId);
+    
     if (attendeeRow) {
-      // Update check-in status
-      const rowIndex = rows.indexOf(attendeeRow) + 1; // +1 because rows are 1-indexed in Sheets
+      console.log(`Found attendee: ${JSON.stringify(attendeeRow)}`);
+      const rowIndex = rows.indexOf(attendeeRow) + 2;
       await sheets.spreadsheets.values.update({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: `APPROVED!K${rowIndex}`, // K column for check-in status
+        range: `APPROVED!K${rowIndex}`,
         valueInputOption: 'USER_ENTERED',
         requestBody: {
           values: [['Checked In']]
@@ -44,6 +47,7 @@ export async function GET(request, { params }) {
         checkInStatus: 'Checked In'
       }, { status: 200 });
     } else {
+      console.log(`Attendee with ID ${attendeeId} not found in APPROVED sheet`);
       return NextResponse.json({ error: 'Attendee not found' }, { status: 404 });
     }
   } catch (error) {

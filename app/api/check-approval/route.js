@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 
-async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
+async function sendEmail(to, subject, text, qrCodeDataUrl, qrCodeLink) {
   let transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
@@ -19,12 +19,18 @@ async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
     from: '"ALAMODETEST" <testalamodefly@gmail.com>',
     to: to,
     subject: subject,
-    html: htmlContent,
+    text: text,
+    html: `
+      <p>${text}</p>
+      <p>You can use this link to check in: 
+        <a href="${qrCodeLink}">${qrCodeLink}</a>
+      </p>
+    `,
     attachments: [
       {
-        filename: 'qrcode.png',
-        content: qrCodeBuffer,
-        cid: 'qrcode@alamode.com' // this is the content id to be referenced in the HTML
+        filename: 'ticket_qr.png',
+        content: qrCodeDataUrl.split(';base64,').pop(),
+        encoding: 'base64'
       }
     ]
   });
@@ -50,84 +56,38 @@ export async function GET(request) {
 
     const rows = response.data.values;
 
-    if (rows.length) {
+    if (rows && rows.length) {
       for (const row of rows) {
         if (row[8] === 'Y') { // Assuming "Approved" is the 9th column (index 8)
           const email = row[3];
           const firstName = row[1];
-          const lastName = row[2];
           const party = row[0];
-          const plusOne = row[6] === 'Yes' ? row[7] : 'None';
 
-          // Generate unique identifier
           const attendeeId = uuidv4();
+          console.log(`Generated attendeeId: ${attendeeId}`);
 
-          // Generate QR code
-          const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
-          const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
+          const qrCodeLink = `${process.env.BASE_URL}/check-in/${attendeeId}`;
+          const qrCodeDataUrl = await QRCode.toDataURL(qrCodeLink);
 
-          // Get the current number of rows in the APPROVED sheet
-          const currentRowsResponse = await sheets.spreadsheets.values.get({
+          await sheets.spreadsheets.values.append({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: 'APPROVED!A:A',
-          });
-
-          const nextRow = currentRowsResponse.data.values ? currentRowsResponse.data.values.length + 1 : 1;
-
-          // Add to approved sheet
-          await sheets.spreadsheets.values.update({
-            spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: `APPROVED!A${nextRow}`,
+            range: 'APPROVED!A2:K',
             valueInputOption: 'USER_ENTERED',
+            insertDataOption: 'INSERT_ROWS',
             requestBody: {
-              values: [[
-                row[0],  // Party
-                row[1],  // First Name
-                row[2],  // Last Name
-                row[3],  // Email
-                row[4],  // Models Link
-                row[5],  // Instagram Link
-                row[6],  // Plus One (Yes/No)
-                row[7],  // Plus One Name
-                row[8],  // Approval Status
-                attendeeId,  // Unique Attendee ID
-                'Not Checked In'  // Initial Check-In Status
-              ]]
+              values: [[...row, attendeeId, 'Not Checked In']]
             }
           });
+          console.log(`Added attendee ${attendeeId} to APPROVED sheet`);
 
-          // Generate HTML email content
-          const htmlContent = `
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>${party} Party Invitation</title>
-          </head>
-          <body style="background-color: #D50000; color: white; font-family: Arial, sans-serif; text-align: center; padding: 20px;">
-              <div style="max-width: 600px; margin: 0 auto;">
-                  <h1 style="font-size: 24px; margin-bottom: 20px;">${party.toUpperCase()}</h1>
-                  <p style="font-size: 18px; margin-bottom: 10px;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
-                  <p style="font-size: 18px; margin-bottom: 10px;">PLUS ONES: ${plusOne.toUpperCase()}</p>
-                  <img src="cid:qrcode@alamode.com" alt="QR Code" style="max-width: 200px; margin: 20px 0;">
-                  <p style="font-size: 14px; margin-top: 30px;">a la mode</p>
-                  <p style="margin-top: 20px;">For testing purposes, you can also click this link to simulate scanning the QR code:</p>
-                  <a href="${qrCodeLink}" style="color: white; text-decoration: underline;">${qrCodeLink}</a>
-              </div>
-          </body>
-          </html>
-          `;
-
-          // Send approval email with QR code
           await sendEmail(
             email,
-            `${party} Party Invitation`,
-            htmlContent,
-            qrCodeBuffer
+            `${party} Party Submission is Approved!`,
+            `Dear ${firstName},\n\nGreat news! Your submission for the ${party} Fashion Week Party has been approved. Please find your ticket QR code attached.\n\nBest regards,\nYour Fashion Week Team`,
+            qrCodeDataUrl,
+            qrCodeLink
           );
 
-          // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
           await sheets.spreadsheets.values.update({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
             range: `UNAPPROVED!J${rows.indexOf(row) + 2}`,
