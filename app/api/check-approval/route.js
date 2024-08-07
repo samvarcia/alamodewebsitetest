@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-// import { google } from 'googleapis';
+import { google } from 'googleapis';
 // import nodemailer from 'nodemailer';
 // import { v4 as uuidv4 } from 'uuid';
 // import QRCode from 'qrcode';
@@ -163,6 +163,6 @@ import { NextResponse } from 'next/server';
 // }
 
 export async function GET(request) {
-  console.log(`${new Date().toISOString()} - /api/check-approval simple test`);
+  console.log(`${new Date().toISOString()} - /api/check-approval simple testtt`);
   return NextResponse.json({ message: 'Test successful' });
 }
