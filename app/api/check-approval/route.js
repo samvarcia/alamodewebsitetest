@@ -34,6 +34,7 @@ async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
 
 export async function GET(request) {
   try {
+    console.log(request)
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
       null,
