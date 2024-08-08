@@ -223,21 +223,33 @@
 @media (max-width: 768px) {
 
   .formContainer {
-    padding: 20px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
   .form input,
   .plusOneSelection p,
   .confirmation h1,
   .selectedParty h2,
-  .partySelection h1,
+
   .partySelection p {
       font-size: 1.1rem;
   }
 
+  .options{
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  .partySelection{
+    padding: 0px;
+  }
   .partyOption h3 {
       font-size: 1rem;
   }
-
+  .partyOption .partyImg {
+    max-width: 100px;
+  }
   .form button {
       width: 100%;
       position: static;
@@ -250,7 +262,6 @@
   .plusOneSelection p,
   .confirmation h1,
   .selectedParty h2,
-  .partySelection h1,
   .partySelection p {
       font-size: 1rem;
   }
