@@ -223,7 +223,7 @@
 @media (max-width: 768px) {
 
   .formContainer {
-    padding: 0px;
+    padding: 10px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -246,6 +246,7 @@
   }
   .partyOption h3 {
       font-size: 1rem;
+      margin-top: 5px;
   }
   .partyOption .partyImg {
     max-width: 100px;
