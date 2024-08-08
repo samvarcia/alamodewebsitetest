@@ -31,7 +31,7 @@
   box-sizing: border-box;
   margin-bottom: 20px;
   font-size: 1.2rem;
-  line-height: 1.5;
+  /* line-height: 1.5; */
   font-weight: 500;
   letter-spacing: -0.5px;
   color: #fff;
