@@ -90,7 +90,13 @@
   -webkit-box-shadow: 0 0 0 30px transparent inset !important;
   -webkit-text-fill-color: #fff !important;
   caret-color: #fff;
- }
+  font-size: inherit;
+  font-family: inherit;
+}
+
+/* .form input:-webkit-autofill {
+  background-color: inherit !important;
+} */
 
 .confirmation button,
 .form button {
@@ -104,7 +110,6 @@
   padding: 10px;
   border: 1px solid #fff;
   border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .form button {
@@ -148,20 +153,21 @@
   font-size: 1.5rem;
 }
 
-.partyImg {
-  width: 300px;
+.partyOption .partyImg {
+  max-width: 100%;
+  height: auto;
 }
 
 .options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  width: 100%; 
-  display: flex
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 30px;
 }
 
 .partyOption {
   cursor: pointer;
+  
 }
 
 .partyOption h3 {
@@ -175,15 +181,16 @@
 
 .form input[name="plusOneName"] {
   max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  /* overflow: hidden; */
+  /* transition: all 0.3s ease-in-out; */
 }
 
 .form input[name="plusOneName"].visible {
   max-height: 50px;
-  opacity: 1;
+  /* opacity: 1; */
   margin-bottom: 30px;
+  /* transition: all 0.3s ease-in-out; */
 }
 
 .confirmation {
@@ -214,10 +221,10 @@
 
 
 @media (max-width: 768px) {
-  .nameInfo {
-      grid-template-columns: 1fr;
-  }
 
+  .formContainer {
+    padding: 20px;
+  }
   .form input,
   .plusOneSelection p,
   .confirmation h1,
@@ -252,7 +259,4 @@
       font-size: 0.9rem;
   }
 
-  .options {
-      grid-template-columns: 1fr;
-  }
 }

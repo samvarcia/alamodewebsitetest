@@ -1,6 +1,7 @@
 .checkin{
 }
 .checkinHero{
+    overflow-x: hidden ;
     background-color: black;
     height: 100vh;
     display: flex;
@@ -19,3 +20,9 @@
     max-width: 150px;
     margin-left: 40px;
   }
+
+@media (max-width: 768px) {
+    .checkinHero {
+        justify-content: flex-start;
+    }
+}
