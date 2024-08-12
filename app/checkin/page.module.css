@@ -25,4 +25,9 @@
     .checkinHero {
         justify-content: flex-start;
     }
+    .logo{
+        margin-left: 20px;
+        max-width: 100px;
+        display: none;
+    }
 }

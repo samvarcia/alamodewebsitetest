@@ -223,10 +223,13 @@
 @media (max-width: 768px) {
 
   .formContainer {
-    padding: 10px;
+    padding: 0px 20px;
     display: flex;
     align-items: center;
     flex-direction: column;
+  }
+  .form {
+    padding: 20px 0px;
   }
   .form input,
   .plusOneSelection p,
@@ -238,11 +241,16 @@
   }
 
   .options{
+    margin-top: 20px;
     display: grid;
-    grid-template-columns: 50% 50%;
+grid-template-columns: repeat(2, 1fr);
+grid-template-rows: repeat(2, 1fr);
+grid-column-gap: 5px;
+grid-row-gap: 5px;
   }
   .partySelection{
     padding: 0px;
+    justify-content: center;
   }
   .partyOption h3 {
       font-size: 1rem;
@@ -250,6 +258,7 @@
   }
   .partyOption .partyImg {
     max-width: 100px;
+    min-height: 190px;
   }
   .form button {
       width: 100%;
