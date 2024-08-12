@@ -225,9 +225,10 @@
   font-size: 1.8rem;
 } 
 .logo{
-  max-width: 100px;
+  max-width: 60px;
   height: auto;
-  margin-top: 20px;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
 
 

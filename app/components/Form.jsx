@@ -230,7 +230,6 @@ export default function Form() {
 
   return (
     <div className={styles.formContainer}>
-      {isSubmitted ? renderConfirmation() : (step === 1 ? renderPartySelection() : renderPersonalInfo())}
       <Link href="/">
         <Image 
           src="/logoalamode.svg"
@@ -240,6 +239,7 @@ export default function Form() {
           className={styles.logo}
         />
       </Link>
+      {isSubmitted ? renderConfirmation() : (step === 1 ? renderPartySelection() : renderPersonalInfo())}
     </div>
   );
 }
