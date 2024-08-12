@@ -227,12 +227,15 @@ export default function Form() {
       <button onClick={handleReset}>GO BACK</button>
     </div>
   );
+  const selectedParty = parties.find(party => party.id === formData.parties[0]);
 
   return (
     <div className={styles.formContainer}>
+        {step === 2 && (
       <div className={styles.backArrow} onClick={handleBackToSelector} style={{ cursor: "pointer" }}>
-          <p>Back</p>
-        </div>
+        <p>Back</p>
+      </div>
+    )}
       <Link href="/">
         <Image 
           src="/logoalamode.svg"
