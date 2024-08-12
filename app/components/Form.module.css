@@ -235,9 +235,11 @@
 .plusoneDiv p {
   font-weight: 50;
   margin-left: 20px;
-  margin-top: 5px;
+  margin-top: 0;
   opacity: 0.70;
 }
+.backArrow{
+align-self: flex-start;}
 
 
 @media (max-width: 768px) {

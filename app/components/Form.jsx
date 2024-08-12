@@ -104,9 +104,7 @@ export default function Form() {
   
     return (
       <div className={styles.selectedParty} style={{ marginBottom: "20px", display: "flex", gap: "5px", alignItems: "flex-start", flexDirection: "column"}}>
-        <div className={styles.backArrow} onClick={handleBackToSelector} style={{ cursor: "pointer" }}>
-          <p>Back</p>
-        </div>
+        
         <h2>{selectedParty.name} SS 25</h2>
       </div>
     );
@@ -232,6 +230,9 @@ export default function Form() {
 
   return (
     <div className={styles.formContainer}>
+      <div className={styles.backArrow} onClick={handleBackToSelector} style={{ cursor: "pointer" }}>
+          <p>Back</p>
+        </div>
       <Link href="/">
         <Image 
           src="/logoalamode.svg"
