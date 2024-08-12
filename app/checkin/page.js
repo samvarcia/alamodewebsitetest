@@ -22,15 +22,7 @@ export default function Page() {
         >
           <Form/>
       </motion.section>
-            <Link href="/">
-              <Image 
-                  src="/logoalamode.svg"
-                  width={280}
-                  height={150}
-                  priority
-                  className={styles.logo}
-                />
-            </Link>
+    
     </motion.main>
   );
 }

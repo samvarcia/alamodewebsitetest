@@ -232,13 +232,13 @@ export default function Form() {
     <div className={styles.formContainer}>
       {isSubmitted ? renderConfirmation() : (step === 1 ? renderPartySelection() : renderPersonalInfo())}
       <Link href="/">
-              <Image 
-                  src="/logoalamode.svg"
-                  width={280}
-                  height={150}
-                  priority
-                  className={styles.logo}
-                />
+        <Image 
+          src="/logoalamode.svg"
+          width={280}
+          height={150}
+          priority
+          className={styles.logo}
+        />
       </Link>
     </div>
   );
