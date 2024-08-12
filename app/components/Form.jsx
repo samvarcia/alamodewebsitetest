@@ -176,11 +176,11 @@ export default function Form() {
           placeholder="Models.com or Agency Profile"
         />
         <input
-          type="url"
+          type="text"
           name="instagramLink"
           value={formData.instagramLink}
           onChange={handleChange}
-          placeholder="Instagram Profile"
+          placeholder="Instagram Handle"
         />
         <div className={styles.plusOneSelection}>
           <p>Bringing a plus one?</p>
@@ -200,16 +200,18 @@ export default function Form() {
         </div>
         </div>
         {formData.plusOne && (
-          <input
-            type="text"
-            name="plusOneName"
-            value={formData.plusOneName}
-            onChange={handleChange}
-            placeholder="Plus One's Name"
-            required
-            className={formData.plusOne ? styles.visible : ''}
-
-          />
+          <div className={styles.plusoneDiv}>
+              <input
+                type="text"
+                name="plusOneName"
+                value={formData.plusOneName}
+                onChange={handleChange}
+                placeholder="Plus One's Name"
+                required
+                className={formData.plusOne ? styles.visible : ''}
+              />
+              <p>Is your plus one a model? Please get them sign up</p>
+          </div>
         )}
       </div>
       <button type="submit" disabled={isSubmitting}>

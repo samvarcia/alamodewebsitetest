@@ -16,6 +16,9 @@ export default function Home() {
             priority
             className={styles.logo}
           />
+          <Link href={"/checkin"}>
+            <div className={styles.check}></div>
+          </Link>
         <div className={styles.heroContent}>
           <div></div>
           <div className={styles.heroText}>
