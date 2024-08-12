@@ -231,7 +231,7 @@ export default function Form() {
 
   return (
     <div className={styles.formContainer}>
-        {step === 2 && (
+   {step === 2 && !isSubmitted && (
       <div className={styles.backArrow} onClick={handleBackToSelector} style={{ cursor: "pointer" }}>
         <p>Back</p>
       </div>
