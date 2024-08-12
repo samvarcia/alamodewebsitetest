@@ -9,7 +9,9 @@ import Form from "../components/Form";
 export default function Page() {
     
   return (
-    <main className={styles.checkin}>
+    <motion.main className={styles.checkin}
+    
+    >
         <motion.section className={styles.checkinHero}
         animate={{
           background:["radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14) 25%, rgba(112, 0, 22, 1) 100%), #000",
@@ -29,6 +31,6 @@ export default function Page() {
                   className={styles.logo}
                 />
             </Link>
-    </main>
+    </motion.main>
   );
 }

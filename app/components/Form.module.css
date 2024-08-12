@@ -1,8 +1,12 @@
 .formContainer {
   width: 100%;
   max-width: 1000px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .form {
@@ -217,13 +221,15 @@
 .selectedParty h2 {
   font-size: 1.8rem;
 } 
-
+.logo{
+  max-width: 100px;
+}
 
 
 @media (max-width: 768px) {
 
   .formContainer {
-    padding: 0px 20px;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -245,8 +251,7 @@
     display: grid;
 grid-template-columns: repeat(2, 1fr);
 grid-template-rows: repeat(2, 1fr);
-grid-column-gap: 5px;
-grid-row-gap: 5px;
+
   }
   .partySelection{
     padding: 0px;

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './Form.module.css';
 import Image from 'next/image';
+import Link from "next/link";
 
 export default function Form() {
   const [step, setStep] = useState(1);
@@ -230,6 +231,15 @@ export default function Form() {
   return (
     <div className={styles.formContainer}>
       {isSubmitted ? renderConfirmation() : (step === 1 ? renderPartySelection() : renderPersonalInfo())}
+      <Link href="/">
+              <Image 
+                  src="/logoalamode.svg"
+                  width={280}
+                  height={150}
+                  priority
+                  className={styles.logo}
+                />
+      </Link>
     </div>
   );
 }

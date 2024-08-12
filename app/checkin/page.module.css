@@ -1,9 +1,10 @@
 .checkin{
+    overflow-y: hidden;
+    height: 100vh;
 }
 .checkinHero{
     overflow-x: hidden ;
     background-color: black;
-    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,11 +15,8 @@
     flex-direction: column;
 }
 .logo{
-    position: fixed;
-    bottom: 0;
-    left: 0;
+
     max-width: 150px;
-    margin-left: 40px;
   }
 
 @media (max-width: 768px) {
@@ -28,6 +26,5 @@
     .logo{
         margin-left: 20px;
         max-width: 100px;
-        display: none;
     }
 }
