@@ -151,9 +151,9 @@ export async function GET(request) {
               </head>
               <body>
                   <div class="container">
-                      <h1>SS 25</h1>
+                      <h2>SS 25</h2>
                       <h2>Location a la Mode - ${party.toUpperCase()}</h2>
-                      <h2>${firstName.toUpperCase()} ${lastName.toUpperCase()}</h2>
+                      <h1>${firstName.toUpperCase()} ${lastName.toUpperCase()}</h1>
                       <p>PLUS ONES: ${plusOne.toUpperCase()}</p>
                       <p>{EVENT DATE - ADDRESS}</p>
                       <div class="qr-code">
