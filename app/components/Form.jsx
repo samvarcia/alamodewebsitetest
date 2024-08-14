@@ -214,7 +214,7 @@ export default function Form() {
       </div>
       <button type="submit" disabled={isSubmitting}>
         <h3>
-          {isSubmitting ? 'SUBMITTING...' : 'SUBMIT'}
+          {isSubmitting ? 'SUBMITTING, PLEASE WAIT...' : 'SUBMIT'}
         </h3>
       </button>
     </form>

@@ -142,19 +142,26 @@ export async function GET(request) {
                           height: 200px;
                           margin: 20px auto;
                           background-color: white;
+                          border-radius: 15px;
                       }
                       .logo {
                           width: 150px;
                           margin-top: 20px;
                       }
+                      h1 {
+                          font-size: 55px;
+                      }
+                    h2 {
+                    	font-size: 20px;
+                    }
                   </style>
               </head>
               <body>
                   <div class="container">
                       <h2>SS 25</h2>
-                      <h2>Location a la Mode - ${party.toUpperCase()}</h2>
-                      <h1>${firstName.toUpperCase()} ${lastName.toUpperCase()}</h1>
-                      <p>PLUS ONES: ${plusOne.toUpperCase()}</p>
+                      <h2>Location a la Mode PARIS</h2>
+                      <h1>Irinia Shayk</h1>
+                      <p>PLUS ONES: JULIO</p>
                       <p>{EVENT DATE - ADDRESS}</p>
                       <div class="qr-code">
                           <!-- Replace with actual QR code image -->
