@@ -109,68 +109,78 @@ export async function GET(request) {
 
             // Generate HTML email content
             const htmlContent = `
-            <!DOCTYPE html>
-              <html lang="en">
-              <head>
-                  <meta charset="UTF-8">
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                  <title>Location a la Mode ${party} Invitation</title>
-                  <style>
-                      body, html {
-                          margin: 0;
-                          padding: 0;
-                          font-family: Arial, sans-serif;
-                          color: white;
-                          text-align: center;
-                      }
-                      .container {
-                          width: 100%;
-                          max-width: 600px;
-                          margin: 0 auto;
-                          background: linear-gradient(to bottom, #000000, #8B0000);
-                          padding: 20px 0;
-                          color: white;
-                          text-align: center;
-                      }
-                      h1, h2, h3, p {
-                          margin: 10px 0;
-                          color: white;
-
-                      }
-                      .qr-code {
-                          width: 200px;
-                          height: 200px;
-                          margin: 20px auto;
-                          background-color: white;
-                          border-radius: 15px;
-                      }
-                      .logo {
-                          width: 150px;
-                          margin-top: 20px;
-                      }
-                      h1 {
-                          font-size: 55px;
-                      }
-                    h2 {
-                    	font-size: 20px;
+           <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Location a la Mode ${party} Invitation</title>
+                <style>
+                    body, html {
+                        margin: 0;
+                        padding: 0;
+                        font-family: Arial, sans-serif;
+                        color: white;
+                        text-align: center;
                     }
-                  </style>
-              </head>
-              <body>
-                  <div class="container">
-                      <h2>SS 25</h2>
-                      <h2>Location a la Mode ${party.toUpperCase()}</h2>
-                      <h1>${firstName.toUpperCase()} ${lastName.toUpperCase()}</h1>
-                      <p>PLUS ONES: ${plusOne.toUpperCase()}</p>
-                      <p>{EVENT DATE - ADDRESS}</p>
-                      <div class="qr-code">
-                          <!-- Replace with actual QR code image -->
-                          <img src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200">
-                      </div>
-                      <img class="logo" src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="a la mode">
-                  </div>
-              </body>
-              </html>
+                    .container {
+                        width: 100%;
+                        max-width: 600px;
+                        margin: 0 auto;
+                        background: linear-gradient(to bottom, #000000, #8B0000);
+                        padding: 20px 0;
+                        color: white;
+                        text-align: center;
+                    }
+                    h1, h2, h3, p {
+                        margin: 10px 0;
+                        color: white;
+                    }
+                    .qr-code-wrapper {
+                        width: 220px;
+                        height: 220px;
+                        margin: 20px auto;
+                        background-color: white;
+                        border-radius: 15px;
+                        padding: 10px;
+                    }
+                    .qr-code {
+                        width: 200px;
+                        height: 200px;
+                        margin: 0 auto;
+                    }
+                    .logo {
+                        width: 150px;
+                        margin-top: 20px;
+                    }
+                    h1 {
+                        font-size: 55px;
+                    }
+                    h2 {
+                        font-size: 20px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h2>SS 25</h2>
+                    <h2>Location a la Mode ${party.toUpperCase()}</h2>
+                    <h1>${firstName.toUpperCase()} ${lastName.toUpperCase()}</h1>
+                    <p>PLUS ONES: ${plusOne.toUpperCase()}</p>
+                    <p>{EVENT DATE - ADDRESS}</p>
+                    <table cellpadding="0" cellspacing="0" border="0" align="center">
+                        <tr>
+                            <td style="background-color: white; border-radius: 15px; padding: 10px;">
+                                <div class="qr-code-wrapper">
+                                    <img src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200" style="display: block;">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <img class="logo" src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="a la mode">
+                </div>
+            </body>
+            </html>
             `;
 
             // Send approval email with QR code
