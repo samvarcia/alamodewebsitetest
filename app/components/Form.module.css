@@ -163,7 +163,9 @@
   max-width: 100%;
   height: auto;
 }
-
+.disabled {
+  pointer-events: none;
+}
 .options {
   display: flex;
   align-items: center;
@@ -256,11 +258,13 @@ align-self: flex-start;}
 justify-content: center;  }
   .form input,
   .plusOneSelection p,
-  .confirmation h1,
   .selectedParty h2,
-
   .partySelection p {
       font-size: 1.1rem;
+  }
+
+  .confirmation h1{
+    font-size: 1.8rem;
   }
 
   .options{
@@ -294,7 +298,6 @@ grid-template-rows: repeat(2, 1fr);
 @media (max-width: 480px) {
   .form input,
   .plusOneSelection p,
-  .confirmation h1,
   .selectedParty h2,
   .partySelection p {
       font-size: 1rem;

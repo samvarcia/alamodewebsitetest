@@ -21,6 +21,7 @@ const futura = localFont({
       style: "normal",
     },
   ],
+  variable: '--font-futura',
 });
 export default function RootLayout({ children }) {
   return (
