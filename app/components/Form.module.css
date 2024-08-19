@@ -29,9 +29,9 @@
   background-color: transparent;
   font-family: inherit;
   border: 1px solid #fff;
-  border-radius: 40px 40px 0 0;
-  border-bottom: none;
-  padding: 10px 20px 0;
+  border-radius: 0px 0px 40px 40px;
+  border-top: none;
+  padding: 0px 40px 14px 40px;
   box-sizing: border-box;
   margin-bottom: 20px;
   font-size: 1.2rem;
@@ -228,22 +228,25 @@
   font-size: 1.8rem;
 } 
 .logo{
-  max-width: 60px;
+  max-width: 90px;
   height: auto;
   /* margin-top: 25px; */
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .plusoneDiv p {
   font-weight: 50;
-  margin-left: 20px;
-  margin-top: 0;
+  margin-left: 40px;
+  margin-top: 3px;
   opacity: 0.70;
 }
 .backArrow{
 align-self: flex-start;}
 
-
+.submitting{
+  margin-top: 20px;
+}
 @media (max-width: 768px) {
 
   .formContainer {

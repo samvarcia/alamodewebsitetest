@@ -150,12 +150,13 @@ export default function Form() {
       </div>
     </motion.div>
   );
+
   const renderPersonalInfo = () => (
     <motion.form 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1.2 }} // Add this line
+      transition={{ duration: 1.2 }}
       onSubmit={handleSubmit} 
       className={styles.form}
     >
@@ -209,8 +210,7 @@ export default function Form() {
               onClick={() => setFormData(prev => ({ ...prev, plusOne: true }))}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.5 }} // Add this line
-
+              transition={{ duration: 0.5 }}
             >
               Yes
             </motion.span>
@@ -250,7 +250,7 @@ export default function Form() {
         type="submit" 
         disabled={isSubmitting}
         whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.5 }} // Add this line
+        transition={{ duration: 0.5 }}
       >
         <h3>
           {isSubmitting ? 'SUBMITTING, PLEASE WAIT...' : 'SUBMIT'}
@@ -264,6 +264,8 @@ export default function Form() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      transition={{ duration: 0.9 }}
+
       className={styles.confirmation}
     >
       <h1>Thank you for your submission!</h1>
@@ -271,17 +273,27 @@ export default function Form() {
       <motion.button 
         onClick={handleReset}
         whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.5 }} // Add this line
-
+        transition={{ duration: 0.5 }}
       >
         GO BACK
       </motion.button>
     </motion.div>
   );
 
+  const renderIsSubmitting = () => (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={styles.submitting}
+    >
+      <h2>SUBMITTING, PLEASE WAIT...</h2>
+    </motion.div>
+  );
+
   return (
     <div className={styles.formContainer}>
-      {step === 2 && !isSubmitted && (
+      {step === 2 && !isSubmitted && !isSubmitting && (
         <motion.div 
           className={styles.backArrow} 
           onClick={handleBackToSelector} 
@@ -302,7 +314,11 @@ export default function Form() {
         />
       </Link>
       <AnimatePresence mode="wait">
-        {isSubmitted ? renderConfirmation() : (step === 1 ? renderPartySelection() : renderPersonalInfo())}
+        {isSubmitting ? renderIsSubmitting() : 
+          (isSubmitted ? renderConfirmation() : 
+            (step === 1 ? renderPartySelection() : renderPersonalInfo())
+          )
+        }
       </AnimatePresence>
     </div>
   );
