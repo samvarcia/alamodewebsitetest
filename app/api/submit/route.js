@@ -64,7 +64,7 @@ export async function POST(request) {
     await sendEmail(
       body.email,
       `${body.parties} Party Submission Received`,
-      `Dear ${body.firstName},\n\nThank you for your submission to our Fashion Week Party. We have received your request and it is currently under review. We will notify you once your submission has been approved.\n\nBest regards,\nLOCATION A LA MODE`
+      `Dear ${body.firstName},\n\nThank you for your submission to our Fashion Week Party. We have received your request and it is currently under review. We will notify you once your submission has been approved. If approved you will receive the confirmation with dates, time and location.\n\nBest regards,\nLOCATION A LA MODE`
     );
 
     return NextResponse.json({ message: 'Data submitted successfully' }, { status: 200 });

@@ -17,7 +17,12 @@ export default function Home() {
             className={styles.logo}
           />
           <Link href={"/checkin"}>
-            <div className={styles.check}></div>
+            <Image
+              width={40}
+              height={60}
+              src="/newcup.svg"
+              className={styles.check}
+            />
           </Link>
         <div className={styles.heroContent}>
           <div></div>

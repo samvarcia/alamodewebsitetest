@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Form.module.css';
 import Image from 'next/image';
 import Link from "next/link";
@@ -18,6 +18,26 @@ export default function Form() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submissionProgress, setSubmissionProgress] = useState(0);
+  
+  useEffect(() => {
+    let timer;
+    if (isSubmitting) {
+      timer = setInterval(() => {
+        setSubmissionProgress((oldProgress) => {
+          // Slow down the progress as it approaches 1
+          const increment = Math.max(0.01, (1 - oldProgress) * 0.1);
+          return Math.min(oldProgress + increment, 0.99);
+        });
+      }, 50); // Update more frequently for smoother animation
+    } else {
+      setSubmissionProgress(0);
+    }
+  
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [isSubmitting]);
 
   const parties = [
     { id: 'New York', name: 'NEW YORK', imageWhite: '/newyork-party-white.svg', imageRed: '/newyork-party-red.svg' },
@@ -25,6 +45,48 @@ export default function Form() {
     { id: 'Milan', name: 'MILAN', imageWhite: '/milan-party-white.svg', imageRed: '/milan-party-red.svg' },
     { id: 'Paris', name: 'PARIS', imageWhite: '/paris-party-white.svg', imageRed: '/paris-party-red.svg' },
   ];
+
+  const glassStages = [
+    '/empty-glass.svg',
+    '/quarter-full-glass.svg',
+    '/half-full-glass.svg',
+    '/full-glass.svg'
+  ];
+
+  const AnimatedGlass = ({ progress }) => {
+    const getStage = (prog) => {
+      if (prog < 0.25) return 0;
+      if (prog < 0.5) return 1;
+      if (prog < 0.75) return 2;
+      return 3;
+    };
+  
+    return (
+      <div className={styles.glassContainer}>
+        {glassStages.map((src, index) => (
+          <motion.div
+            key={src}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              opacity: index === getStage(progress) ? 1 : 0,
+            }}
+            animate={{ opacity: index === getStage(progress) ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Image 
+              src={src}
+              alt={`Glass fill stage ${index}`}
+              width={100}
+              height={100}
+              className={styles.glass}
+            />
+          </motion.div>
+        ))}
+      </div>
+    );
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -53,19 +115,25 @@ export default function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form data:", formData);
+    console.log("Form submission started");
     setIsSubmitting(true);
+    
     try {
+      // Simulate a submission process
+      await new Promise(resolve => setTimeout(resolve, 3000));
+  
       const response = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-
+  
       const responseData = await response.json();
       console.log("Server response:", responseData);
-
+  
       if (response.ok) {
+        setSubmissionProgress(1); // Set to 100%
+        await new Promise(resolve => setTimeout(resolve, 500)); // Wait for final animation
         setIsSubmitted(true);
       } else {
         alert(`Error: ${responseData.error || 'Unknown error occurred'}`);
@@ -75,9 +143,9 @@ export default function Form() {
       alert(`Error submitting form: ${error.message}`);
     } finally {
       setIsSubmitting(false);
+      setSubmissionProgress(0);
     }
   };
-
   const handleReset = () => {
     setFormData({
       parties: [],
@@ -168,7 +236,7 @@ export default function Form() {
           value={formData.firstName}
           onChange={handleChange}
           required
-          placeholder="Name"
+          placeholder="First Name"
         />
         <input
           type="text"
@@ -264,8 +332,6 @@ export default function Form() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.9 }}
-
       className={styles.confirmation}
     >
       <h1>Thank you for your submission!</h1>
@@ -280,16 +346,21 @@ export default function Form() {
     </motion.div>
   );
 
-  const renderIsSubmitting = () => (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className={styles.submitting}
-    >
-      <h2>SUBMITTING, PLEASE WAIT...</h2>
-    </motion.div>
-  );
+  const renderIsSubmitting = () => {
+    return (
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className={styles.submitting}
+      >
+        <div className={styles.submittingContent}>
+          <AnimatedGlass progress={submissionProgress} />
+          <h1>SUBMITTING, PLEASE WAIT...</h1>
+        </div>
+      </motion.div>
+    );
+  };
 
   return (
     <div className={styles.formContainer}>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styles from './LoadingScreen.module.css';
-import { MartiniCup } from './MartiniGlass';
+import { MartiniCup } from './AnimatedCup';
 
 export const LoadingScreen = () => {
   const [fillPercentage, setFillPercentage] = useState(0);
