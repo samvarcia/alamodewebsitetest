@@ -273,6 +273,7 @@ align-self: flex-start;}
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   gap: 40px; /* Adjust this to control space between glass and text */
 }
 
