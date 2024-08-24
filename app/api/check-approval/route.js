@@ -134,9 +134,10 @@ export async function GET(request) {
                     </div>
                     <p class="on" style="color: white;margin: 10px 0px;font-size: 0.8rem;">ON</p>
                     <div class="bottomcontainer" style="font-weight: 500;">
-                        <p style="color: white;margin: 0;">TUESDAY, 10TH SEPTEMBER 2024</p>
-                        <p style="color: white;margin: 0;">10:00PM - 04:00AM</p>
+                    <p style="color: white;margin: 0;">TUESDAY, 10TH SEPTEMBER 2024</p>
+                    <p style="color: white;margin: 0;">10:00PM - 04:00AM</p>
                     </div>
+                    <p class="on" style="color: white;margin: 40px 0px;font-size: 0.5rem;">Please Party Responsibly: Attendees assume full responsability for their own actions</p>
                 </div>
             </body>
             </html>
