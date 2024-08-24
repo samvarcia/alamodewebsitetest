@@ -124,7 +124,7 @@ export async function GET(request) {
                         <p class="city" style="color: white;margin: 0;font-size: 1.5rem;">${party.toUpperCase()}</p>
                     </div>
                     <p class="would" style="color: white;margin: 30px 0px;font-size: 0.8rem;">WOULD NOT BE THE SAME WITHOUT</p>
-                    <p class="name" style="font-family: 'Sloop', serif;color: white;margin: 0;text-decoration: underline;text-decoration-thickness: 2px;text-underline-offset: 12px;margin-bottom: 10px;font-size: 5.5rem;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
+                    <p class="name" style="font-family: 'Sloop', serif;color: white;margin: 0;text-decoration: underline;text-decoration-thickness: 2px;text-underline-offset: 12px;margin-bottom: 10px;font-size: 2.5rem;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
                     <p class="attending" style="color: white;margin: 0;font-size: 0.8rem;">ATTENDING WITH: <span style="font-size: 1rem;font-weight: 500;">${plusOne.toUpperCase()}</span></p>
                     <img class="qr-code" src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200" style="width: 200px;height: 200px;margin: 40px 0px;">
                     <p class="join" style="color: white;margin: 10px 0px;font-size: 0.8rem;margin-top: none;">JOIN US AT</p>
