@@ -50,7 +50,26 @@ export async function GET(request) {
     });
 
     const rows = response.data.values;
-
+    const partyInfo = {
+      'NEW YORK SS 25': {
+        venue: 'SELINA CHELSEA',
+        address: '518 W 27th St, New York NY 10001',
+        date: 'TUESDAY, 10TH SEPTEMBER 2024',
+        hours: '10:00PM - 04:00AM'
+      },
+      'MILAN SS 25': {
+        venue: 'REPUBBLICA',
+        address: 'Piazza della Repubblica, 12, 20124 Milano MI, Italy',
+        date: 'WEDNESDAY, 18TH SEPTEMBER 2024',
+        hours: '12:00AM - 05:00AM'
+      },
+      'PARIS SS 25': {
+        venue: 'CHEZ MOUNE',
+        address: '54 Rue Jean-Baptiste Pigalle, 75009 Paris, France',
+        date: 'WEDNESDAY, 25TH SEPTEMBER 2024',
+        hours: '12:00AM - 05:00AM'
+      }
+    };
     if (rows.length) {
       for (const row of rows) {
         if (row[8] === 'Y') { // Assuming "Approved" is the 9th column (index 8)
@@ -60,6 +79,12 @@ export async function GET(request) {
           const party = row[0];
           const plusOne = row[6] === 'Yes' ? row[7] : 'None';
 
+          const partyDetails = partyInfo[party] || {
+            venue: 'TBA',
+            address: 'TBA',
+            date: 'TBA',
+            hours: 'TBA'
+          };
           // Generate unique identifier
           const attendeeId = uuidv4();
 
@@ -114,7 +139,7 @@ export async function GET(request) {
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>LocaAAAAAtion a la Mode ${party} Invitation</title>
+                <title>Location a la Mode ${party} Invitation</title>
                 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Luxurious+Script&display=swap" rel="stylesheet">
             </head>
             <body style="margin: 0;padding: 0;font-family: 'Jost', Arial, sans-serif;color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
@@ -130,13 +155,13 @@ export async function GET(request) {
                     <img class="qr-code" src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200" style="width: 200px;height: 200px;margin: 40px 0px;">
                     <p class="join" style="color: white;margin: 10px 0px;font-size: 0.8rem;margin-top: none;">JOIN US AT</p>
                     <div class="bottomcontainer" style="font-weight: 500;">
-                        <p style="color: white;margin: 0;">SELINA CHELSEA</p>
-                        <p style="color: white;margin: 0;">518 W 27th St, New York NY 10001</p>
+                        <p style="color: white;margin: 0;">${partyDetails.venue}</p>
+                        <p style="color: white;margin: 0;">${partyDetails.address}</p>
                     </div>
                     <p class="on" style="color: white;margin: 10px 0px;font-size: 0.8rem;">ON</p>
                     <div class="bottomcontainer" style="font-weight: 500;">
-                    <p style="color: white;margin: 0;">TUESDAY, 10TH SEPTEMBER 2024</p>
-                    <p style="color: white;margin: 0;">10:00PM - 04:00AM</p>
+                    <p style="color: white;margin: 0;">${partyDetails.date}</p>
+                    <p style="color: white;margin: 0;">${partyDetails.hours}</p>
                     </div>
                     <p class="on" style="color: white;margin: 40px 0px;font-size: 0.5rem;">Please Party Responsibly: Attendees assume full responsibility for their own actions</p>
                 </div>
