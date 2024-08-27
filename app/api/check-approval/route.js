@@ -109,14 +109,15 @@ export async function GET(request) {
 
             // Generate HTML email content
             const htmlContent = `
-          <!DOCTYPE html>
-            <html lang="en" style="margin: 0;padding: 0;font-family: 'Futura', Arial, sans-serif; @font-face { font-family: 'Futura'; src: url('https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/FUTURA55REGULAR.TTF') format('truetype'); }, Arial, sans-serif;color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
+            <!DOCTYPE html>
+            <html lang="en" style="margin: 0;padding: 0;font-family: 'Jost', Arial, sans-serif;color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Location a la Mode ${party} Invitation</title>
+                <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Luxurious+Script&display=swap" rel="stylesheet">
             </head>
-            <body style="margin: 0;padding: 0;font-family: 'Futura', Arial, sans-serif;color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
+            <body style="margin: 0;padding: 0;font-family: 'Jost', Arial, sans-serif;color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
                 <div class="container" style="width: 100%;max-width: 600px;margin: 0 auto;background: radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14) 24.53%, #BC0123 83%), #000;padding: 20px 0;color: white;text-align: center;">
                     <img class="logo" src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="a la mode" style="width: 80px;margin-top: 20px;">
                     <div class="upper-info" style="margin: 30px 0px;">
@@ -124,7 +125,7 @@ export async function GET(request) {
                         <p class="city" style="color: white;margin: 0;font-size: 1.5rem;">${party.toUpperCase()}</p>
                     </div>
                     <p class="would" style="color: white;margin: 30px 0px;font-size: 0.8rem;">WOULD NOT BE THE SAME WITHOUT</p>
-                    <p class="name" style="font-family: 'Sloop', serif;color: white;margin: 0;text-decoration: underline;text-decoration-thickness: 2px;text-underline-offset: 12px;margin-bottom: 10px;font-size: 2.5rem;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
+                    <p class="name" style="font-family: 'Luxurious Script', cursive;color: white;margin: 0;text-decoration: underline;text-decoration-thickness: 2px;text-underline-offset: 12px;margin-bottom: 10px;font-size: 2.5rem;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
                     <p class="attending" style="color: white;margin: 0;font-size: 0.8rem;">ATTENDING WITH: <span style="font-size: 1rem;font-weight: 500;">${plusOne.toUpperCase()}</span></p>
                     <img class="qr-code" src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200" style="width: 200px;height: 200px;margin: 40px 0px;">
                     <p class="join" style="color: white;margin: 10px 0px;font-size: 0.8rem;margin-top: none;">JOIN US AT</p>
@@ -137,7 +138,7 @@ export async function GET(request) {
                     <p style="color: white;margin: 0;">TUESDAY, 10TH SEPTEMBER 2024</p>
                     <p style="color: white;margin: 0;">10:00PM - 04:00AM</p>
                     </div>
-                    <p class="on" style="color: white;margin: 40px 0px;font-size: 0.5rem;">Please Party Responsibly: Attendees assume full responsability for their own actions</p>
+                    <p class="on" style="color: white;margin: 40px 0px;font-size: 0.5rem;">Please Party Responsibly: Attendees assume full responsibility for their own actions</p>
                 </div>
             </body>
             </html>

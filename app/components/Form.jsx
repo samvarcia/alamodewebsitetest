@@ -362,6 +362,12 @@ export default function Form() {
     );
   };
 
+
+  console.log('Email configuration:');
+    console.log(`Host: ${env.EMAIL_HOST}`);
+    console.log(`Port: ${env.EMAIL_PORT}`);
+    console.log(`User: ${env.EMAIL_USER}`);
+
   return (
     <div className={styles.formContainer}>
       {step === 2 && !isSubmitted && !isSubmitting && (
