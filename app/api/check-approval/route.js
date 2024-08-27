@@ -149,6 +149,7 @@ export async function GET(request) {
       .name{
         font-size: 2.5rem;
         font-family: "Luxurious Script", serif;
+        color: #FAFBF5;
       }
     </style>
 </head>
