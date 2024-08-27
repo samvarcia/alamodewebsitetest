@@ -143,7 +143,10 @@ export async function GET(request) {
                 <style>
                   @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
                   @import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
-                  </style>
+                  .name{
+                    font-size: 2.5rem;
+                  }
+                </style>
             </head>
             <body style="margin: 0;padding: 0;  font-family: "Jost", sans-serif; color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
                 <div class="container" style="width: 100%;max-width: 600px;margin: 0 auto;background: radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14) 24.53%, #BC0123 83%), #000;padding: 20px 0;color: white;text-align: center;">
