@@ -143,8 +143,13 @@ export async function GET(request) {
                 <style>
                   @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
                   @import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
+                  body{
+                      font-family: "Jost", sans-serif;
+
+                  }
                   .name{
                     font-size: 2.5rem;
+                    font-family: "Luxurious Script", cursive;
                   }
                 </style>
             </head>
