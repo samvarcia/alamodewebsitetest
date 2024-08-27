@@ -114,7 +114,7 @@ export async function GET(request) {
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Location a la Mode ${party} Invitation</title>
+                <title>LocaAAAAAtion a la Mode ${party} Invitation</title>
                 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Luxurious+Script&display=swap" rel="stylesheet">
             </head>
             <body style="margin: 0;padding: 0;font-family: 'Jost', Arial, sans-serif;color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
