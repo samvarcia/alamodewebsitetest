@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 async function sendEmail(to, subject, text) {
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
-    port: 587,
+    port: 465,
     secure: true,
     auth: {
       user: "checkin@locationalamode.com",

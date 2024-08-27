@@ -7,7 +7,7 @@ import QRCode from 'qrcode';
 async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
-    port: 587,
+    port: 465,
     secure: true,
     auth: {
       user: "checkin@locationalamode.com",
