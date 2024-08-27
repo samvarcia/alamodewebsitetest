@@ -309,7 +309,7 @@ export default function Form() {
                 required
                 className={formData.plusOne ? styles.visible : ''}
               />
-              <p>Is your plus one a model? Please get them sign up</p>
+              <p>Is your plus one a model? Please get them to sign up</p>
             </motion.div>
           )}
         </AnimatePresence>

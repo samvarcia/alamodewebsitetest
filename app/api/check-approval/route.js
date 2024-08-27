@@ -16,7 +16,7 @@ async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
   });
 
   let info = await transporter.sendMail({
-    from: '"ALAMODETEST" <testalamodefly@gmail.com>',
+    from: '"CHECK IN ALAMODE" <checkin@locationalamode.com>',
     to: to,
     subject: subject,
     html: htmlContent,
