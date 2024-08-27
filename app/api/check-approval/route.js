@@ -51,19 +51,19 @@ export async function GET(request) {
 
     const rows = response.data.values;
     const partyInfo = {
-      'NEW YORK SS 25': {
+      'New York': {
         venue: 'SELINA CHELSEA',
         address: '518 W 27th St, New York NY 10001',
         date: 'TUESDAY, 10TH SEPTEMBER 2024',
         hours: '10:00PM - 04:00AM'
       },
-      'MILAN SS 25': {
+      'Milan': {
         venue: 'REPUBBLICA',
         address: 'Piazza della Repubblica, 12, 20124 Milano MI, Italy',
         date: 'WEDNESDAY, 18TH SEPTEMBER 2024',
         hours: '12:00AM - 05:00AM'
       },
-      'PARIS SS 25': {
+      'Paris': {
         venue: 'CHEZ MOUNE',
         address: '54 Rue Jean-Baptiste Pigalle, 75009 Paris, France',
         date: 'WEDNESDAY, 25TH SEPTEMBER 2024',
