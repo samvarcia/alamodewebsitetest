@@ -18,27 +18,8 @@ export default function Form() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submissionProgress, setSubmissionProgress] = useState(0);
+  const [currentGlassStage, setCurrentGlassStage] = useState(0);
   
-  useEffect(() => {
-    let timer;
-    if (isSubmitting) {
-      timer = setInterval(() => {
-        setSubmissionProgress((oldProgress) => {
-          // Slow down the progress as it approaches 1
-          const increment = Math.max(0.01, (1 - oldProgress) * 0.1);
-          return Math.min(oldProgress + increment, 0.99);
-        });
-      }, 50); // Update more frequently for smoother animation
-    } else {
-      setSubmissionProgress(0);
-    }
-  
-    return () => {
-      if (timer) clearInterval(timer);
-    };
-  }, [isSubmitting]);
-
   const parties = [
     { id: 'New York', name: 'NEW YORK', imageWhite: '/newyork-party-white.svg', imageRed: '/newyork-party-red.svg' },
     { id: 'London', name: 'LONDON', imageWhite: '/london-party-white.svg', imageRed: '/london-party-red.svg' },
@@ -53,14 +34,22 @@ export default function Form() {
     '/full-glass.svg'
   ];
 
-  const AnimatedGlass = ({ progress }) => {
-    const getStage = (prog) => {
-      if (prog < 0.25) return 0;
-      if (prog < 0.5) return 1;
-      if (prog < 0.75) return 2;
-      return 3;
+  useEffect(() => {
+    let timer;
+    if (isSubmitting) {
+      timer = setInterval(() => {
+        setCurrentGlassStage((prevStage) => (prevStage + 1) % glassStages.length);
+      }, 500); // Change stage every 500ms
+    } else {
+      setCurrentGlassStage(0);
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
     };
-  
+  }, [isSubmitting]);
+
+  const AnimatedGlass = () => {
     return (
       <div className={styles.glassContainer}>
         {glassStages.map((src, index) => (
@@ -70,9 +59,9 @@ export default function Form() {
               position: 'absolute',
               top: 0,
               left: 0,
-              opacity: index === getStage(progress) ? 1 : 0,
+              opacity: index === currentGlassStage ? 1 : 0,
             }}
-            animate={{ opacity: index === getStage(progress) ? 1 : 0 }}
+            animate={{ opacity: index === currentGlassStage ? 1 : 0 }}
             transition={{ duration: 0.5 }}
           >
             <Image 
@@ -132,7 +121,6 @@ export default function Form() {
       console.log("Server response:", responseData);
   
       if (response.ok) {
-        setSubmissionProgress(1); // Set to 100%
         await new Promise(resolve => setTimeout(resolve, 500)); // Wait for final animation
         setIsSubmitted(true);
       } else {
@@ -143,9 +131,9 @@ export default function Form() {
       alert(`Error submitting form: ${error.message}`);
     } finally {
       setIsSubmitting(false);
-      setSubmissionProgress(0);
     }
   };
+
   const handleReset = () => {
     setFormData({
       parties: [],
@@ -355,15 +343,12 @@ export default function Form() {
         className={styles.submitting}
       >
         <div className={styles.submittingContent}>
-          <AnimatedGlass progress={submissionProgress} />
+          <AnimatedGlass />
           <h1>SUBMITTING, PLEASE WAIT...</h1>
         </div>
       </motion.div>
     );
   };
-
-
-
 
   return (
     <div className={styles.formContainer}>
