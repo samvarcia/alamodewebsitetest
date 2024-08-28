@@ -39,7 +39,7 @@ export default function Form() {
     if (isSubmitting) {
       timer = setInterval(() => {
         setCurrentGlassStage((prevStage) => (prevStage + 1) % glassStages.length);
-      }, 500); // Change stage every 500ms
+      }, 1500); // Change stage every 1.5 seconds for a slower animation
     } else {
       setCurrentGlassStage(0);
     }
@@ -48,7 +48,7 @@ export default function Form() {
       if (timer) clearInterval(timer);
     };
   }, [isSubmitting]);
-
+  
   const AnimatedGlass = () => {
     return (
       <div className={styles.glassContainer}>
@@ -62,7 +62,7 @@ export default function Form() {
               opacity: index === currentGlassStage ? 1 : 0,
             }}
             animate={{ opacity: index === currentGlassStage ? 1 : 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 1, ease: "easeInOut" }} // Longer, smoother transition
           >
             <Image 
               src={src}
