@@ -13,6 +13,7 @@
     "framer-motion": "^11.2.10",
     "google-spreadsheet": "^4.1.2",
     "googleapis": "^140.0.1",
+    "html2pdf.js": "^0.10.2",
     "next": "14.2.3",
     "nodemailer": "^6.9.14",
     "puppeteer": "^23.2.1",
