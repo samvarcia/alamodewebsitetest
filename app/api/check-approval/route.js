@@ -7,47 +7,6 @@ import { renderToString } from 'react-dom/server';
 import { Document, Page, Text, View, StyleSheet, pdf } from '@react-pdf/renderer';
 
 
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'column',
-    backgroundColor: '#000000',
-    padding: 20,
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-  },
-  text: {
-    color: '#FFFFFF',
-    textAlign: 'center',
-    marginBottom: 5,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  name: {
-    fontSize: 30,
-    marginBottom: 10,
-  },
-});
-
-const PDFDocument = ({ party, firstName, lastName, plusOne, partyDetails }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.section}>
-        <Text style={[styles.text, styles.title]}>{party.toUpperCase()} PARTY INVITATION</Text>
-        <Text style={[styles.text, styles.name]}>{firstName.toUpperCase()} {lastName.toUpperCase()}</Text>
-        {plusOne !== 'None' && <Text style={styles.text}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>}
-        <Text style={styles.text}>{partyDetails.venue}</Text>
-        <Text style={styles.text}>{partyDetails.address}</Text>
-        <Text style={styles.text}>{partyDetails.date}</Text>
-        <Text style={styles.text}>{partyDetails.hours}</Text>
-      </View>
-    </Page>
-  </Document>
-);
 
 async function sendEmail(to, subject, htmlContent, qrCodeBuffer , pdfBuffer) {
   let transporter = nodemailer.createTransport({
@@ -157,9 +116,9 @@ export async function GET(request) {
               spreadsheetId: process.env.GOOGLE_SHEET_ID,
               range: 'APPROVED!A:A',
             });
-
+            
             const nextRow = currentRowsResponse.data.values ? currentRowsResponse.data.values.length + 1 : 1;
-
+            
             // Add to approved sheet
             await sheets.spreadsheets.values.update({
               spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -181,6 +140,47 @@ export async function GET(request) {
                 ]]
               }
             });
+            const styles = StyleSheet.create({
+              page: {
+                flexDirection: 'column',
+                backgroundColor: '#000000',
+                padding: 20,
+              },
+              section: {
+                margin: 10,
+                padding: 10,
+                flexGrow: 1,
+              },
+              text: {
+                color: '#FFFFFF',
+                textAlign: 'center',
+                marginBottom: 5,
+              },
+              title: {
+                fontSize: 24,
+                fontWeight: 'bold',
+              },
+              name: {
+                fontSize: 30,
+                marginBottom: 10,
+              },
+            });
+            
+            const PDFDocument = ({ party, firstName, lastName, plusOne, partyDetails }) => (
+              <Document>
+                <Page size="A4" style={styles.page}>
+                  <View style={styles.section}>
+                    <Text style={[styles.text, styles.title]}>{party.toUpperCase()} PARTY INVITATION</Text>
+                    <Text style={[styles.text, styles.name]}>{firstName.toUpperCase()} {lastName.toUpperCase()}</Text>
+                    {plusOne !== 'None' && <Text style={styles.text}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>}
+                    <Text style={styles.text}>{partyDetails.venue}</Text>
+                    <Text style={styles.text}>{partyDetails.address}</Text>
+                    <Text style={styles.text}>{partyDetails.date}</Text>
+                    <Text style={styles.text}>{partyDetails.hours}</Text>
+                  </View>
+                </Page>
+              </Document>
+            );
 
             // Generate HTML email content
             // const htmlContent = `
