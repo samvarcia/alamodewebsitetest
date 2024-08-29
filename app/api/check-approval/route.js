@@ -4,9 +4,9 @@ import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { renderToBuffer } from '@react-pdf/renderer';
-import PdfInvitation from './../../components/PdfInvitation';
+import { Document, Page, Text, View, Image } from '@react-pdf/renderer'; // Direct import of PDF components
 
-async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
+async function sendEmail(to, subject, htmlContent, qrCodeBuffer, pdfBuffer) {
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
     port: 465,
@@ -26,7 +26,7 @@ async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
       {
         filename: 'qrcode.png',
         content: qrCodeBuffer,
-        cid: 'qrcode@alamode.com' // this is the content id to be referenced in the HTML
+        cid: 'qrcode@alamode.com'
       },
       {
         filename: 'invitation.pdf',
@@ -40,7 +40,7 @@ async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
 
 export async function GET(request) {
   try {
-    console.log(request)
+    console.log(request);
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
       null,
@@ -76,9 +76,10 @@ export async function GET(request) {
         hours: '12:00AM - 05:00AM'
       }
     };
+
     if (rows.length) {
       for (const row of rows) {
-        if (row[8] === 'Y') { // Assuming "Approved" is the 9th column (index 8)
+        if (row[8] === 'Y') {
           const email = row[3];
           const firstName = row[1];
           const lastName = row[2];
@@ -91,14 +92,12 @@ export async function GET(request) {
             date: 'TBA',
             hours: 'TBA'
           };
-          // Generate unique identifier
+
           const attendeeId = uuidv4();
 
-          // Generate QR code
           const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
           const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
 
-          // Check if the email or attendeeId already exists in the approved sheet
           const approvedRowsResponse = await sheets.spreadsheets.values.get({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
             range: 'APPROVED!D:J',
@@ -108,7 +107,6 @@ export async function GET(request) {
           const existingRow = approvedRows.find((r) => r[0] === email || r[9] === attendeeId);
 
           if (!existingRow) {
-            // Get the current number of rows in the APPROVED sheet
             const currentRowsResponse = await sheets.spreadsheets.values.get({
               spreadsheetId: process.env.GOOGLE_SHEET_ID,
               range: 'APPROVED!A:A',
@@ -116,97 +114,52 @@ export async function GET(request) {
 
             const nextRow = currentRowsResponse.data.values ? currentRowsResponse.data.values.length + 1 : 1;
 
-            // Add to approved sheet
             await sheets.spreadsheets.values.update({
               spreadsheetId: process.env.GOOGLE_SHEET_ID,
               range: `APPROVED!A${nextRow}`,
               valueInputOption: 'USER_ENTERED',
               requestBody: {
                 values: [[
-                  row[0],  // Party
-                  row[1],  // First Name
-                  row[2],  // Last Name
-                  row[3],  // Email
-                  row[4],  // Models Link
-                  row[5],  // Instagram Link
-                  row[6],  // Plus One (Yes/No)
-                  row[7],  // Plus One Name
-                  row[8],  // Approval Status
-                  attendeeId,  // Unique Attendee ID
-                  'Not Checked In'  // Initial Check-In Status
+                  row[0],
+                  row[1],
+                  row[2],
+                  row[3],
+                  row[4],
+                  row[5],
+                  row[6],
+                  row[7],
+                  row[8],
+                  attendeeId,
+                  'Not Checked In'
                 ]]
               }
             });
 
-            // Generate HTML email content
-            const htmlContent = `
-<!DOCTYPE html>
-<html lang="en" style="margin: 0;padding: 0;  font-family: "Jost", sans-serif;color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location a la Mode ${party} Invitation</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
-      @import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
-      body{
-          font-family: "Jost", sans-serif;
-      }
-      .name{
-        font-size: 2.5rem;
-        font-family: "Luxurious Script", serif;
-        color: #FAFBF5;
-      }
-    </style>
-</head>
-<body style="margin: 0;padding: 0;  font-family: "Jost", sans-serif; color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
-    <div class="container" style="width: 100%;max-width: 600px;margin: 0 auto;background: radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14) 24.53%, #BC0123 83%), #000;padding: 20px 0;color: white;text-align: center;">
-        <img class="logo" src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="a la mode" style="width: 80px;margin-top: 20px;">
-        <div class="upper-info" style="margin: 30px 0px;">
-            <p style="color: white;margin: 0;">SPRING/SUMMER 25</p>
-            <p class="city" style="color: white;margin: 0;font-size: 1.5rem;">${party.toUpperCase()}</p>
-        </div>
-        <p class="would" style="color: white;margin: 30px 0px;font-size: 0.8rem;">WOULD NOT BE THE SAME WITHOUT</p>
-        <p class="name" style="font-family: "Luxurious Script", cursive; color: white;margin: 0;text-decoration: underline;text-decoration-thickness: 2px;text-underline-offset: 12px;margin-bottom: 10px;font-size: 2.5rem;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
-        ${plusOne !== 'None' ? `
-        <p class="attending" style="color: white;margin: 0;font-size: 0.8rem;">ATTENDING WITH: <span style="font-size: 1rem;font-weight: 500;">${plusOne.toUpperCase()}</span></p>
-        ` : ''}
-        <img class="qr-code" src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200" style="width: 200px;height: 200px;margin: 40px 0px;">
-        <p class="join" style="color: white;margin: 10px 0px;font-size: 0.8rem;margin-top: none;">JOIN US AT</p>
-        <div class="bottomcontainer" style="font-weight: 500;">
-            <p style="color: white;margin: 0;">${partyDetails.venue}</p>
-            <p style="color: white;margin: 0;">${partyDetails.address}</p>
-        </div>
-        <p class="on" style="color: white;margin: 10px 0px;font-size: 0.8rem;">ON</p>
-        <div class="bottomcontainer" style="font-weight: 500;">
-        <p style="color: white;margin: 0;">${partyDetails.date}</p>
-        <p style="color: white;margin: 0;">${partyDetails.hours}</p>
-        </div>
-        <p class="on" style="color: white;margin: 40px 0px;font-size: 0.5rem;">Please Party Responsibly: Attendees assume full responsibility for their own actions</p>
-    </div>
-</body>
-</html>
-`;
             const pdfBuffer = await renderToBuffer(
-
-              <PdfInvitation
-                firstName={firstName}
-                lastName={lastName}
-                party={party}
-                plusOne={plusOne}
-                partyDetails={partyDetails}
-                qrCodePath={qrCodeBuffer} // You might need to convert this to a data URL
-              />
+              <Document>
+                <Page>
+                  <View>
+                    <Text>{firstName} {lastName}</Text>
+                    <Text>{party}</Text>
+                    <Text>{partyDetails.venue}</Text>
+                    <Text>{partyDetails.address}</Text>
+                    <Text>{partyDetails.date}</Text>
+                    <Text>{partyDetails.hours}</Text>
+                    {plusOne !== 'None' && <Text>With: {plusOne}</Text>}
+                    <Image src={qrCodeBuffer} />
+                  </View>
+                </Page>
+              </Document>
             );
-  
-            // Send approval email with PDF
+
             await sendEmail(
               email,
               `${party} Party Invitation`,
+              htmlContent,
+              qrCodeBuffer,
               pdfBuffer
             );
 
-            // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
             await sheets.spreadsheets.values.update({
               spreadsheetId: process.env.GOOGLE_SHEET_ID,
               range: `UNAPPROVED!J${rows.indexOf(row) + 2}`,
