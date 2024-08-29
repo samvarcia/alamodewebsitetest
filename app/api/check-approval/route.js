@@ -3,12 +3,8 @@ import { google } from 'googleapis';
 import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
-import { renderToString } from 'react-dom/server';
-import { Document, Page, Text, View, StyleSheet, pdf } from '@react-pdf/renderer';
 
-
-
-async function sendEmail(to, subject, htmlContent, qrCodeBuffer , pdfBuffer) {
+async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
     port: 465,
@@ -29,11 +25,6 @@ async function sendEmail(to, subject, htmlContent, qrCodeBuffer , pdfBuffer) {
         filename: 'qrcode.png',
         content: qrCodeBuffer,
         cid: 'qrcode@alamode.com' // this is the content id to be referenced in the HTML
-      },
-      {
-        filename: 'invitation.pdf',
-        content: pdfBuffer,
-        contentType: 'application/pdf'
       }
     ]
   });
@@ -116,9 +107,9 @@ export async function GET(request) {
               spreadsheetId: process.env.GOOGLE_SHEET_ID,
               range: 'APPROVED!A:A',
             });
-            
+
             const nextRow = currentRowsResponse.data.values ? currentRowsResponse.data.values.length + 1 : 1;
-            
+
             // Add to approved sheet
             await sheets.spreadsheets.values.update({
               spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -140,119 +131,138 @@ export async function GET(request) {
                 ]]
               }
             });
-            const styles = StyleSheet.create({
-              page: {
-                flexDirection: 'column',
-                backgroundColor: '#000000',
-                padding: 20,
-              },
-              section: {
-                margin: 10,
-                padding: 10,
-                flexGrow: 1,
-              },
-              text: {
-                color: '#FFFFFF',
-                textAlign: 'center',
-                marginBottom: 5,
-              },
-              title: {
-                fontSize: 24,
-                fontWeight: 'bold',
-              },
-              name: {
-                fontSize: 30,
-                marginBottom: 10,
-              },
-            });
-            
-            const PDFDocument = ({ party, firstName, lastName, plusOne, partyDetails }) => (
-              <Document>
-                <Page size="A4" style={styles.page}>
-                  <View style={styles.section}>
-                    <Text style={[styles.text, styles.title]}>{party.toUpperCase()} PARTY INVITATION</Text>
-                    <Text style={[styles.text, styles.name]}>{firstName.toUpperCase()} {lastName.toUpperCase()}</Text>
-                    {plusOne !== 'None' && <Text style={styles.text}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>}
-                    <Text style={styles.text}>{partyDetails.venue}</Text>
-                    <Text style={styles.text}>{partyDetails.address}</Text>
-                    <Text style={styles.text}>{partyDetails.date}</Text>
-                    <Text style={styles.text}>{partyDetails.hours}</Text>
-                  </View>
-                </Page>
-              </Document>
-            );
 
             // Generate HTML email content
-            // const htmlContent = `
-            //     <!DOCTYPE html>
-            //     <html lang="en" style="margin: 0;padding: 0;  font-family: "Jost", sans-serif;color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
-            //     <head>
-            //         <meta charset="UTF-8">
-            //         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            //         <title>Location a la Mode ${party} Invitation</title>
-            //         <style>
-            //           @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
-            //           @import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
-            //           body{
-            //               font-family: "Jost", sans-serif;
-            //           }
-            //           .name{
-            //             font-size: 2.5rem;
-            //             font-family: "Luxurious Script", serif;
-            //             color: #FAFBF5;
-            //           }
-            //         </style>
-            //     </head>
-            //     <body style="margin: 0;padding: 0;  font-family: "Jost", sans-serif; color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
-            //         <div class="container" style="width: 100%;max-width: 600px;margin: 0 auto;background: radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14) 24.53%, #BC0123 83%), #000;padding: 20px 0;color: white;text-align: center;">
-            //             <img class="logo" src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="a la mode" style="width: 80px;margin-top: 20px;">
-            //             <div class="upper-info" style="margin: 30px 0px;">
-            //                 <p style="color: white;margin: 0;">SPRING/SUMMER 25</p>
-            //                 <p class="city" style="color: white;margin: 0;font-size: 1.5rem;">${party.toUpperCase()}</p>
-            //             </div>
-            //             <p class="would" style="color: white;margin: 30px 0px;font-size: 0.8rem;">WOULD NOT BE THE SAME WITHOUT</p>
-            //             <p class="name" style="font-family: "Luxurious Script", cursive; color: white;margin: 0;text-decoration: underline;text-decoration-thickness: 2px;text-underline-offset: 12px;margin-bottom: 10px;font-size: 2.5rem;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
-            //             ${plusOne !== 'None' ? `
-            //             <p class="attending" style="color: white;margin: 0;font-size: 0.8rem;">ATTENDING WITH: <span style="font-size: 1rem;font-weight: 500;">${plusOne.toUpperCase()}</span></p>
-            //             ` : ''}
-            //             <img class="qr-code" src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200" style="width: 200px;height: 200px;margin: 40px 0px;">
-            //             <p class="join" style="color: white;margin: 10px 0px;font-size: 0.8rem;margin-top: none;">JOIN US AT</p>
-            //             <div class="bottomcontainer" style="font-weight: 500;">
-            //                 <p style="color: white;margin: 0;">${partyDetails.venue}</p>
-            //                 <p style="color: white;margin: 0;">${partyDetails.address}</p>
-            //             </div>
-            //             <p class="on" style="color: white;margin: 10px 0px;font-size: 0.8rem;">ON</p>
-            //             <div class="bottomcontainer" style="font-weight: 500;">
-            //             <p style="color: white;margin: 0;">${partyDetails.date}</p>
-            //             <p style="color: white;margin: 0;">${partyDetails.hours}</p>
-            //             </div>
-            //             <p class="on" style="color: white;margin: 40px 0px;font-size: 0.5rem;">Please Party Responsibly: Attendees assume full responsibility for their own actions</p>
-            //         </div>
-            //     </body>
-            //     </html>
-            //     `;
-            // await sendEmail(
-            //   email,
-            //   `${party} Party Invitation`,
-            //   htmlContent,
-            //   qrCodeBuffer
-            // );
+            const htmlContent = `
+<!DOCTYPE html>
+<html lang="en" style="margin: 0;padding: 0;  font-family: "Jost", sans-serif;color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location a la Mode ${party} Invitation</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
+      body{
+          font-family: "Jost", sans-serif;
+      }
+      .name{
+        font-size: 2.5rem;
+        font-family: "Luxurious Script", serif;
+        color: #FAFBF5;
+      }
+    </style>
+</head>
+<body style="margin: 0;padding: 0;  font-family: "Jost", sans-serif; color: #FAFBF5;text-align: center;font-weight: normal;font-size: 16px;">
+    <div class="container" style="width: 100%;max-width: 600px;margin: 0 auto;background: radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14) 24.53%, #BC0123 83%), #000;padding: 20px 0;color: white;text-align: center;">
+        <img class="logo" src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="a la mode" style="width: 80px;margin-top: 20px;">
+        <div class="upper-info" style="margin: 30px 0px;">
+            <p style="color: white;margin: 0;">SPRING/SUMMER 25</p>
+            <p class="city" style="color: white;margin: 0;font-size: 1.5rem;">${party.toUpperCase()}</p>
+        </div>
+        <p class="would" style="color: white;margin: 30px 0px;font-size: 0.8rem;">WOULD NOT BE THE SAME WITHOUT</p>
+        <p class="name" style="font-family: "Luxurious Script", cursive; color: white;margin: 0;text-decoration: underline;text-decoration-thickness: 2px;text-underline-offset: 12px;margin-bottom: 10px;font-size: 2.5rem;">${firstName.toUpperCase()} ${lastName.toUpperCase()}</p>
+        ${plusOne !== 'None' ? `
+        <p class="attending" style="color: white;margin: 0;font-size: 0.8rem;">ATTENDING WITH: <span style="font-size: 1rem;font-weight: 500;">${plusOne.toUpperCase()}</span></p>
+        ` : ''}
+        <img class="qr-code" src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200" style="width: 200px;height: 200px;margin: 40px 0px;">
+        <p class="join" style="color: white;margin: 10px 0px;font-size: 0.8rem;margin-top: none;">JOIN US AT</p>
+        <div class="bottomcontainer" style="font-weight: 500;">
+            <p style="color: white;margin: 0;">${partyDetails.venue}</p>
+            <p style="color: white;margin: 0;">${partyDetails.address}</p>
+        </div>
+        <p class="on" style="color: white;margin: 10px 0px;font-size: 0.8rem;">ON</p>
+        <div class="bottomcontainer" style="font-weight: 500;">
+        <p style="color: white;margin: 0;">${partyDetails.date}</p>
+        <p style="color: white;margin: 0;">${partyDetails.hours}</p>
+        </div>
+        <p class="on" style="color: white;margin: 40px 0px;font-size: 0.5rem;">Please Party Responsibly: Attendees assume full responsibility for their own actions</p>
+    </div>
+</body>
+</html>
+`;
+          //   const htmlContent = `
+          //  <!DOCTYPE html>
+          //   <html lang="en">
+          //   <head>
+          //       <meta charset="UTF-8">
+          //       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          //       <title>Location a la Mode ${party} Invitation</title>
+          //       <style>
+          //           body, html {
+          //               margin: 0;
+          //               padding: 0;
+          //               font-family: Arial, sans-serif;
+          //               color: white;
+          //               text-align: center;
+          //           }
+          //           .container {
+          //               width: 100%;
+          //               max-width: 600px;
+          //               margin: 0 auto;
+          //               background: linear-gradient(to bottom, #000000, #8B0000);
+          //               padding: 20px 0;
+          //               color: white;
+          //               text-align: center;
+          //           }
+          //           h1, h2, h3, p {
+          //               margin: 10px 0;
+          //               color: white;
+          //           }
+          //           .qr-code-wrapper {
+          //               width: 220px;
+          //               height: 220px;
+          //               margin: 20px auto;
+          //               background-color: white;
+          //               border-radius: 15px;
+          //               padding: 10px;
+          //           }
+          //           .qr-code {
+          //               width: 200px;
+          //               height: 200px;
+          //               margin: 0 auto;
+          //           }
+          //           .logo {
+          //               width: 150px;
+          //               margin-top: 20px;
+          //           }
+          //           h1 {
+          //               font-size: 55px;
+          //           }
+          //           h2 {
+          //               font-size: 20px;
+          //           }
+          //       </style>
+          //   </head>
+          //   <body>
+          //       <div class="container">
+          //           <h2>SS 25</h2>
+          //           <h2>Location a la Mode ${party.toUpperCase()}</h2>
+          //           <h1>${firstName.toUpperCase()} ${lastName.toUpperCase()}</h1>
+          //           <p>PLUS ONES: ${plusOne.toUpperCase()}</p>
+          //           <p>{EVENT DATE - ADDRESS}</p>
+          //           <table cellpadding="0" cellspacing="0" border="0" align="center">
+          //               <tr>
+          //                   <td style="background-color: white; border-radius: 15px; padding: 10px;">
+          //                       <div class="qr-code-wrapper">
+          //                           <img src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200" style="display: block;">
+          //                       </div>
+          //                   </td>
+          //               </tr>
+          //           </table>
+          //           <img class="logo" src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" alt="a la mode">
+          //       </div>
+          //   </body>
+          //   </html>
+          //   `;
 
-            const pdfDoc = <PDFDocument
-            party={party}
-            firstName={firstName}
-            lastName={lastName}
-            plusOne={plusOne}
-            partyDetails={partyDetails}
-          />;
-          const pdfBuffer = await pdf(pdfDoc).toBuffer();
-          await sendEmail(
-            email,
-            `${party} Party Invitation`,
-            htmlContent,
-            qrCodeBuffer,
-            pdfBuffer
-          );
+            // Send approval email with QR code
+            await sendEmail(
+              email,
+              `${party} Party Invitation`,
+              htmlContent,
+              qrCodeBuffer
+            );
 
             // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
             await sheets.spreadsheets.values.update({

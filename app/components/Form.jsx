@@ -360,7 +360,12 @@ export default function Form() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          <p>Back</p>
+          <Image
+              width={40}
+              height={60}
+              src="/backIcon.svg"
+              className={styles.back}
+            />
         </motion.div>
       )}
       <Link href="/">
