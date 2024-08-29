@@ -8,8 +8,8 @@ Font.register({
 });
 
 Font.register({
-  family: 'Luxurious Script',
-  src: '/futura55regular-webfont.woff',
+  family: 'Futura',
+  src: '../futura55regular-webfont.woff',
 });
 
 // Create styles
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     color: '#FAFBF5',
-    fontFamily: 'Jost',
+    fontFamily: 'Futura',
   },
   logo: {
     width: 80,
@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 36,
-    fontFamily: 'Luxurious Script',
     marginBottom: 10,
   },
   attending: {
@@ -74,10 +73,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const PDFInvitation = ({ firstName, lastName, party, plusOne, partyDetails, qrCodePath }) => (
+const PdfInvitation = ({ firstName, lastName, party, plusOne, partyDetails, qrCodePath }) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <Image style={styles.logo} src="/path/to/logoalamode.png" />
+      <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
       <View style={styles.upperInfo}>
         <Text>SPRING/SUMMER 25</Text>
         <Text style={styles.city}>{party.toUpperCase()}</Text>
@@ -103,4 +102,4 @@ const PDFInvitation = ({ firstName, lastName, party, plusOne, partyDetails, qrCo
   </Document>
 );
 
-export default PDFInvitation;
+export default PdfInvitation;

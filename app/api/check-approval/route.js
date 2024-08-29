@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { renderToBuffer } from '@react-pdf/renderer';
-import PDFInvitation from '@/app/components/PdfInvitation';
+import PdfInvitation from '../../components/PdfInvitation';
 
 async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
   let transporter = nodemailer.createTransport({
@@ -271,7 +271,7 @@ export async function GET(request) {
             // );
             const pdfBuffer = await renderToBuffer(
 
-              <PDFInvitation
+              <PdfInvitation
                 firstName={firstName}
                 lastName={lastName}
                 party={party}
