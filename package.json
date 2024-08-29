@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "canvas": "^2.11.2",
+    "chrome-aws-lambda": "~6.0.0",
     "framer-motion": "^11.2.10",
     "google-spreadsheet": "^4.1.2",
     "googleapis": "^140.0.1",
@@ -17,9 +18,18 @@
     "next": "14.2.3",
     "nodemailer": "^6.9.14",
     "puppeteer": "^23.2.1",
+    "puppeteer-core": "~6.0.0",
     "qrcode": "^1.5.3",
     "react": "^18",
     "react-dom": "^18",
     "uuid": "^10.0.0"
+  },
+  "vercel": {
+    "functions": {
+      "app/api/check-approval/route.js": {
+        "memory": 3008,
+        "maxDuration": 60
+      }
+    }
   }
 }

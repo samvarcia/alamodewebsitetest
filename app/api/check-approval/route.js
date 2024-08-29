@@ -2,24 +2,26 @@ import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
-import html2pdf from 'html2pdf.js';
+import chromium from 'chrome-aws-lambda';
 
 async function htmlToPdf(html) {
-  const options = {
-    margin: 10,
-    filename: 'invitation.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
-
-  return new Promise((resolve, reject) => {
-    html2pdf().from(html).set(options).outputPdf().then((pdf) => {
-      resolve(Buffer.from(pdf));
-    }).catch((error) => {
-      reject(error);
+  let browser = null;
+  try {
+    browser = await chromium.puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
     });
-  });
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: 'networkidle0' });
+    const pdf = await page.pdf({ format: 'A4', printBackground: true });
+    return pdf;
+  } finally {
+    if (browser !== null) {
+      await browser.close();
+    }
+  }
 }
 
 async function sendEmail(to, subject, htmlContent) {
