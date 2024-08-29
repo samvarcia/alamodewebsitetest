@@ -1,14 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    reactStrictMode: true,
     experimental: {
-      serverComponentsExternalPackages: ['chrome-aws-lambda'],
+      serverComponentsExternalPackages: ['@react-pdf/renderer'],
     },
     webpack: (config, { isServer }) => {
       if (isServer) {
-        config.externals.push('chrome-aws-lambda');
+        config.externals.push('@react-pdf/renderer');
       }
       return config;
     },
   }
   
-  export default nextConfig;
+  module.exports = nextConfig
