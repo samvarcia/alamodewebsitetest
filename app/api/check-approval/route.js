@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { renderToString } from 'react-dom/server';
 import { Document, Page, Text, View, StyleSheet, pdf } from '@react-pdf/renderer';
-import React from 'react';
 
 
 const styles = StyleSheet.create({
