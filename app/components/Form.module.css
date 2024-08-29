@@ -152,6 +152,7 @@
 
 .partySelection h1 {
   font-size: 1.8rem;
+  font-weight: 500;
 }
 
 .partySelection p {
@@ -182,6 +183,7 @@
 .partyOption h3 {
   margin-top: 20px;
   font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .partyOption .selectedText {
@@ -261,6 +263,7 @@ align-self: flex-start;}
   position: relative;
   width: 100px; /* Adjust based on your SVG size */
   height: 100px; /* Adjust based on your SVG size */
+
 }
 
 .glass {

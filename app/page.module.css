@@ -11,7 +11,7 @@
 } */
 
 .check{
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   margin-right: 20px;
@@ -255,6 +255,7 @@ box-sizing: border-box;
   .check{
     margin-top: 10px;
     margin-right: 10px;
+    position: absolute;
   }
   .heroText p {
     font-size: 0.8rem;
