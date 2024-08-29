@@ -2,7 +2,6 @@
   "name": "websitealamode",
   "version": "0.1.0",
   "type": "module",
-
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,6 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
+    "@react-pdf/renderer": "^3.4.4",
     "canvas": "^2.11.2",
     "chrome-aws-lambda": "~6.0.0",
     "framer-motion": "^11.2.10",
@@ -19,6 +20,7 @@
     "html2pdf.js": "^0.10.2",
     "next": "14.2.3",
     "nodemailer": "^6.9.14",
+    "pdf-lib": "^1.17.1",
     "puppeteer": "^23.2.1",
     "puppeteer-core": "~6.0.0",
     "qrcode": "^1.5.3",
