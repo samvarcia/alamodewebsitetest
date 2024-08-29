@@ -1,79 +1,81 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
 
-// Register fonts
-Font.register({
-  family: 'Jost',
-  src: 'path/to/Jost-Regular.ttf',
-});
 
-Font.register({
-  family: 'Futura',
-  src: '../futura55regular-webfont.woff',
-});
+export default function PdfInvitation  ({ firstName, lastName, party, plusOne, partyDetails, qrCodePath }) {
+    Font.register({
+      family: 'Jost',
+      src: 'path/to/Jost-Regular.ttf',
+    })
+    
+    Font.register({
+      family: 'Futura',
+      src: '../futura55regular-webfont.woff',
+    })
+    // Register fonts
+    
+    // Create styles
+    const styles = StyleSheet.create({
+      page: {
+        flexDirection: 'column',
+        backgroundColor: '#BC0123',
+        padding: 20,
+        alignItems: 'center',
+        color: '#FAFBF5',
+        fontFamily: 'Futura',
+      },
+      logo: {
+        width: 80,
+        marginBottom: 20,
+      },
+      upperInfo: {
+        marginBottom: 30,
+        alignItems: 'center',
+      },
+      city: {
+        fontSize: 24,
+        fontWeight: 'bold',
+      },
+      would: {
+        fontSize: 12,
+        marginBottom: 10,
+      },
+      name: {
+        fontSize: 36,
+        marginBottom: 10,
+      },
+      attending: {
+        fontSize: 12,
+        marginBottom: 20,
+      },
+      qrCode: {
+        width: 200,
+        height: 200,
+        marginBottom: 20,
+      },
+      join: {
+        fontSize: 12,
+        marginBottom: 10,
+      },
+      venueInfo: {
+        alignItems: 'center',
+        marginBottom: 10,
+      },
+      on: {
+        fontSize: 12,
+        marginBottom: 10,
+      },
+      dateInfo: {
+        alignItems: 'center',
+        marginBottom: 20,
+      },
+      disclaimer: {
+        fontSize: 8,
+        marginTop: 20,
+      },
+    });
+    return (
 
-// Create styles
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'column',
-    backgroundColor: '#BC0123',
-    padding: 20,
-    alignItems: 'center',
-    color: '#FAFBF5',
-    fontFamily: 'Futura',
-  },
-  logo: {
-    width: 80,
-    marginBottom: 20,
-  },
-  upperInfo: {
-    marginBottom: 30,
-    alignItems: 'center',
-  },
-  city: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  would: {
-    fontSize: 12,
-    marginBottom: 10,
-  },
-  name: {
-    fontSize: 36,
-    marginBottom: 10,
-  },
-  attending: {
-    fontSize: 12,
-    marginBottom: 20,
-  },
-  qrCode: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
-  },
-  join: {
-    fontSize: 12,
-    marginBottom: 10,
-  },
-  venueInfo: {
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  on: {
-    fontSize: 12,
-    marginBottom: 10,
-  },
-  dateInfo: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  disclaimer: {
-    fontSize: 8,
-    marginTop: 20,
-  },
-});
-
-const PdfInvitation = ({ firstName, lastName, party, plusOne, partyDetails, qrCodePath }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
@@ -100,6 +102,6 @@ const PdfInvitation = ({ firstName, lastName, party, plusOne, partyDetails, qrCo
       <Text style={styles.disclaimer}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
     </Page>
   </Document>
-);
+    )
+}
 
-export default PdfInvitation;
