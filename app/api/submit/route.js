@@ -62,25 +62,52 @@ export async function POST(request) {
     console.log("Google Sheets API response:", response.data);
 
     const htmlTemplate = `
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en" style="margin: 0; padding: 0;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You're all set! - A La Mode Registration</title>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 30px; background-color: #BC0123;"></div>
-    <img style="width: 80px; margin-top: 20px;" src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/alamodered.png" alt="a la mode">
-    <h1 style="text-align: center; color: #000;">You're all set!</h1>
-    <p>Thank you for registering for À La Mode! Your registration is currently being processed.</p>
-    <p>If approved, you will receive a confirmation email shortly with all the details you need to join us.</p>
-    <p>Feel free to reach out if you have any questions in the meantime.</p>
-    <a href="#" style="display: block; width: 200px; margin: 20px auto; padding: 10px; background-color: #BC0123; color: #fff; text-align: center; text-decoration: none; border-radius: 5px;">View Event Website</a>
-    <div style="background-color: #BC0123; color: #fff; width: 100%; position: absolute; bottom: 0; left: 0; display: flex; align-items: center; justify-content: space-evenly; margin-top: 40px;">
-      <p>locationalamode.com</p>
-      <p>@location.alamode</p>
-    </div>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #ffffff;">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto; height: 100%;">
+        <tr>
+            <td style="background-color: #BC0123; height: 30px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="padding: 20px;">
+                <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/alamodered.png" alt="a la mode" style="width: 80px; margin-bottom: 20px; display: block;">
+                <h1 style="text-align: center; color: #000; font-size: 24px; margin-top: 0; margin-bottom: 20px;">You're all set!</h1>
+                <p style="margin-bottom: 10px;">Thank you for registering for À La Mode! Your registration is currently being processed.</p>
+                <p style="margin-bottom: 10px;">If approved, you will receive a confirmation email shortly with all the details you need to join us.</p>
+                <p style="margin-bottom: 20px;">Feel free to reach out if you have any questions in the meantime.</p>
+                <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
+                    <tr>
+                        <td style="background-color: #BC0123; border-radius: 5px; text-align: center; padding: 10px 20px;">
+                            <a href="#" style="color: #ffffff; text-decoration: none; display: inline-block; font-weight: bold;">View Event Website</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="height: 100%;"></td>
+        </tr>
+        <tr>
+            <td style="background-color: #BC0123; padding: 10px 0; text-align: center;">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td width="50%" style="text-align: right; padding-right: 10px;">
+                            <span style="color: #ffffff;">locationalamode.com</span>
+                        </td>
+                        <td width="50%" style="text-align: left; padding-left: 10px;">
+                            <span style="color: #ffffff;">@location.alamode</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
     `;
