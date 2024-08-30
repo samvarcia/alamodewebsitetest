@@ -81,13 +81,6 @@ export async function POST(request) {
                 <p style="margin-bottom: 10px;">Thank you for registering for À La Mode ${body.parties}! Your registration is currently being processed.</p>
                 <p style="margin-bottom: 10px;">If approved, you will receive a confirmation email shortly with all the details you need to join us.</p>
                 <p style="margin-bottom: 20px;">Feel free to reach out if you have any questions in the meantime.</p>
-                <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
-                    <tr>
-                        <td style="background-color: #BC0123; border-radius: 5px; text-align: center; padding: 10px 20px;">
-                            <a href="#" style="color: #ffffff; text-decoration: none; display: inline-block; font-weight: bold;">View Event Website</a>
-                        </td>
-                    </tr>
-                </table>
             </td>
         </tr>
         <tr>
