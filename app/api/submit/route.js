@@ -62,7 +62,7 @@ export async function POST(request) {
     console.log("Google Sheets API response:", response.data);
 
     const htmlTemplate = `
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" style="margin: 0; padding: 0;">
 <head>
     <meta charset="UTF-8">
@@ -98,10 +98,10 @@ export async function POST(request) {
                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                     <tr>
                         <td width="50%" style="text-align: right; padding-right: 10px;">
-                            <span style="color: #ffffff;">locationalamode.com</span>
+                            <span style="color: #ffffff; text-decoration: none;">locationalamode.com</span>
                         </td>
                         <td width="50%" style="text-align: left; padding-left: 10px;">
-                            <span style="color: #ffffff;">@location.alamode</span>
+                            <span style="color: #ffffff; text-decoration: none;">@location.alamode</span>
                         </td>
                     </tr>
                 </table>
