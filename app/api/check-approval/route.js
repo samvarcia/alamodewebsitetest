@@ -75,9 +75,6 @@ export async function GET(request) {
         minHeight: '100%',
         zIndex: 0,
       },
-      content: {
-        zIndex: 1
-      },
       logo: {
         width: 60,
         marginBottom: 20,
@@ -122,7 +119,14 @@ export async function GET(request) {
         display: "flex",
         flexDirection: "column",
         alignItems: 'center',
-      }
+      },
+      content: {
+        textAlign: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: 'center',
+        zIndex: 1,
+      },
     });
     
     // Create PDF Document component
