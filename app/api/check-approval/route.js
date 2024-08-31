@@ -66,8 +66,6 @@ export async function GET(request) {
         flexDirection: 'column',
         alignItems: 'center',
         padding: 40,
-        backgroundColor: 'radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14) 24.53%, #BC0123 83%), #000;'
-      
       },
       backgroundImage: {
         position: 'absolute',
