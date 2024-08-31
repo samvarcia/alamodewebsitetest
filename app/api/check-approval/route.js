@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
 
-async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
+async function sendEmail(to, subject,  qrCodeBuffer) {
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
     port: 465,
@@ -20,7 +20,6 @@ async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
     from: '"CHECK IN ALAMODE" <checkin@locationalamode.com>',
     to: to,
     subject: subject,
-    html: htmlContent,
     attachments: [
       {
         filename: 'invitation.pdf',
@@ -219,16 +218,12 @@ export async function GET(request) {
           ).toBuffer();
 
           // Generate HTML email content
-          const htmlContent = `
-            <p>Your invitation is attached as a PDF. Please find your QR code below:</p>
-            <img src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200">
-          `;
+          
 
           // Send approval email with PDF and QR code
           await sendEmail(
             email,
             `${party} Party Invitation`,
-            htmlContent,
             pdfBuffer,
             qrCodeBuffer
           );
