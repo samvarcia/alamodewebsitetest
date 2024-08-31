@@ -3,75 +3,9 @@ import { google } from 'googleapis';
 import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
-import { Document, Page, Text, View, Image, pdf, StyleSheet, Font } from '@react-pdf/renderer';
-import { renderToString } from 'react-dom/server';
+import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
 
 async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
-  Font.register({
-    family: 'Jost',
-    src: 'https://fonts.gstatic.com/s/jost/v14/92zPtBhPNqw79Ij1E865zBUv7myjJTVFNI4un_HKCEk.ttf',
-  });
-  
-  Font.register({
-    family: 'Luxurious Script',
-    src: 'https://fonts.gstatic.com/s/luxuriousscript/v5/ahcCv9e7yyd3gO6KHwRr6fhB4KKnbvYjV4w.ttf',
-  });
-  
-  // Create styles
-  const styles = StyleSheet.create({
-    page: {
-      flexDirection: 'column',
-      backgroundColor: '#BC0123',
-      alignItems: 'center',
-      padding: 20,
-    },
-    logo: {
-      width: 80,
-      marginBottom: 20,
-    },
-    text: {
-      fontFamily: 'Jost',
-      color: '#FAFBF5',
-      fontSize: 12,
-      textAlign: 'center',
-      marginBottom: 10,
-    },
-    name: {
-      fontFamily: 'Luxurious Script',
-      fontSize: 24,
-      color: '#FAFBF5',
-      marginBottom: 10,
-    },
-    qrCode: {
-      width: 200,
-      height: 200,
-      marginVertical: 20,
-    },
-  });
-  
-  // Create PDF Document component
-  const MyDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL }) => (
-    <Document>
-      <Page size="A4" style={styles.page}>
-        <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
-        <Text style={styles.text}>SPRING/SUMMER 25</Text>
-        <Text style={[styles.text, { fontSize: 18 }]}>{party.toUpperCase()}</Text>
-        <Text style={styles.text}>WOULD NOT BE THE SAME WITHOUT</Text>
-        <Text style={styles.name}>{firstName.toUpperCase()} {lastName.toUpperCase()}</Text>
-        {plusOne !== 'None' && (
-          <Text style={styles.text}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
-        )}
-        <Image style={styles.qrCode} src={qrCodeDataURL} />
-        <Text style={styles.text}>JOIN US AT</Text>
-        <Text style={styles.text}>{partyDetails.venue}</Text>
-        <Text style={styles.text}>{partyDetails.address}</Text>
-        <Text style={styles.text}>ON</Text>
-        <Text style={styles.text}>{partyDetails.date}</Text>
-        <Text style={styles.text}>{partyDetails.hours}</Text>
-        <Text style={[styles.text, { fontSize: 8, marginTop: 20 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
-      </Page>
-    </Document>
-  );
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
     port: 465,
@@ -116,6 +50,71 @@ export async function GET(request) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
+    Font.register({
+      family: 'Jost',
+      src: 'https://fonts.gstatic.com/s/jost/v14/92zPtBhPNqw79Ij1E865zBUv7myjJTVFNI4un_HKCEk.ttf',
+    });
+    
+    Font.register({
+      family: 'Luxurious Script',
+      src: 'https://fonts.gstatic.com/s/luxuriousscript/v5/ahcCv9e7yyd3gO6KHwRr6fhB4KKnbvYjV4w.ttf',
+    });
+    
+    // Create styles
+    const styles = StyleSheet.create({
+      page: {
+        flexDirection: 'column',
+        backgroundColor: '#BC0123',
+        alignItems: 'center',
+        padding: 20,
+      },
+      logo: {
+        width: 80,
+        marginBottom: 20,
+      },
+      text: {
+        fontFamily: 'Jost',
+        color: '#FAFBF5',
+        fontSize: 12,
+        textAlign: 'center',
+        marginBottom: 10,
+      },
+      name: {
+        fontFamily: 'Luxurious Script',
+        fontSize: 24,
+        color: '#FAFBF5',
+        marginBottom: 10,
+      },
+      qrCode: {
+        width: 200,
+        height: 200,
+        marginVertical: 20,
+      },
+    });
+    
+    // Create PDF Document component
+    const MyDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL }) => (
+      <Document>
+        <Page size="A4" style={styles.page}>
+          <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
+          <Text style={styles.text}>SPRING/SUMMER 25</Text>
+          <Text style={[styles.text, { fontSize: 18 }]}>{party.toUpperCase()}</Text>
+          <Text style={styles.text}>WOULD NOT BE THE SAME WITHOUT</Text>
+          <Text style={styles.name}>{firstName.toUpperCase()} {lastName.toUpperCase()}</Text>
+          {plusOne !== 'None' && (
+            <Text style={styles.text}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
+          )}
+          <Image style={styles.qrCode} src={qrCodeDataURL} />
+          <Text style={styles.text}>JOIN US AT</Text>
+          <Text style={styles.text}>{partyDetails.venue}</Text>
+          <Text style={styles.text}>{partyDetails.address}</Text>
+          <Text style={styles.text}>ON</Text>
+          <Text style={styles.text}>{partyDetails.date}</Text>
+          <Text style={styles.text}>{partyDetails.hours}</Text>
+          <Text style={[styles.text, { fontSize: 8, marginTop: 20 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
+        </Page>
+      </Document>
+    );
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: 'UNAPPROVED!A2:J',
@@ -161,21 +160,7 @@ export async function GET(request) {
           const attendeeId = uuidv4();
 
           // Generate QR code
-          const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
-          const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
-          const qrCodeDataURL = await QRCode.toDataURL(qrCodeLink);
-          const MyApp = () => (
-            <MyDocument
-              firstName={firstName}
-              lastName={lastName}
-              party={party}
-              plusOne={plusOne}
-              partyDetails={partyDetails}
-              qrCodeDataURL={qrCodeDataURL}
-            />
-          );
-
-          const pdfBuffer = await pdf(renderToString(<MyApp />)).toBuffer();
+        
 
           // Check if the email or attendeeId already exists in the approved sheet
           const approvedRowsResponse = await sheets.spreadsheets.values.get({
@@ -217,21 +202,36 @@ export async function GET(request) {
               }
             });
 
-            // Generate HTML email content
-            const htmlContent = `
+            const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
+          const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
+          const qrCodeDataURL = await QRCode.toDataURL(qrCodeLink);
+
+          // Generate PDF
+          const pdfBuffer = await pdf(
+            <MyDocument
+              firstName={firstName}
+              lastName={lastName}
+              party={party}
+              plusOne={plusOne}
+              partyDetails={partyDetails}
+              qrCodeDataURL={qrCodeDataURL}
+            />
+          ).toBuffer();
+
+          // Generate HTML email content
+          const htmlContent = `
             <p>Your invitation is attached as a PDF. Please find your QR code below:</p>
             <img src="cid:qrcode@alamode.com" alt="QR Code" width="200" height="200">
           `;
-          
 
-            // Send approval email with QR code
-            await sendEmail(
-              email,
-              `${party} Party Invitation`,
-              htmlContent,
-              pdfBuffer,
-              qrCodeBuffer
-            );
+          // Send approval email with PDF and QR code
+          await sendEmail(
+            email,
+            `${party} Party Invitation`,
+            htmlContent,
+            pdfBuffer,
+            qrCodeBuffer
+          );
 
             // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
             await sheets.spreadsheets.values.update({
