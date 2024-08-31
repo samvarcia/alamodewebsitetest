@@ -53,12 +53,12 @@ export async function GET(request) {
 
     Font.register({
       family: 'Futura',
-      src: '../../font/futuraregular.ttf',
+      src: '/font/futuraregular.ttf',
     });
     
     Font.register({
       family: 'Sloop Script',
-      src: '../../font/SloopScriptTwoBETAMedium.ttf',
+      src: '/font/SloopScriptTwoBETAMedium.ttf',
     });
     
     // Create styles
