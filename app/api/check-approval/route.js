@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
 
-async function sendEmail(to, subject,pdfBuffer,  qrCodeBuffer) {
+async function sendEmail(to, subject,pdfBuffer) {
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
     port: 465,
@@ -26,11 +26,11 @@ async function sendEmail(to, subject,pdfBuffer,  qrCodeBuffer) {
         content: pdfBuffer,
         contentType: 'application/pdf'
       },
-      {
-        filename: 'qrcode.png',
-        content: qrCodeBuffer,
-        cid: 'qrcode@alamode.com'
-      }
+      // {
+      //   filename: 'qrcode.png',
+      //   content: qrCodeBuffer,
+      //   cid: 'qrcode@alamode.com'
+      // }
     ]
   });
 
@@ -65,11 +65,13 @@ export async function GET(request) {
         flexDirection: 'column',
         alignItems: 'center',
         padding: 20,
+        backgroundColor: '#4B0019', // Dark red background color
       },
-      backgroundImage: {
+      gradientOverlay: {
         position: 'absolute',
         minWidth: '100%',
         minHeight: '100%',
+        opacity: 0.5, // Adjust this value to control the gradient intensity
       },
       logo: {
         width: 80,
@@ -106,7 +108,7 @@ export async function GET(request) {
       <Document>
         <Page size="A4" style={styles.page}>
           <Image
-            style={styles.backgroundImage}
+            style={styles.gradientOverlay}
             src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/gradient-background.png"
           />
           <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
@@ -237,7 +239,7 @@ export async function GET(request) {
             email,
             `${party} Party Invitation`,
             pdfBuffer,
-            qrCodeBuffer
+            // qrCodeBuffer
           );
 
             // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
