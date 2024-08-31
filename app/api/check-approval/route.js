@@ -93,7 +93,7 @@ export async function GET(request) {
         width: '80%',
         height: 1,
         backgroundColor: '#FFFFFF',
-        marginBottom: 20,
+        marginBottom: 0,
       },
       qrCode: {
         width: 150,
@@ -104,10 +104,12 @@ export async function GET(request) {
         fontFamily: 'Futura',
         color: '#FFFFFF',
         fontSize: 16,
-        textAlign: 'center',
         marginBottom: 0, // Remove bottom margin
         lineHeight: 1.2, // Adjust line height to bring lines closer
       },
+      centerText: {
+        textAlign: 'center',
+      }
     });
     
     // Create PDF Document component
@@ -119,8 +121,10 @@ export async function GET(request) {
             src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/gradient-background.png"
           />
           <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
-          <Text style={[styles.text, { fontSize: 18 }]}>SPRING/SUMMER 25</Text>
-          <Text style={[styles.text, { fontSize: 24, marginBottom: 20 }]}>{party.toUpperCase()}</Text>
+          <View style={styles.centerText}>
+            <Text style={[styles.text, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
+            <Text style={[styles.text, { fontSize: 26, marginBottom: 40 }]}>{party.toUpperCase()}</Text>
+          </View>
           <Text style={styles.text}>WOULD NOT BE THE SAME WITHOUT</Text>
           <Text style={styles.name}>{firstName} {lastName}</Text>
           <View style={styles.nameLine} />
@@ -129,14 +133,16 @@ export async function GET(request) {
           )}
           <Image style={styles.qrCode} src={qrCodeDataURL} />
           <Text style={styles.text}>JOIN US AT</Text>
-          <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.venue}</Text>
-          <Text style={styles.text}>{partyDetails.address}</Text>
+          <View style={styles.centerText}>
+            <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.venue}</Text>
+            <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.address}</Text>
+          </View>
           <Text style={styles.text}>ON</Text>
-          <View>
+          <View style={styles.centerText}>
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
           </View>
-          <Text style={[styles.text, { fontSize: 8, marginTop: 100 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
+          <Text style={[styles.text, { fontSize: 8, marginTop: 200 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
         </Page>
     </Document>
     );
