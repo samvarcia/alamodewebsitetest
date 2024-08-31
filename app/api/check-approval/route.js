@@ -66,12 +66,24 @@ export async function GET(request) {
         flexDirection: 'column',
         alignItems: 'center',
         padding: 40,
+        position: 'relative',
       },
       backgroundImage: {
         position: 'absolute',
-        minWidth: '100%',
-        minHeight: '100%',
-        zIndex: 0,
+        width: '100%',
+        height: '100%',
+        left: 0,
+        top: 0,
+      },
+      content: {
+        position: 'absolute',
+        top: 40,
+        left: 40,
+        right: 40,
+        bottom: 40,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: 'center',
       },
       logo: {
         width: 60,
@@ -118,13 +130,7 @@ export async function GET(request) {
         flexDirection: "column",
         alignItems: 'center',
       },
-      content: {
-        textAlign: 'center',
-        display: "flex",
-        flexDirection: "column",
-        alignItems: 'center',
-        zIndex: 1,
-      },
+   
     });
     
     // Create PDF Document component
@@ -136,7 +142,7 @@ export async function GET(request) {
             src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/gradient-background.png"
           />
           <View style={styles.content}>
-          <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
+            <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
             <View style={[styles.centerText, { marginTop: 15 }]}>
               <Text style={[styles.dateTimeText, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
               <Text style={[styles.dateTimeText, { fontSize: 26, marginBottom: 30 }]}>{party.toUpperCase()}</Text>
