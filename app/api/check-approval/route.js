@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
+import futuraFile from '../../font/'
 
 async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
   let transporter = nodemailer.createTransport({
@@ -51,13 +52,13 @@ export async function GET(request) {
     const sheets = google.sheets({ version: 'v4', auth });
 
     Font.register({
-      family: 'Jost',
-      src: 'https://fonts.gstatic.com/s/jost/v14/92zPtBhPNqw79Ij1E865zBUv7myjJTVFNI4un_HKCEk.ttf',
+      family: 'Futura',
+      src: '../../font/futuraregular.ttf',
     });
     
     Font.register({
-      family: 'Luxurious Script',
-      src: 'https://fonts.gstatic.com/s/luxuriousscript/v5/ahcCv9e7yyd3gO6KHwRr6fhB4KKnbvYjV4w.ttf',
+      family: 'Sloop Script',
+      src: '../../font/SloopScriptTwoBETAMedium.ttf',
     });
     
     // Create styles
