@@ -70,10 +70,11 @@ export async function GET(request) {
       },
       backgroundImage: {
         position: 'absolute',
-        width: '100%',
-        height: '100%',
+        width: '100vw',
+        height: '100vh',
         left: 0,
         top: 0,
+        zIndex: 0,
       },
       content: {
         position: 'absolute',
@@ -84,6 +85,8 @@ export async function GET(request) {
         display: "flex",
         flexDirection: "column",
         alignItems: 'center',
+        zIndex: 1,
+
       },
       logo: {
         width: 60,
