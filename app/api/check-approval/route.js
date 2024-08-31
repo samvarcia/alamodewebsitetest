@@ -74,7 +74,7 @@ export async function GET(request) {
         height: '100vh',
         left: 0,
         top: 0,
-        zIndex: 0,
+        zIndex: 1,
       },
       content: {
         position: 'absolute',
@@ -85,8 +85,7 @@ export async function GET(request) {
         display: "flex",
         flexDirection: "column",
         alignItems: 'center',
-        zIndex: 1,
-
+        zIndex: 2,
       },
       logo: {
         width: 60,
