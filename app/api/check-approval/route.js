@@ -4,7 +4,6 @@ import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
-import futuraFile from '../../font/'
 
 async function sendEmail(to, subject, htmlContent, qrCodeBuffer) {
   let transporter = nodemailer.createTransport({
