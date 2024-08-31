@@ -65,12 +65,12 @@ export async function GET(request) {
         flexDirection: 'column',
         alignItems: 'center',
         padding: 40,
-        backgroundColor: '#4B0019', // Dark red background color
       },
-      gradientOverlay: {
+      backgroundImage: {
+        position: 'absolute',
         minWidth: '100%',
         minHeight: '100%',
-        
+        zIndex: -1,
       },
       logo: {
         width: 60,
@@ -83,17 +83,20 @@ export async function GET(request) {
         textAlign: 'center',
         marginBottom: 10,
       },
+      nameContainer: {
+        alignItems: 'center',
+        marginTop: 30,
+      },
       name: {
         fontFamily: 'Sloop Script',
         fontSize: 76,
         color: '#FFFFFF',
-        marginTop: 30
       },
       nameLine: {
-        width: '80%',
+        width: '100%',
         height: 1,
         backgroundColor: '#FFFFFF',
-        marginBottom: 20,
+        marginTop: -10, // Adjust this value to position the line closer to the name
       },
       qrCode: {
         width: 150,
@@ -105,8 +108,8 @@ export async function GET(request) {
         fontFamily: 'Futura',
         color: '#FFFFFF',
         fontSize: 16,
-        marginBottom: 0, // Remove bottom margin
-        lineHeight: 1.2, // Adjust line height to bring lines closer
+        marginBottom: 0,
+        lineHeight: 1.2,
       },
       centerText: {
         textAlign: 'center',
@@ -121,19 +124,21 @@ export async function GET(request) {
       <Document>
         <Page size="A4" style={styles.page}>
           <Image
-            style={styles.gradientOverlay}
+            style={styles.backgroundImage}
             src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/gradient-background.png"
           />
           <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
-          <View style={[styles.centerText , {  marginTop: 15 }]}>
+          <View style={[styles.centerText, { marginTop: 15 }]}>
             <Text style={[styles.dateTimeText, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
             <Text style={[styles.dateTimeText, { fontSize: 26, marginBottom: 30 }]}>{party.toUpperCase()}</Text>
           </View>
-          <Text style={styles.text}>WOULD NOT BE THE SAME WITHOUT</Text>
-          <Text style={styles.name}>{firstName} {lastName}</Text>
-          <View style={styles.nameLine} />
+          <Text style={[styles.text, { fontSize: 8 }]}>WOULD NOT BE THE SAME WITHOUT</Text>
+          <View style={styles.nameContainer}>
+            <Text style={styles.name}>{firstName} {lastName}</Text>
+            <View style={styles.nameLine} />
+          </View>
           {plusOne !== 'None' && (
-            <Text style={styles.text}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
+            <Text style={[styles.text, { marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
           )}
           <Image style={styles.qrCode} src={qrCodeDataURL} />
           <Text style={styles.text}>JOIN US AT</Text>
@@ -141,14 +146,14 @@ export async function GET(request) {
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.venue}</Text>
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.address}</Text>
           </View>
-          <Text style={[styles.text, {  marginTop: 20 }]}>ON</Text>
+          <Text style={[styles.text, { marginTop: 20 }]}>ON</Text>
           <View style={styles.centerText}>
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
           </View>
           <Text style={[styles.text, { fontSize: 8, marginTop: 80 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
         </Page>
-    </Document>
+      </Document>
     );
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
