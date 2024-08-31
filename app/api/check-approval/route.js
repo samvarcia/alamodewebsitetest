@@ -3,9 +3,9 @@ import { google } from 'googleapis';
 import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
-import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
+import { pdf, Document, Page, Text, View, Image, StyleSheet, Font, Svg, Defs, RadialGradient, Stop, Rect } from '@react-pdf/renderer';
 
-async function sendEmail(to, subject,pdfBuffer,  qrCodeBuffer) {
+async function sendEmail(to, subject, pdfBuffer, qrCodeBuffer) {
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
     port: 465,
@@ -37,6 +37,19 @@ async function sendEmail(to, subject,pdfBuffer,  qrCodeBuffer) {
   console.log("Message sent: %s", info.messageId);
 }
 
+// Create a background component with the gradient
+const Background = () => (
+  <Svg width="100%" height="100%" style={{ position: 'absolute' }}>
+    <Defs>
+      <RadialGradient id="grad" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
+        <Stop offset="25%" stopColor="rgba(0, 0, 0, 0.14)" />
+        <Stop offset="73.5%" stopColor="#BC0123" />
+      </RadialGradient>
+    </Defs>
+    <Rect width="100%" height="100%" fill="url(#grad)" />
+  </Svg>
+);
+
 export async function GET(request) {
   try {
     console.log(request)
@@ -63,9 +76,12 @@ export async function GET(request) {
     const styles = StyleSheet.create({
       page: {
         flexDirection: 'column',
-        backgroundColor: '#BC0123',
         alignItems: 'center',
         padding: 20,
+        position: 'relative', // This is important for absolute positioning of the background
+      },
+      content: {
+        zIndex: 1, // Ensure content is above the background
       },
       logo: {
         width: 80,
@@ -95,25 +111,29 @@ export async function GET(request) {
     const MyDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL }) => (
       <Document>
         <Page size="A4" style={styles.page}>
-          <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
-          <Text style={styles.text}>SPRING/SUMMER 25</Text>
-          <Text style={[styles.text, { fontSize: 18 }]}>{party.toUpperCase()}</Text>
-          <Text style={styles.text}>WOULD NOT BE THE SAME WITHOUT</Text>
-          <Text style={styles.name}>{firstName.toUpperCase()} {lastName.toUpperCase()}</Text>
-          {plusOne !== 'None' && (
-            <Text style={styles.text}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
-          )}
-          <Image style={styles.qrCode} src={qrCodeDataURL} />
-          <Text style={styles.text}>JOIN US AT</Text>
-          <Text style={styles.text}>{partyDetails.venue}</Text>
-          <Text style={styles.text}>{partyDetails.address}</Text>
-          <Text style={styles.text}>ON</Text>
-          <Text style={styles.text}>{partyDetails.date}</Text>
-          <Text style={styles.text}>{partyDetails.hours}</Text>
-          <Text style={[styles.text, { fontSize: 8, marginTop: 20 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
+          <Background />
+          <View style={styles.content}>
+            <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
+            <Text style={styles.text}>SPRING/SUMMER 25</Text>
+            <Text style={[styles.text, { fontSize: 18 }]}>{party.toUpperCase()}</Text>
+            <Text style={styles.text}>WOULD NOT BE THE SAME WITHOUT</Text>
+            <Text style={styles.name}>{firstName.toUpperCase()} {lastName.toUpperCase()}</Text>
+            {plusOne !== 'None' && (
+              <Text style={styles.text}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
+            )}
+            <Image style={styles.qrCode} src={qrCodeDataURL} />
+            <Text style={styles.text}>JOIN US AT</Text>
+            <Text style={styles.text}>{partyDetails.venue}</Text>
+            <Text style={styles.text}>{partyDetails.address}</Text>
+            <Text style={styles.text}>ON</Text>
+            <Text style={styles.text}>{partyDetails.date}</Text>
+            <Text style={styles.text}>{partyDetails.hours}</Text>
+            <Text style={[styles.text, { fontSize: 8, marginTop: 20 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
+          </View>
         </Page>
       </Document>
     );
+
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: 'UNAPPROVED!A2:J',
@@ -140,6 +160,7 @@ export async function GET(request) {
         hours: '12:00AM - 05:00AM'
       }
     };
+
     if (rows.length) {
       for (const row of rows) {
         if (row[8] === 'Y') { // Assuming "Approved" is the 9th column (index 8)
@@ -157,9 +178,6 @@ export async function GET(request) {
           };
           // Generate unique identifier
           const attendeeId = uuidv4();
-
-          // Generate QR code
-        
 
           // Check if the email or attendeeId already exists in the approved sheet
           const approvedRowsResponse = await sheets.spreadsheets.values.get({
@@ -202,28 +220,27 @@ export async function GET(request) {
             });
 
             const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
-          const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
-          const qrCodeDataURL = await QRCode.toDataURL(qrCodeLink);
+            const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
+            const qrCodeDataURL = await QRCode.toDataURL(qrCodeLink);
 
-          // Generate PDF
-          const pdfBuffer = await pdf(
-            <MyDocument
-              firstName={firstName}
-              lastName={lastName}
-              party={party}
-              plusOne={plusOne}
-              partyDetails={partyDetails}
-              qrCodeDataURL={qrCodeDataURL}
-            />
-          ).toBuffer();
+            // Generate PDF
+            const pdfBuffer = await pdf(
+              <MyDocument
+                firstName={firstName}
+                lastName={lastName}
+                party={party}
+                plusOne={plusOne}
+                partyDetails={partyDetails}
+                qrCodeDataURL={qrCodeDataURL}
+              />
+            ).toBuffer();
 
-        
-          await sendEmail(
-            email,
-            `${party} Party Invitation`,
-            pdfBuffer,
-            qrCodeBuffer
-          );
+            await sendEmail(
+              email,
+              `${party} Party Invitation`,
+              pdfBuffer,
+              qrCodeBuffer
+            );
 
             // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
             await sheets.spreadsheets.values.update({
