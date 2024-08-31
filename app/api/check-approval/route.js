@@ -87,13 +87,12 @@ export async function GET(request) {
         fontFamily: 'Sloop Script',
         fontSize: 56,
         color: '#FFFFFF',
-        marginBottom: 10,
       },
       nameLine: {
         width: '80%',
         height: 1,
         backgroundColor: '#FFFFFF',
-        marginBottom: 0,
+        marginBottom: 20,
       },
       qrCode: {
         width: 150,
@@ -109,6 +108,9 @@ export async function GET(request) {
       },
       centerText: {
         textAlign: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: 'center'
       }
     });
     
@@ -122,8 +124,8 @@ export async function GET(request) {
           />
           <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
           <View style={styles.centerText}>
-            <Text style={[styles.text, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
-            <Text style={[styles.text, { fontSize: 26, marginBottom: 40 }]}>{party.toUpperCase()}</Text>
+            <Text style={[styles.dateTimeText, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
+            <Text style={[styles.dateTimeText, { fontSize: 26, marginBottom: 40 }]}>{party.toUpperCase()}</Text>
           </View>
           <Text style={styles.text}>WOULD NOT BE THE SAME WITHOUT</Text>
           <Text style={styles.name}>{firstName} {lastName}</Text>
@@ -134,15 +136,15 @@ export async function GET(request) {
           <Image style={styles.qrCode} src={qrCodeDataURL} />
           <Text style={styles.text}>JOIN US AT</Text>
           <View style={styles.centerText}>
-            <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.venue}</Text>
-            <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.address}</Text>
+            <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.venue}</Text>
+            <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.address}</Text>
           </View>
           <Text style={styles.text}>ON</Text>
           <View style={styles.centerText}>
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
           </View>
-          <Text style={[styles.text, { fontSize: 8, marginTop: 200 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
+          <Text style={[styles.text, { fontSize: 8, marginTop: 100 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
         </Page>
     </Document>
     );
