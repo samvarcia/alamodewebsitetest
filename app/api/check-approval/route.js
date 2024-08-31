@@ -72,14 +72,14 @@ export async function GET(request) {
         marginBottom: 20,
       },
       text: {
-        fontFamily: 'Jost',
+        fontFamily: 'Futura',
         color: '#FAFBF5',
         fontSize: 12,
         textAlign: 'center',
         marginBottom: 10,
       },
       name: {
-        fontFamily: 'Luxurious Script',
+        fontFamily: 'Sloop Script',
         fontSize: 24,
         color: '#FAFBF5',
         marginBottom: 10,
