@@ -68,18 +68,18 @@ export async function GET(request) {
         backgroundColor: '#4B0019', // Dark red background color
       },
       gradientOverlay: {
-        position: 'absolute',
         minWidth: '100%',
         minHeight: '100%',
+        
       },
       logo: {
-        width: 50,
+        width: 60,
         marginBottom: 20,
       },
       text: {
         fontFamily: 'Futura',
         color: '#FFFFFF',
-        fontSize: 12,
+        fontSize: 10,
         textAlign: 'center',
         marginBottom: 10,
       },
