@@ -63,9 +63,13 @@ export async function GET(request) {
     const styles = StyleSheet.create({
       page: {
         flexDirection: 'column',
-        backgroundColor: '#BC0123',
         alignItems: 'center',
         padding: 20,
+      },
+      backgroundImage: {
+        position: 'absolute',
+        minWidth: '100%',
+        minHeight: '100%',
       },
       logo: {
         width: 80,
@@ -73,20 +77,26 @@ export async function GET(request) {
       },
       text: {
         fontFamily: 'Futura',
-        color: '#FAFBF5',
+        color: '#FFFFFF',
         fontSize: 12,
         textAlign: 'center',
         marginBottom: 10,
       },
       name: {
         fontFamily: 'Sloop Script',
-        fontSize: 24,
-        color: '#FAFBF5',
+        fontSize: 36,
+        color: '#FFFFFF',
         marginBottom: 10,
       },
+      nameLine: {
+        width: '80%',
+        height: 1,
+        backgroundColor: '#FFFFFF',
+        marginBottom: 20,
+      },
       qrCode: {
-        width: 200,
-        height: 200,
+        width: 150,
+        height: 150,
         marginVertical: 20,
       },
     });
@@ -95,21 +105,26 @@ export async function GET(request) {
     const MyDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL }) => (
       <Document>
         <Page size="A4" style={styles.page}>
+          <Image
+            style={styles.backgroundImage}
+            src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/gradient-background.png"
+          />
           <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
-          <Text style={styles.text}>SPRING/SUMMER 25</Text>
-          <Text style={[styles.text, { fontSize: 18 }]}>{party.toUpperCase()}</Text>
+          <Text style={[styles.text, { fontSize: 18 }]}>SPRING/SUMMER 25</Text>
+          <Text style={[styles.text, { fontSize: 24, marginBottom: 20 }]}>{party.toUpperCase()}</Text>
           <Text style={styles.text}>WOULD NOT BE THE SAME WITHOUT</Text>
           <Text style={styles.name}>{firstName} {lastName}</Text>
+          <View style={styles.nameLine} />
           {plusOne !== 'None' && (
             <Text style={styles.text}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
           )}
           <Image style={styles.qrCode} src={qrCodeDataURL} />
           <Text style={styles.text}>JOIN US AT</Text>
-          <Text style={styles.text}>{partyDetails.venue}</Text>
+          <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.venue}</Text>
           <Text style={styles.text}>{partyDetails.address}</Text>
           <Text style={styles.text}>ON</Text>
-          <Text style={styles.text}>{partyDetails.date}</Text>
-          <Text style={styles.text}>{partyDetails.hours}</Text>
+          <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.date}</Text>
+          <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.hours}</Text>
           <Text style={[styles.text, { fontSize: 8, marginTop: 20 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
         </Page>
       </Document>
@@ -121,7 +136,7 @@ export async function GET(request) {
 
     const rows = response.data.values;
     const partyInfo = {
-      'New York': {
+      'New York City': {
         venue: 'SELINA CHELSEA',
         address: '518 W 27th St, New York NY 10001',
         date: 'TUESDAY, 10TH SEPTEMBER 2024',
