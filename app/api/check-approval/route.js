@@ -64,17 +64,16 @@ export async function GET(request) {
       page: {
         flexDirection: 'column',
         alignItems: 'center',
-        padding: 20,
+        padding: 40,
         backgroundColor: '#4B0019', // Dark red background color
       },
       gradientOverlay: {
         position: 'absolute',
         minWidth: '100%',
         minHeight: '100%',
-        opacity: 0.5, // Adjust this value to control the gradient intensity
       },
       logo: {
-        width: 80,
+        width: 50,
         marginBottom: 20,
       },
       text: {
@@ -86,7 +85,7 @@ export async function GET(request) {
       },
       name: {
         fontFamily: 'Sloop Script',
-        fontSize: 36,
+        fontSize: 56,
         color: '#FFFFFF',
         marginBottom: 10,
       },
@@ -100,6 +99,14 @@ export async function GET(request) {
         width: 150,
         height: 150,
         marginVertical: 20,
+      },
+      dateTimeText: {
+        fontFamily: 'Futura',
+        color: '#FFFFFF',
+        fontSize: 16,
+        textAlign: 'center',
+        marginBottom: 0, // Remove bottom margin
+        lineHeight: 1.2, // Adjust line height to bring lines closer
       },
     });
     
@@ -125,11 +132,13 @@ export async function GET(request) {
           <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.venue}</Text>
           <Text style={styles.text}>{partyDetails.address}</Text>
           <Text style={styles.text}>ON</Text>
-          <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.date}</Text>
-          <Text style={[styles.text, { fontSize: 16 }]}>{partyDetails.hours}</Text>
-          <Text style={[styles.text, { fontSize: 8, marginTop: 20 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
+          <View>
+            <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
+            <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
+          </View>
+          <Text style={[styles.text, { fontSize: 8, marginTop: 100 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
         </Page>
-      </Document>
+    </Document>
     );
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
