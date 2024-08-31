@@ -87,6 +87,7 @@ export async function GET(request) {
         fontFamily: 'Sloop Script',
         fontSize: 56,
         color: '#FFFFFF',
+        marginTop: 30
       },
       nameLine: {
         width: '80%',
@@ -98,6 +99,7 @@ export async function GET(request) {
         width: 150,
         height: 150,
         marginVertical: 20,
+        marginBottom: 30,
       },
       dateTimeText: {
         fontFamily: 'Futura',
@@ -110,7 +112,7 @@ export async function GET(request) {
         textAlign: 'center',
         display: "flex",
         flexDirection: "column",
-        alignItems: 'center'
+        alignItems: 'center',
       }
     });
     
@@ -123,7 +125,7 @@ export async function GET(request) {
             src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/gradient-background.png"
           />
           <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
-          <View style={styles.centerText}>
+          <View style={[styles.centerText , {  marginTop: 30 }]}>
             <Text style={[styles.dateTimeText, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
             <Text style={[styles.dateTimeText, { fontSize: 26, marginBottom: 40 }]}>{party.toUpperCase()}</Text>
           </View>
@@ -139,12 +141,12 @@ export async function GET(request) {
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.venue}</Text>
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.address}</Text>
           </View>
-          <Text style={styles.text}>ON</Text>
+          <Text style={[styles.text, {  marginTop: 20 }]}>ON</Text>
           <View style={styles.centerText}>
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
             <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
           </View>
-          <Text style={[styles.text, { fontSize: 8, marginTop: 100 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
+          <Text style={[styles.text, { fontSize: 8, marginTop: 120 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
         </Page>
     </Document>
     );
