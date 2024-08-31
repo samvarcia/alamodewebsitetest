@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
+import { content } from 'googleapis/build/src/apis/content';
 
 async function sendEmail(to, subject,pdfBuffer) {
   let transporter = nodemailer.createTransport({
@@ -66,12 +67,16 @@ export async function GET(request) {
         alignItems: 'center',
         padding: 40,
         backgroundColor: 'radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14) 24.53%, #BC0123 83%), #000;'
+      
       },
       backgroundImage: {
         position: 'absolute',
         minWidth: '100%',
         minHeight: '100%',
-        zIndex: -1,
+        zIndex: 0,
+      },
+      content: {
+        zIndex: 1
       },
       logo: {
         width: 60,
@@ -128,31 +133,33 @@ export async function GET(request) {
             style={styles.backgroundImage}
             src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/gradient-background.png"
           />
+          <View style={styles.content}>
           <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
-          <View style={[styles.centerText, { marginTop: 15 }]}>
-            <Text style={[styles.dateTimeText, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
-            <Text style={[styles.dateTimeText, { fontSize: 26, marginBottom: 30 }]}>{party.toUpperCase()}</Text>
+            <View style={[styles.centerText, { marginTop: 15 }]}>
+              <Text style={[styles.dateTimeText, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
+              <Text style={[styles.dateTimeText, { fontSize: 26, marginBottom: 30 }]}>{party.toUpperCase()}</Text>
+            </View>
+            <Text style={[styles.text, { fontSize: 8 }]}>WOULD NOT BE THE SAME WITHOUT</Text>
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>{firstName} {lastName}</Text>
+              <View style={styles.nameLine} />
+            </View>
+            {plusOne !== 'None' && (
+              <Text style={[styles.text, { marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
+            )}
+            <Image style={styles.qrCode} src={qrCodeDataURL} />
+            <Text style={styles.text}>JOIN US AT</Text>
+            <View style={styles.centerText}>
+              <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.venue}</Text>
+              <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.address}</Text>
+            </View>
+            <Text style={[styles.text, { marginTop: 20 }]}>ON</Text>
+            <View style={styles.centerText}>
+              <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
+              <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
+            </View>
+            <Text style={[styles.text, { fontSize: 8, marginTop: 80 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
           </View>
-          <Text style={[styles.text, { fontSize: 8 }]}>WOULD NOT BE THE SAME WITHOUT</Text>
-          <View style={styles.nameContainer}>
-            <Text style={styles.name}>{firstName} {lastName}</Text>
-            <View style={styles.nameLine} />
-          </View>
-          {plusOne !== 'None' && (
-            <Text style={[styles.text, { marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
-          )}
-          <Image style={styles.qrCode} src={qrCodeDataURL} />
-          <Text style={styles.text}>JOIN US AT</Text>
-          <View style={styles.centerText}>
-            <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.venue}</Text>
-            <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.address}</Text>
-          </View>
-          <Text style={[styles.text, { marginTop: 20 }]}>ON</Text>
-          <View style={styles.centerText}>
-            <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
-            <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
-          </View>
-          <Text style={[styles.text, { fontSize: 8, marginTop: 80 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
         </Page>
       </Document>
     );
