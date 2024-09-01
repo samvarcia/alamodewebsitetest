@@ -285,7 +285,7 @@ export async function GET(request) {
                     <td style="padding: 20px;">
                         <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/alamodered.png" alt="a la mode" style="width: 80px; margin-bottom: 20px; display: block;">
                         <h1 style="text-align: center; color: #000; font-size: 24px; margin-top: 0; margin-bottom: 20px;">You're all set!</h1>
-                        <p style="margin-bottom: 10px;">Thank you for registering for À La Mode ${body.parties}! Your registration is currently being processed.</p>
+                        <p style="margin-bottom: 10px;">Thank you for registering for À La Mode ${party}! Your registration is currently being processed.</p>
                         <p style="margin-bottom: 10px;">If approved, you will receive a confirmation email shortly with all the details you need to join us.</p>
                         <p style="margin-bottom: 20px;">Feel free to reach out if you have any questions in the meantime.</p>
                     </td>
