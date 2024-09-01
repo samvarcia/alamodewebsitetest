@@ -100,6 +100,7 @@ export async function GET(request) {
         fontFamily: 'Sloop Script',
         fontSize: 76,
         color: '#FFFFFF',
+        borderBottom: '1px solid white'
       },
       nameLine: {
         width: '100%',
@@ -108,10 +109,11 @@ export async function GET(request) {
         marginTop: -10, // Adjust this value to position the line closer to the name
       },
       qrCode: {
-        width: 150,
-        height: 150,
+        width: 170,
+        height: 170,
         marginVertical: 20,
         marginBottom: 30,
+        marginTop: 30,
       },
       dateTimeText: {
         fontFamily: 'Futura',
@@ -143,11 +145,11 @@ export async function GET(request) {
               <Text style={[styles.dateTimeText, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
               <Text style={[styles.dateTimeText, { fontSize: 26, marginBottom: 30 }]}>{party.toUpperCase()}</Text>
             </View>
-            <Text style={[styles.text, { fontSize: 8 }]}>WOULD NOT BE THE SAME WITHOUT</Text>
+            <Text style={[styles.text, { fontSize: 10 }]}>WOULD NOT BE THE SAME WITHOUT</Text>
             <View style={styles.nameContainer}>
               <Text style={styles.name}>{firstName} {lastName}</Text>
             </View>
-              <View style={styles.nameLine} />
+            <View style={styles.nameLine} />
             {plusOne !== 'None' && (
               <Text style={[styles.text, {fontSize: 16, marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
             )}
@@ -162,7 +164,7 @@ export async function GET(request) {
               <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
               <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
             </View>
-            <Text style={[styles.text, { fontSize: 8, marginTop: 100 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
+            <Text style={[styles.text, { fontSize: 8, marginTop: 130 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
           </View>
         </Page>
       </Document>
