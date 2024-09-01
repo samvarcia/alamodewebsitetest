@@ -65,7 +65,6 @@ export async function GET(request) {
       page: {
         flexDirection: 'column',
         alignItems: 'center',
-        padding: 40,
         position: 'relative',
       },
       backgroundImage: {
