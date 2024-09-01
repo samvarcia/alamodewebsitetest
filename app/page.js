@@ -18,8 +18,8 @@ export default function Home() {
           />
           <Link href={"/checkin"}>
             <Image
-              width={35}
-              height={55}
+              width={45}
+              height={65}
               src="/newcup.svg"
               className={styles.check}
             />
