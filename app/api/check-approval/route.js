@@ -101,13 +101,12 @@ export async function GET(request) {
         fontSize: 76,
         color: '#FFFFFF',
         // borderBottom: '1px solid white',
-        marginBottom: 10
       },
       nameLine: {
-        width: '100%',
+        width: '80%', // Set a specific width for the line
         height: 1,
         backgroundColor: '#FFFFFF',
-        marginTop: -10, // Adjust this value to position the line closer to the name
+        marginTop: 5,
       },
       qrCode: {
         width: 170,
@@ -149,8 +148,8 @@ export async function GET(request) {
             <Text style={[styles.text, { fontSize: 10 }]}>WOULD NOT BE THE SAME WITHOUT</Text>
             <View style={styles.nameContainer}>
               <Text style={styles.name}>{firstName} {lastName}</Text>
+              <View style={styles.nameLine}></View>
             </View>
-            <View style={styles.nameLine}></View>
             {plusOne !== 'None' && (
               <Text style={[styles.text, {fontSize: 16, marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
             )}
