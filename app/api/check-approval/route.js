@@ -82,6 +82,7 @@ export async function GET(request) {
       },
       logo: {
         width: 60,
+        marginTop: 30,
         marginBottom: 20,
       },
       text: {
