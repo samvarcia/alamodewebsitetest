@@ -95,16 +95,13 @@ export async function GET(request) {
       nameContainer: {
         alignItems: 'center',
         marginTop: 20,
-        marginBottom: 10, // Add some bottom margin
-
       },
       name: {
         fontFamily: 'Sloop Script',
         fontSize: 76,
         color: '#FFFFFF',
         borderBottom: '1px solid white',
-        paddingBottom: 10, // Add some padding to give space between text and line
-
+        paddingBottom: 10
       },
       nameLine: {
         width: '100%',
@@ -155,7 +152,7 @@ export async function GET(request) {
             </View>
             <View style={styles.nameLine} />
             {plusOne !== 'None' && (
-              <Text style={[styles.text, {fontSize: 16, marginTop: 20 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
+              <Text style={[styles.text, {fontSize: 16, marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
             )}
             <Image style={styles.qrCode} src={qrCodeDataURL} />
             <Text style={styles.text}>JOIN US AT</Text>
