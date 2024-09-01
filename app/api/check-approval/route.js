@@ -77,15 +77,9 @@ export async function GET(request) {
         width: '100%',
       },
       content: {
-        position: 'relative',
-        top: 40,
-        left: 40,
-        right: 40,
-        bottom: 40,
         display: "flex",
         flexDirection: "column",
         alignItems: 'center',
-        zIndex: 1,
       },
       logo: {
         width: 60,
