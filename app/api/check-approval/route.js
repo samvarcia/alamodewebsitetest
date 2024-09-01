@@ -70,10 +70,11 @@ export async function GET(request) {
       },
       backgroundImage: {
         position: 'absolute',
-        width: '100%',
+        minWidth: '100%',
+        minHeight: '100%',
+        display: 'block',
         height: '100%',
-        left: 0,
-        top: 0,
+        width: '100%',
       },
       content: {
         position: 'relative',
