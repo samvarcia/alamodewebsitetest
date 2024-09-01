@@ -312,6 +312,15 @@ export async function GET(request) {
         </html>
     `;
 
+    // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: `UNAPPROVED!J${rows.indexOf(row) + 2}`,
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [['S']]
+      }
+    });
         
           await sendEmail(
             email,
@@ -321,15 +330,6 @@ export async function GET(request) {
             // qrCodeBuffer
           );
 
-            // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
-            await sheets.spreadsheets.values.update({
-              spreadsheetId: process.env.GOOGLE_SHEET_ID,
-              range: `UNAPPROVED!J${rows.indexOf(row) + 2}`,
-              valueInputOption: 'USER_ENTERED',
-              requestBody: {
-                values: [['S']]
-              }
-            });
           } else {
             console.log(`Skipping row for email ${email} or attendeeId ${attendeeId} as it already exists in the approved sheet.`);
           }
