@@ -4,9 +4,8 @@ import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
-import { content } from 'googleapis/build/src/apis/content';
 
-async function sendEmail(to, subject,pdfBuffer) {
+async function sendEmail(to, subject,pdfBuffer, htmlContent) {
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
     port: 465,
@@ -21,17 +20,14 @@ async function sendEmail(to, subject,pdfBuffer) {
     from: '"CHECK IN ALAMODE" <checkin@locationalamode.com>',
     to: to,
     subject: subject,
+    html: htmlContent,
     attachments: [
       {
         filename: 'invitation.pdf',
         content: pdfBuffer,
         contentType: 'application/pdf'
       },
-      // {
-      //   filename: 'qrcode.png',
-      //   content: qrCodeBuffer,
-      //   cid: 'qrcode@alamode.com'
-      // }
+
     ]
   });
 
@@ -100,13 +96,12 @@ export async function GET(request) {
         fontFamily: 'Sloop Script',
         fontSize: 76,
         color: '#FFFFFF',
-        // borderBottom: '1px solid white',
+        borderBottom: '1px solid white',
       },
       nameLine: {
         width: '80%', // Set a specific width for the line
-        height: 1,
+        height: 2,
         backgroundColor: '#FFFFFF',
-        marginTop: 5,
       },
       qrCode: {
         width: 170,
@@ -148,8 +143,8 @@ export async function GET(request) {
             <Text style={[styles.text, { fontSize: 10 }]}>WOULD NOT BE THE SAME WITHOUT</Text>
             <View style={styles.nameContainer}>
               <Text style={styles.name}>{firstName} {lastName}</Text>
-              <View style={styles.nameLine}></View>
             </View>
+              <View style={styles.nameLine}></View>
             {plusOne !== 'None' && (
               <Text style={[styles.text, {fontSize: 16, marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
             )}
@@ -272,11 +267,57 @@ export async function GET(request) {
             />
           ).toBuffer();
 
+
+          const htmlTemplate = `
+        <!DOCTYPE html>
+        <html lang="en" style="margin: 0; padding: 0;">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>PARTY INVITATION</title>
+        </head>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #ffffff;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto; height: 100%;">
+                <tr>
+                    <td style="background-color: #BC0123; height: 30px;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="padding: 20px;">
+                        <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/alamodered.png" alt="a la mode" style="width: 80px; margin-bottom: 20px; display: block;">
+                        <h1 style="text-align: center; color: #000; font-size: 24px; margin-top: 0; margin-bottom: 20px;">You're all set!</h1>
+                        <p style="margin-bottom: 10px;">Thank you for registering for À La Mode ${body.parties}! Your registration is currently being processed.</p>
+                        <p style="margin-bottom: 10px;">If approved, you will receive a confirmation email shortly with all the details you need to join us.</p>
+                        <p style="margin-bottom: 20px;">Feel free to reach out if you have any questions in the meantime.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: 100%;"></td>
+                </tr>
+                <tr>
+                    <td style="background-color: #BC0123; padding: 10px 0; text-align: center;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td width="50%" style="text-align: right; padding-right: 10px;">
+                                    <span style="color: #ffffff; text-decoration: none;">locationalamode.com</span>
+                                </td>
+                                <td width="50%" style="text-align: left; padding-left: 10px;">
+                                    <span style="color: #ffffff; text-decoration: none;">@location.alamode</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>
+    `;
+
         
           await sendEmail(
             email,
             `${party} Party Invitation`,
             pdfBuffer,
+            htmlTemplate
             // qrCodeBuffer
           );
 

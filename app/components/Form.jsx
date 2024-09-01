@@ -362,7 +362,7 @@ export default function Form() {
         >
           <Image
               width={40}
-              height={60}
+              height={40}
               src="/backIcon.svg"
               className={styles.back}
             />
