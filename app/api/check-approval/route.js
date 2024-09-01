@@ -90,11 +90,11 @@ export async function GET(request) {
         color: '#FFFFFF',
         fontSize: 10,
         textAlign: 'center',
-        marginBottom: 10,
+        marginBottom: 5,
       },
       nameContainer: {
         alignItems: 'center',
-        marginTop: 30,
+        marginTop: 20,
       },
       name: {
         fontFamily: 'Sloop Script',
@@ -146,10 +146,10 @@ export async function GET(request) {
             <Text style={[styles.text, { fontSize: 8 }]}>WOULD NOT BE THE SAME WITHOUT</Text>
             <View style={styles.nameContainer}>
               <Text style={styles.name}>{firstName} {lastName}</Text>
-              <View style={styles.nameLine} />
             </View>
+              <View style={styles.nameLine} />
             {plusOne !== 'None' && (
-              <Text style={[styles.text, { marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
+              <Text style={[styles.text, {fontSize: 16, marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
             )}
             <Image style={styles.qrCode} src={qrCodeDataURL} />
             <Text style={styles.text}>JOIN US AT</Text>
@@ -157,12 +157,12 @@ export async function GET(request) {
               <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.venue}</Text>
               <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.address}</Text>
             </View>
-            <Text style={[styles.text, { marginTop: 20 }]}>ON</Text>
+            <Text style={[styles.text, { marginTop: 10 }]}>ON</Text>
             <View style={styles.centerText}>
               <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
               <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
             </View>
-            <Text style={[styles.text, { fontSize: 8, marginTop: 80 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
+            <Text style={[styles.text, { fontSize: 8, marginTop: 100 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
           </View>
         </Page>
       </Document>
