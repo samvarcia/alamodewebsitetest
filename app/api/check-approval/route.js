@@ -73,8 +73,8 @@ export async function GET(request) {
         minWidth: '100%',
         minHeight: '100%',
         display: 'block',
-        height: '100%',
-        width: '100%',
+        height: '100vh',
+        width: '100vw',
       },
       content: {
         display: "flex",
