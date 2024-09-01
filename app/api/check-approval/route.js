@@ -100,8 +100,8 @@ export async function GET(request) {
         fontFamily: 'Sloop Script',
         fontSize: 76,
         color: '#FFFFFF',
-        borderBottom: '1px solid white',
-        paddingBottom: 10
+        // borderBottom: '1px solid white',
+        marginBottom: 10
       },
       nameLine: {
         width: '100%',
@@ -150,7 +150,7 @@ export async function GET(request) {
             <View style={styles.nameContainer}>
               <Text style={styles.name}>{firstName} {lastName}</Text>
             </View>
-            <View style={styles.nameLine} />
+            <View style={styles.nameLine}></View>
             {plusOne !== 'None' && (
               <Text style={[styles.text, {fontSize: 16, marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
             )}
