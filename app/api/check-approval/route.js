@@ -133,11 +133,11 @@ export async function GET(request) {
     const MyDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL }) => (
       <Document>
         <Page size="A4" style={styles.page}>
+          <View style={styles.content}>
           <Image
             style={styles.backgroundImage}
             src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/gradient-background.png"
           />
-          <View style={styles.content}>
             <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
             <View style={[styles.centerText, { marginTop: 15 }]}>
               <Text style={[styles.dateTimeText, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
