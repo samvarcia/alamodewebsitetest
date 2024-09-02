@@ -118,10 +118,10 @@ export async function POST(request) {
                 <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/YYYYY-08.png" alt="a la mode" style="width: 600px; margin-bottom: 20px; display: block;">
                 <tr>
                     <td style="padding: 10px;">
-                        <h1 style="font-family: Helvetica;  color: #fff; font-size: 24px; margin-top: 0; m;">Dear ${body.firstName},</h1>
-                        <p style="margin-bottom: 10px; width: 100%;">Thank you for registering for ${body.parties} à la mode S/S25. We have received your request and it is currently under review. We will notify you once your submission has been approved. Once approved you will receive a confirmation email with dates, time and location.</p>
-                        <p style="margin-bottom: 10px;">Talk soon,</p>
-                        <p style="margin-bottom: 10px;">Team à la mode</p>
+                        <h1 style="font-family: Helvetica;  color: #fff; font-size: 54px; margin-top: 0; m;">Dear ${body.firstName},</h1>
+                        <p style="margin-bottom: 10px; width: 100%; font-size: 24px;">Thank you for registering for ${body.parties} à la mode S/S25. We have received your request and it is currently under review. We will notify you once your submission has been approved. Once approved you will receive a confirmation email with dates, time and location.</p>
+                        <p style="margin-bottom: 10px; font-size: 24px;">Talk soon,</p>
+                        <p style="margin-bottom: 10px; font-size: 24px;">Team à la mode</p>
                     </td>
                 </tr>
             
