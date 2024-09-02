@@ -119,8 +119,8 @@ export async function POST(request) {
                 <tr>
                     <td style="padding: 10px;">
                         <h1 style="font-family: Helvetica;  color: #fff; font-size: 74px; margin-top: 0; m;">You’re Registration Is Being Processed!,</h1>
-                        <h1 style="font-family: Helvetica;  color: #fff; font-size: 74px; margin-top: 0; m;">Dear ${body.firstName},</h1>
-                        <p style=" font-family: Trebuchet MS;margin-bottom: 10px; width: 100%; font-size: 24px;">Thank you for registering for ${body.parties} à la mode S/S25. We have received your request and it is currently under review. We will notify you once your submission has been approved. Once approved you will receive a confirmation email with dates, time and location.</p>
+                        <h1 style="font-family: Helvetica;  color: #fff; font-size: 54px; margin-top: 0; m;">Dear ${body.firstName},</h1>
+                        <p style=" font-family: Trebuchet MS;margin-bottom: 10px; width: 100%; font-size: 54px;">Thank you for registering for ${body.parties} à la mode S/S25. We have received your request and it is currently under review. We will notify you once your submission has been approved. Once approved you will receive a confirmation email with dates, time and location.</p>
                         <p style="font-family: Trebuchet MS;margin-bottom: 10px; font-size: 54px;">Talk soon,</p>
                         <p style="font-family: Trebuchet MS;margin-bottom: 10px; font-size: 54px;">Team à la mode</p>
                     </td>
