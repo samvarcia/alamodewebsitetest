@@ -322,7 +322,7 @@ export default function Form() {
       className={styles.confirmation}
     >
       <h1>Thank you for your submission!</h1>
-      <p>Your invitation is under review. If approved, an email will be sent to {formData.email} with further details.</p>
+      <p>Your registration is being processed. If approved, an email will be sent to {formData.email} with further details.</p>
       <motion.button 
         onClick={handleReset}
         whileTap={{ scale: 0.95 }}
