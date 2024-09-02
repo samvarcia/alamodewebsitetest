@@ -39,7 +39,7 @@ export default function Form() {
     if (isSubmitting) {
       timer = setInterval(() => {
         setCurrentGlassStage((prevStage) => (prevStage + 1) % glassStages.length);
-      }, 1000); // Change stage every 1.5 seconds for a slower animation
+      }, 500); // Change stage every 1.5 seconds for a slower animation
     } else {
       setCurrentGlassStage(0);
     }
