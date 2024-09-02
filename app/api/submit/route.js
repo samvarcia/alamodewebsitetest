@@ -113,21 +113,22 @@ export async function POST(request) {
             <title>You’re In! See You in ${body.parties}</title>
         </head>
         <body style="font-family: Trebuchet MS; sans-serif; line-height: 1.6; color: #fff; margin: 0; padding: 0; ">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto; height: 100%; background-color: #000; color: #fff;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 900px; margin: 0 auto; height: 100%; background-color: #000; color: #fff;">
               
-                <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/YYYYY-08.png" alt="a la mode" style="width: 600px; margin-bottom: 20px; display: block;">
+                <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/YYYYY-08.png" alt="a la mode" style="width: 900px; margin-bottom: 20px; display: block;">
                 <tr>
                     <td style="padding: 10px;">
-                        <h1 style="font-family: Helvetica;  color: #fff; font-size: 54px; margin-top: 0; m;">Dear ${body.firstName},</h1>
-                        <p style="margin-bottom: 10px; width: 100%; font-size: 24px;">Thank you for registering for ${body.parties} à la mode S/S25. We have received your request and it is currently under review. We will notify you once your submission has been approved. Once approved you will receive a confirmation email with dates, time and location.</p>
-                        <p style="margin-bottom: 10px; font-size: 24px;">Talk soon,</p>
-                        <p style="margin-bottom: 10px; font-size: 24px;">Team à la mode</p>
+                        <h1 style="font-family: Helvetica;  color: #fff; font-size: 74px; margin-top: 0; m;">You’re Registration Is Being Processed!,</h1>
+                        <h1 style="font-family: Helvetica;  color: #fff; font-size: 74px; margin-top: 0; m;">Dear ${body.firstName},</h1>
+                        <p style=" font-family: Trebuchet MS;margin-bottom: 10px; width: 100%; font-size: 24px;">Thank you for registering for ${body.parties} à la mode S/S25. We have received your request and it is currently under review. We will notify you once your submission has been approved. Once approved you will receive a confirmation email with dates, time and location.</p>
+                        <p style="font-family: Trebuchet MS;margin-bottom: 10px; font-size: 54px;">Talk soon,</p>
+                        <p style="font-family: Trebuchet MS;margin-bottom: 10px; font-size: 54px;">Team à la mode</p>
                     </td>
                 </tr>
             
                
                    <tr>
-                    <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/YYYYY-09.png" alt="a la mode" style="width: 600px;position: absolute;  bottom: 0;">
+                    <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/YYYYY-09.png" alt="a la mode" style="width: 900px;position: absolute;  bottom: 0;">
                   </tr>
 
             </table>
