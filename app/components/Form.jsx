@@ -176,36 +176,38 @@ export default function Form() {
     >
       <h1>JOIN US IN:</h1>
       <div className={styles.options}>
-        {parties.map(party => (
-          <motion.div 
-            key={party.id} 
-            className={`
-              ${styles.partyOption} 
-              ${formData.parties.includes(party.id) ? styles.selected : ''}
-              ${party.id === 'London' ? styles.disabled : ''}
-            `}
-            onClick={party.id !== 'London' ? () => handlePartySelection(party.id) : undefined}
-            whileHover={party.id !== 'London' ? { scale: 1.05 } : {}}
-            transition={{ duration: 0.3 }}
-            whileTap={party.id !== 'London' ? { scale: 0.95 } : {}}
-            style={party.id === 'London' ? { cursor: 'not-allowed'} : {}}
-          >
-            <Image 
-              src={formData.parties.includes(party.id) ? party.imageRed : party.imageWhite} 
-              alt={party.name} 
-              width={150} 
-              height={300} 
-              className={styles.partyImg}
-            />
-            <h3 className={formData.parties.includes(party.id) ? styles.selectedText : ''}>
-              {party.name}
-            </h3>
-          </motion.div>
-        ))}
+        {parties.map(party => {
+          const isDisabled = party.id === 'London' || party.id === 'Milan';
+          return (
+            <motion.div 
+              key={party.id} 
+              className={`
+                ${styles.partyOption} 
+                ${formData.parties.includes(party.id) ? styles.selected : ''}
+                ${isDisabled ? styles.disabled : ''}
+              `}
+              onClick={!isDisabled ? () => handlePartySelection(party.id) : undefined}
+              whileHover={!isDisabled ? { scale: 1.05 } : {}}
+              transition={{ duration: 0.3 }}
+              whileTap={!isDisabled ? { scale: 0.95 } : {}}
+              style={isDisabled ? { cursor: 'not-allowed'} : {}}
+            >
+              <Image 
+                src={formData.parties.includes(party.id) ? party.imageRed : party.imageWhite} 
+                alt={party.name} 
+                width={150} 
+                height={300} 
+                className={styles.partyImg}
+              />
+              <h3 className={formData.parties.includes(party.id) ? styles.selectedText : ''}>
+                {party.name}
+              </h3>
+            </motion.div>
+          );
+        })}
       </div>
     </motion.div>
   );
-
   const renderPersonalInfo = () => (
     <motion.form 
       initial={{ opacity: 0 }}
