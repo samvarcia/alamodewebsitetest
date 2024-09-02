@@ -121,7 +121,7 @@ export async function POST(request) {
  <meta name="format-detection" content="email=no" />
  <meta name="x-apple-disable-message-reformatting" />
  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:ital,wght@0,400;1,400;0,500" rel="stylesheet" />
- <title>À la mode New York Submission Received</title>
+ <title>${body.parties} Submission Received</title>
  <!-- Made with Postcards by Designmodo https://designmodo.com/postcards -->
  <!--[if !mso]><!-- -->
  <style>
@@ -408,7 +408,7 @@ export async function POST(request) {
                  <tr>
                   <td valign="top" align="left">
                    <div class="pc-font-alt" style="line-height: 24px; letter-spacing: -0.2px; font-family: 'Fira Sans', Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 500; font-variant-ligatures: normal; color: #ffffff; text-align: left; text-align-last: left;">
-                    <div><span style="font-weight: 400;font-style: normal;color: #ffffff;">Thank you for registering for </span><span style="font-weight: 400;font-style: italic;color: #ffffff;">${body.parties}</span><span style="font-weight: 400;font-style: normal;color: #ffffff;">à la mode S/S25. </span>
+                    <div><span style="font-weight: 400;font-style: normal;color: #ffffff;">Thank you for registering for </span><span style="font-weight: 400;font-style: italic;color: #ffffff;">${body.parties} </span><span style="font-weight: 400;font-style: normal;color: #ffffff;">à la mode S/S25. </span>
                     </div>
                     <div><span>&#xFEFF;</span>
                     </div>
@@ -482,20 +482,6 @@ export async function POST(request) {
            </tr>
           </table>
           <!-- END MODULE: Image -->
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
-           <tr>
-            <td align="center" valign="top" style="padding-top: 20px; padding-bottom: 20px; vertical-align: top;">
-             <a href="https://designmodo.com/postcards?uid=MjYzMzMx&type=footer" target="_blank" style="text-decoration: none; overflow: hidden; border-radius: 2px; display: inline-block;">
-              <img src="https://cloudfilesdm.com/postcards/promo-footer-dark.jpg" width="198" height="46" alt="Made with (o -) postcards" style="width: 198px; height: auto; margin: 0 auto; border: 0; outline: 0; line-height: 100%; -ms-interpolation-mode: bicubic; vertical-align: top;">
-             </a>
-             <img src="https://api-postcards.designmodo.com/tracking/mail/promo?uid=MjYzMzMx" width="1" height="1" alt="" style="display:none; width: 1px; height: 1px;">
-            </td>
-           </tr>
-          </table>
          </td>
         </tr>
        </table>
