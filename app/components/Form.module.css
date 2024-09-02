@@ -304,7 +304,7 @@ align-self: flex-start;}
   }
   .form {
     padding: 20px 0px;
-justify-content: center;  }
+    justify-content: center;  }
   .form input,
   .plusOneSelection p,
   .selectedParty h2,
