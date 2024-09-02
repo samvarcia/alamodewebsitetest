@@ -113,7 +113,7 @@ export async function POST(request) {
             <title>You’re In! See You in ${body.parties}</title>
         </head>
         <body style="font-family: Trebuchet MS; sans-serif; line-height: 1.6; color: #fff; margin: 0; padding: 0; ">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto; height: 100%;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto; height: 100%; background-color: #000;">
               
                 <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/headerGradient4.png" alt="a la mode" style="width: 600px; margin-bottom: 20px; display: block;">
                 <tr>
