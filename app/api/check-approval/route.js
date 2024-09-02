@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
 
-async function sendEmail(to, subject,pdfBuffer, htmlContent) {
+async function sendEmail(to, subject, pdfBuffer, htmlContent) {
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
     port: 465,
@@ -27,7 +27,6 @@ async function sendEmail(to, subject,pdfBuffer, htmlContent) {
         content: pdfBuffer,
         contentType: 'application/pdf'
       },
-
     ]
   });
 
@@ -95,12 +94,11 @@ export async function GET(request) {
       name: {
         fontFamily: 'Sloop Script',
         fontSize: 66,
-        
         color: '#FFFFFF',
         borderBottom: '1px solid white',
       },
       nameLine: {
-        width: '80%', // Set a specific width for the line
+        width: '80%',
         height: 2,
         backgroundColor: '#FFFFFF',
       },
@@ -124,7 +122,6 @@ export async function GET(request) {
         flexDirection: "column",
         alignItems: 'center',
       },
-   
     });
     
     // Create PDF Document component
@@ -165,6 +162,7 @@ export async function GET(request) {
         </Page>
       </Document>
     );
+
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: 'UNAPPROVED!A2:J',
@@ -191,6 +189,7 @@ export async function GET(request) {
         hours: '12:00AM - 05:00AM'
       }
     };
+
     if (rows.length) {
       for (const row of rows) {
         if (row[8] === 'Y') { // Assuming "Approved" is the 9th column (index 8)
@@ -206,20 +205,20 @@ export async function GET(request) {
             date: 'TBA',
             hours: 'TBA'
           };
+
           // Generate unique identifier
           const attendeeId = uuidv4();
 
-          // Generate QR code
-        
-
-          // Check if the email or attendeeId already exists in the approved sheet
+          // Check if the email or name already exists in the approved sheet for this specific party
           const approvedRowsResponse = await sheets.spreadsheets.values.get({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: 'APPROVED!D:J',
+            range: 'APPROVED!A:J',
           });
 
           const approvedRows = approvedRowsResponse.data.values || [];
-          const existingRow = approvedRows.find((r) => r[0] === email || r[9] === attendeeId);
+          const existingRow = approvedRows.find((r) => 
+            r[0] === party && (r[3] === email || (r[1] === firstName && r[2] === lastName))
+          );
 
           if (!existingRow) {
             // Get the current number of rows in the APPROVED sheet
@@ -253,24 +252,23 @@ export async function GET(request) {
             });
 
             const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
-          const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
-          const qrCodeDataURL = await QRCode.toDataURL(qrCodeLink);
+            const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
+            const qrCodeDataURL = await QRCode.toDataURL(qrCodeLink);
 
-          // Generate PDF
-          const pdfBuffer = await pdf(
-            <MyDocument
-              firstName={firstName}
-              lastName={lastName}
-              party={party}
-              plusOne={plusOne}
-              partyDetails={partyDetails}
-              qrCodeDataURL={qrCodeDataURL}
-            />
-          ).toBuffer();
+            // Generate PDF
+            const pdfBuffer = await pdf(
+              <MyDocument
+                firstName={firstName}
+                lastName={lastName}
+                party={party}
+                plusOne={plusOne}
+                partyDetails={partyDetails}
+                qrCodeDataURL={qrCodeDataURL}
+              />
+            ).toBuffer();
 
-
-          const htmlTemplate = `
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+            const htmlTemplate = `
+              <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="https://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
@@ -567,29 +565,27 @@ export async function GET(request) {
 </body>
 
 </html>
+            `;
 
-    `;
-
-    // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
-    await sheets.spreadsheets.values.update({
-      spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: `UNAPPROVED!J${rows.indexOf(row) + 2}`,
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [['S']]
-      }
-    });
+            // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
+            await sheets.spreadsheets.values.update({
+              spreadsheetId: process.env.GOOGLE_SHEET_ID,
+              range: `UNAPPROVED!J${rows.indexOf(row) + 2}`,
+              valueInputOption: 'USER_ENTERED',
+              requestBody: {
+                values: [['S']]
+              }
+            });
         
-          await sendEmail(
-            email,
-            `${party} Party Invitation`,
-            pdfBuffer,
-            htmlTemplate
-            // qrCodeBuffer
-          );
+            await sendEmail(
+              email,
+              `${party} Party Invitation`,
+              pdfBuffer,
+              htmlTemplate
+            );
 
           } else {
-            console.log(`Skipping row for email ${email} or attendeeId ${attendeeId} as it already exists in the approved sheet.`);
+            console.log(`Skipping row for email ${email} or name ${firstName} ${lastName} as it already exists in the approved sheet for party ${party}.`);
           }
         }
       }
