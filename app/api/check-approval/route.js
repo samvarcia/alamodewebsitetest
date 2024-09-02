@@ -94,7 +94,8 @@ export async function GET(request) {
       },
       name: {
         fontFamily: 'Sloop Script',
-        fontSize: 76,
+        fontSize: 66,
+        
         color: '#FFFFFF',
         borderBottom: '1px solid white',
       },
