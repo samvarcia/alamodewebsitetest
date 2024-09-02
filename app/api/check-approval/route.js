@@ -17,7 +17,7 @@ async function sendEmail(to, subject,pdfBuffer, htmlContent) {
   });
 
   let info = await transporter.sendMail({
-    from: '"CHECK IN ALAMODE" <checkin@locationalamode.com>',
+    from: '"Location à la mode" <checkin@locationalamode.com>',
     to: to,
     subject: subject,
     html: htmlContent,

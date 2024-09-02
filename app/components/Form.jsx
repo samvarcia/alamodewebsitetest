@@ -193,10 +193,9 @@ export default function Form() {
             <Image 
               src={formData.parties.includes(party.id) ? party.imageRed : party.imageWhite} 
               alt={party.name} 
-              width={300} 
+              width={150} 
               height={300} 
               className={styles.partyImg}
-              layout="responsive"
             />
             <h3 className={formData.parties.includes(party.id) ? styles.selectedText : ''}>
               {party.name}
