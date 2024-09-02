@@ -162,7 +162,6 @@
 .partyOption .partyImg {
   width: 100%;
   /* max-width: 100%; */
-  height: 100%;
 }
 .disabled {
   pointer-events: none;
@@ -343,6 +342,8 @@ align-self: flex-start;}
     width: 100px;
     height: 250px;
     object-fit: cover;
+    height: 100%;
+
   }
 
   .form button {

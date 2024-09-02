@@ -115,7 +115,7 @@ export async function POST(request) {
         <body style="font-family: Trebuchet MS; sans-serif; line-height: 1.6; color: #fff; margin: 0; padding: 0; background-color: #000;">
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto; height: 100%;">
               
-                <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/headerGradient.png" alt="a la mode" style="width: 100vw; margin-bottom: 20px; display: block;">
+                <img src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/headerGradient.png" alt="a la mode" style="width: 700px; margin-bottom: 20px; display: block;">
                 <tr>
                     <td style="padding: 20px;">
                         <h1 style="font-family: Helvetica;  color: #fff; font-size: 24px; margin-top: 0; m;">Dear ${body.firstName},</h1>
