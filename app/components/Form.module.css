@@ -341,7 +341,7 @@ align-self: flex-start;}
   .partyOption .partyImg {
     width: 100px;
     height: 250px;
-    object-fit: cover;
+    /* object-fit: cover; */
     height: 100%;
 
   }
