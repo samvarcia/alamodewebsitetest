@@ -339,11 +339,11 @@ align-self: flex-start;}
     height: 200px;
   }
   .partyOption .partyImg {
-    width: 100px;
+    /* width: 100px; */
     height: 250px;
     /* object-fit: cover; */
     height: 100%;
-
+    padding-top: 10px;
   }
 
   .form button {
