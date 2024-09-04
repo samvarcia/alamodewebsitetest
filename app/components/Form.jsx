@@ -86,7 +86,9 @@ export default function Form() {
   };
 
   const handlePartySelection = (partyId) => {
-    if (partyId !== 'London') {
+    if (partyId === 'London' || partyId === 'Milan') {
+      setStep(3); // Step 3 will be the custom message screen
+    } else {
       setFormData(prev => ({
         ...prev,
         parties: [partyId]
@@ -149,6 +151,31 @@ export default function Form() {
     setIsSubmitted(false);
   };
 
+  const renderCustomMessage = () => (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={styles.customMessage}
+    >
+      <h1>"Coming Up"</h1>
+      <motion.div 
+          className={styles.backMessage} 
+          onClick={handleBackToSelector} 
+          style={{ cursor: "pointer" }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <Image
+              width={40}
+              height={40}
+              src="/backIcon.svg"
+              className={styles.backMessage}
+            />
+        </motion.div>
+    </motion.div>
+  );
+
   const renderSelectedParty = () => {
     const selectedParty = parties.find(party => party.id === formData.parties[0]);
     if (!selectedParty) return null;
@@ -177,20 +204,19 @@ export default function Form() {
       <h1>JOIN US IN:</h1>
       <div className={styles.options}>
         {parties.map(party => {
-          const isDisabled = party.id === 'London' || party.id === 'Milan';
+          // const isDisabled = party.id === 'London' || party.id === 'Milan';
           return (
             <motion.div 
               key={party.id} 
               className={`
                 ${styles.partyOption} 
                 ${formData.parties.includes(party.id) ? styles.selected : ''}
-                ${isDisabled ? styles.disabled : ''}
               `}
-              onClick={!isDisabled ? () => handlePartySelection(party.id) : undefined}
-              whileHover={!isDisabled ? { scale: 1.05 } : {}}
+              onClick={ () => handlePartySelection(party.id) }
+              whileHover={{ scale: 1.05 } }
               transition={{ duration: 0.3 }}
-              whileTap={!isDisabled ? { scale: 0.95 } : {}}
-              style={isDisabled ? { cursor: 'not-allowed'} : {}}
+              whileTap={{ scale: 0.95 } }
+              // style={isDisabled ? { cursor: 'not-allowed'} : {}}
             >
               <Image 
                 src={formData.parties.includes(party.id) ? party.imageRed : party.imageWhite} 
@@ -379,11 +405,13 @@ export default function Form() {
         />
       </Link>
       <AnimatePresence mode="wait">
-        {isSubmitting ? renderIsSubmitting() : 
-          (isSubmitted ? renderConfirmation() : 
-            (step === 1 ? renderPartySelection() : renderPersonalInfo())
+      {isSubmitting ? renderIsSubmitting() : 
+        (isSubmitted ? renderConfirmation() : 
+          (step === 1 ? renderPartySelection() : 
+            (step === 3 ? renderCustomMessage() : renderPersonalInfo())
           )
-        }
+        )
+      }
       </AnimatePresence>
     </div>
   );

@@ -264,7 +264,22 @@ align-self: flex-start;}
   height: 100px; /* Adjust based on your SVG size */
 
 }
+.customMessage{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 600px;
+}
 
+.customMessage h1 {
+  margin: 40px 0px;
+  text-align: center;
+}
+.backMessage {
+  align-self: center;
+}
 .glass {
   width: 100%;
   height: 100%;
