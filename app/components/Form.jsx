@@ -340,6 +340,18 @@ export default function Form() {
           {isSubmitting ? 'SUBMITTING, PLEASE WAIT...' : 'SUBMIT'}
         </h3>
       </motion.button>
+      {formData.parties.includes('New York City') && (
+        <motion.p 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className={styles.zoraText}
+        >
+          NEW YORK à la mode IS POWERED BY{' '}
+          <Link href="https://zora.co/invite/0xE4A0a7aeb42454A05f669d4DE85BcB29eE19dC84" target="_blank" >
+            ZORA
+          </Link>
+        </motion.p>
+      )}
     </motion.form>
   );
 

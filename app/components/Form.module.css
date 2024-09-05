@@ -257,7 +257,16 @@ align-self: flex-start;}
 .cupFill.animate {
   clip-path: polygon(0% var(--fill-level), 100% var(--fill-level), 100% 100%, 0% 100%);
 }
+.zoraText {
+  margin-top: 30px;
+  font-size: 0.8em;
+  text-align: center;
+}
 
+.zoraText a {
+  color: inherit;
+  text-decoration: underline;
+}
 .glassContainer {
   position: relative;
   width: 100px; /* Adjust based on your SVG size */
