@@ -378,7 +378,7 @@ export async function POST(request) {
                     </div>
                     <div><span>&#xFEFF;</span>
                     </div>
-                    <div><span style="font-weight: 400;font-style: normal;color: #ffffff;">We have received your submission and it is currently under review. We will notify you once your submission has been approved. Once approved you will receive a confirmation email with dates, time and location.</span>
+                    <div><span style="font-weight: 400;font-style: normal;color: #ffffff;">We have received your submission and it is currently under review. We will notify you once it has been approved. Once approved you will receive a confirmation email with a date, time and location.</span>
                     </div>
                    </div>
                   </td>

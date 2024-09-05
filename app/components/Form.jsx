@@ -158,7 +158,7 @@ export default function Form() {
       exit={{ opacity: 0 }}
       className={styles.customMessage}
     >
-      <h1>"Coming Up"</h1>
+      <h1>Try again next season</h1>
       <motion.div 
           className={styles.backMessage} 
           onClick={handleBackToSelector} 

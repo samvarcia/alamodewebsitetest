@@ -157,7 +157,7 @@ export async function GET(request) {
               <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
               <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
             </View>
-            <Text style={[styles.text, { fontSize: 8, marginTop: 130 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions</Text>
+            <Text style={[styles.text, { fontSize: 8, marginTop: 130 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions.</Text>
           </View>
         </Page>
       </Document>
@@ -185,7 +185,7 @@ export async function GET(request) {
       'Paris': {
         venue: 'CHEZ MOUNE',
         address: '54 Rue Jean-Baptiste Pigalle, 75009 Paris, France',
-        date: 'WEDNESDAY, 25TH SEPTEMBER 2024',
+        date: 'TUESDAY, 24TH SEPTEMBER 2024',
         hours: '12:00AM - 05:00AM'
       }
     };
@@ -506,11 +506,11 @@ export async function GET(request) {
                  <tr>
                   <td valign="top" align="left">
                    <div class="pc-font-alt" style="line-height: 24px; letter-spacing: -0.2px; font-family: Trebuchet MS, Helvetica, sans-serif; font-size: 18px; font-weight: 500; font-variant-ligatures: normal; color: #ffffff; text-align: left; text-align-last: left;">
-                    <div><span style="font-weight: 400;font-style: normal;color: #ffffff;">Great news </span><span style="font-weight: 400;font-style: italic;color: #ffffff;">${firstName}</span><span style="font-weight: 400;font-style: normal;color: #ffffff;">! Your registration for </span><span style="font-weight: 400;font-style: italic;color: #ffffff;">${party}</span><span style="font-weight: 400;font-style: normal;color: #ffffff;"> À La Mode was successful </span>
+                    <div><span style="font-weight: 400;font-style: normal;color: #ffffff;">Great news </span><span style="font-weight: 400;font-style: italic;color: #ffffff;">${firstName}</span><span style="font-weight: 400;font-style: normal;color: #ffffff;">! Your registration for </span><span style="font-weight: 400;font-style: italic;color: #ffffff;">${party}</span><span style="font-weight: 400;font-style: normal;color: #ffffff;"> à la mode was successful </span>
                     </div>
                     <div><span>&#xFEFF;</span>
                     </div>
-                    <div><span style="font-weight: 400;font-style: normal;color: #ffffff;">We are thrilled to have you with us. A pdf of your ticket has been attached to the email and you will need it to enter the venue.</span>
+                    <div><span style="font-weight: 400;font-style: normal;color: #ffffff;">We are thrilled to have you with us. A pdf of your ticket has been attached to the email and it will be required to enter the venue.</span>
                     </div>
                     <div><span style="font-weight: 400;font-style: normal;color: #ffffff;">Let the countdown begin!</span>
                     </div>
