@@ -86,20 +86,21 @@ export default function Form() {
   };
 
   const handlePartySelection = (partyId) => {
+    setFormData(prev => ({
+      ...prev,
+      parties: [partyId]
+    }));
+
     if (partyId === 'London' || partyId === 'Milan') {
-      setStep(3); // Step 3 will be the custom message screen
+      setTimeout(() => {
+        setStep(3); // Step 3 will be the custom message screen
+      }, 800);
     } else {
-      setFormData(prev => ({
-        ...prev,
-        parties: [partyId]
-      }));
-      
       setTimeout(() => {
         setStep(2);
       }, 800);
     }
   };
-
   const handleBackToSelector = () => {
     setStep(1);
   };
