@@ -509,19 +509,19 @@ export async function GET(request) {
                                     </div>
                                     <div style="text-align: center; text-align-last: center;"><span>﻿</span>
                                     </div>
-                                    <div style="text-align: center; text-align-last: center;"><span style="font-size: 20px;font-weight: 700;font-style: normal;color: rgb(255, 255, 255);">à la mode New York</span>
+                                    <div style="text-align: center; text-align-last: center;"><span style="font-size: 20px;font-weight: 700;font-style: normal;color: #BC0123;">à la mode New York</span>
                                     </div>
-                                    <div style="text-align: center; text-align-last: center;"><span style="font-size: 20px;font-weight: 700;font-style: normal;color: rgb(255, 255, 255);">Tuesday, September 10, 2024</span>
+                                    <div style="text-align: center; text-align-last: center;"><span style="font-size: 20px;font-weight: 700;font-style: normal;color: #BC0123;">Tuesday, September 10, 2024</span>
                                     </div>
-                                    <div style="text-align: center; text-align-last: center;"><span style="font-size: 20px;font-weight: 700;font-style: normal;color: rgb(255, 255, 255);">10:00pm - 4:00am</span>
+                                    <div style="text-align: center; text-align-last: center;"><span style="font-size: 20px;font-weight: 700;font-style: normal;color: #BC0123;">10:00pm - 4:00am</span>
                                     </div>
-                                    <div style="text-align: center; text-align-last: center;"><span style="font-size: 20px;font-weight: 700;font-style: normal;color: rgb(255, 255, 255);"><br/></span>
+                                    <div style="text-align: center; text-align-last: center;"><span style="font-size: 20px;font-weight: 700;font-style: normal;color: #BC0123;"><br/></span>
                                     </div>
-                                    <div style="text-align: center; text-align-last: center;"><span style="text-decoration: underline;font-size: 20px;font-weight: 700;font-style: normal;color: rgb(255, 255, 255);">SELINA CHELSEA</span>
+                                    <div style="text-align: center; text-align-last: center;"><span style="text-decoration: underline;font-size: 20px;font-weight: 700;font-style: normal;color: #BC0123;">SELINA CHELSEA</span>
                                     </div>
-                                    <div style="text-align: center; text-align-last: center;"><span style="text-decoration: underline;font-size: 20px;font-weight: 700;font-style: normal;color: rgb(255, 255, 255);">518 W 27th St, New York, NY 10001</span>
+                                    <div style="text-align: center; text-align-last: center;"><span style="text-decoration: underline;font-size: 20px;font-weight: 700;font-style: normal;color: #BC0123;">518 W 27th St, New York, NY 10001</span>
                                     </div>
-                                    <div style="text-align: center; text-align-last: center;"><span style="font-weight: 700;font-style: normal;color: rgb(255, 255, 255);">﻿</span>
+                                    <div style="text-align: center; text-align-last: center;"><span style="font-weight: 700;font-style: normal;color: #BC0123;">﻿</span>
                                     </div>
                                     <div style="text-align: center; text-align-last: center;"><span>﻿</span>
                                     </div>
@@ -563,20 +563,7 @@ export async function GET(request) {
                           <!-- END MODULE: Image -->
                         </td>
                         </tr>
-                        <tr>
-                        <td>
-                          <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
-                          <tr>
-                            <td align="center" valign="top" style="padding-top: 20px; padding-bottom: 20px; vertical-align: top;">
-                            <a href="https://designmodo.com/postcards?uid=MjY0NDY4&type=footer" target="_blank" style="text-decoration: none; overflow: hidden; border-radius: 2px; display: inline-block;">
-                              <img src="https://cloudfilesdm.com/postcards/promo-footer-dark.jpg" width="198" height="46" alt="Made with (o -) postcards" style="width: 198px; height: auto; margin: 0 auto; border: 0; outline: 0; line-height: 100%; -ms-interpolation-mode: bicubic; vertical-align: top;">
-                            </a>
-                            <img src="https://api-postcards.designmodo.com/tracking/mail/promo?uid=MjY0NDY4" width="1" height="1" alt="" style="display:none; width: 1px; height: 1px;">
-                            </td>
-                          </tr>
-                          </table>
-                        </td>
-                        </tr>
+                       
                       </table>
                       </td>
                     </tr>
