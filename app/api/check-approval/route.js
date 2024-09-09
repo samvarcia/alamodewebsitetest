@@ -33,18 +33,82 @@ async function sendEmail(to, subject, pdfBuffer, htmlContent) {
   console.log("Message sent: %s", info.messageId);
 }
 
-export async function GET(request) {
+async function getUnapproved(sheets){
   try {
-    console.log(request)
-    const auth = new google.auth.JWT(
-      process.env.GOOGLE_CLIENT_EMAIL,
-      null,
-      process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-      ['https://www.googleapis.com/auth/spreadsheets']
-    );
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: 'UNAPPROVED!A2:J',
+    });
+    console.log('get unapproved success ✅')
+    return response;
+  } catch (error) {
+    console.log('get unapproved failed ❌', error)
+  }
+}
+async function getApprovedRowsResponse(sheets){
+  try {
+    const approvedRowsResponse = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: 'APPROVED!A:J',
+    });
+    console.log('get approvedRowsResponse success ✅')
+    return approvedRowsResponse;
+  } catch (error) {
+    console.log('get approvedRowsResponse failed ❌', error)
 
-    const sheets = google.sheets({ version: 'v4', auth });
+  }
+}
+async function getCurrentRowsResponse(sheets){
+  try {
+    const currentRowsResponse = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: 'APPROVED!A:A',
+    });
+    console.log('get currentRowsResponse success ✅')
+    return currentRowsResponse;
+  } catch (error) {
+    console.log('get currentRowsResponse failed ❌', error)
 
+  }
+}
+async function updateApprovedList(sheets, row, attendeeId, nextRow){
+  try {
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: `APPROVED!A${nextRow}`,
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [[
+          row[0],  // Party
+          row[1],  // First Name
+          row[2],  // Last Name
+          row[3],  // Email
+          row[4],  // Models Link
+          row[5],  // Instagram Link
+          row[6],  // Plus One (Yes/No)
+          row[7],  // Plus One Name
+          row[8],  // Approval Status
+          attendeeId,  // Unique Attendee ID
+          'Not Checked In'  // Initial Check-In Status
+        ]]
+      }
+    });
+    console.log('get updateApprovedList success ✅')
+  } catch (error) {
+    console.log('get updateApprovedList failed ❌' , error)
+  }
+}
+async function QrCodeUrl(qrCodeLink){
+  try {
+    const qr = await QRCode.toDataURL(qrCodeLink)
+    console.log('get QrCodeUrl success ✅')
+    return qr;
+  } catch (error) {
+    console.log('get QrCodeUrl failed ❌' , error)
+  }
+}
+async function getPdf(firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL){
+  try {
     Font.register({
       family: 'Futura',
       src: 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/font/futuraregular.ttf',
@@ -163,10 +227,67 @@ export async function GET(request) {
       </Document>
     );
 
-    const response = await sheets.spreadsheets.values.get({
+    const pdfFile = await pdf(
+      <MyDocument
+        firstName={firstName}
+        lastName={lastName}
+        party={party}
+        plusOne={plusOne}
+        partyDetails={partyDetails}
+        qrCodeDataURL={qrCodeDataURL}
+      />
+    ).toBuffer();
+    console.log('get getPdf success ✅')
+    return pdfFile;
+  } catch (error) {
+    console.log('get getPdf failed ❌' , error)
+  }
+}
+async function updateSField(sheets, rows, row){
+  try {
+    await sheets.spreadsheets.values.update({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'UNAPPROVED!A2:J',
-    });
+      range: `UNAPPROVED!J${rows.indexOf(row) + 2}`,
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [['S']]
+      }
+    });    
+    console.log('updateSField success ✅')
+  } catch (error) {
+    console.log('updateSField failed ❌', error)
+  }
+}
+
+async function sendInvitateEmail(email, party, pdfBuffer, htmlTemplate) {
+  try {
+    await sendEmail(
+      email,
+      `${party} Party Invitation`,
+      pdfBuffer,
+      htmlTemplate
+    );
+    console.log('send Invitation success ✅')
+
+  } catch (error) {
+    console.log('send Invitation failed ❌')
+  }
+}
+
+export async function GET(request) {
+  try {
+    console.log(request)
+    const auth = new google.auth.JWT(
+      process.env.GOOGLE_CLIENT_EMAIL,
+      null,
+      process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      ['https://www.googleapis.com/auth/spreadsheets']
+    );
+
+    const sheets = google.sheets({ version: 'v4', auth });
+
+  
+    const response = await getUnapproved(sheets);
 
     const rows = response.data.values;
     const partyInfo = {
@@ -210,10 +331,7 @@ export async function GET(request) {
           const attendeeId = uuidv4();
 
           // Check if the email or name already exists in the approved sheet for this specific party
-          const approvedRowsResponse = await sheets.spreadsheets.values.get({
-            spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: 'APPROVED!A:J',
-          });
+          const approvedRowsResponse = await getApprovedRowsResponse(sheets)
 
           const approvedRows = approvedRowsResponse.data.values || [];
           const existingRow = approvedRows.find((r) => 
@@ -222,50 +340,19 @@ export async function GET(request) {
 
           if (!existingRow) {
             // Get the current number of rows in the APPROVED sheet
-            const currentRowsResponse = await sheets.spreadsheets.values.get({
-              spreadsheetId: process.env.GOOGLE_SHEET_ID,
-              range: 'APPROVED!A:A',
-            });
+            const currentRowsResponse = await getCurrentRowsResponse(sheets)
 
             const nextRow = currentRowsResponse.data.values ? currentRowsResponse.data.values.length + 1 : 1;
 
             // Add to approved sheet
-            await sheets.spreadsheets.values.update({
-              spreadsheetId: process.env.GOOGLE_SHEET_ID,
-              range: `APPROVED!A${nextRow}`,
-              valueInputOption: 'USER_ENTERED',
-              requestBody: {
-                values: [[
-                  row[0],  // Party
-                  row[1],  // First Name
-                  row[2],  // Last Name
-                  row[3],  // Email
-                  row[4],  // Models Link
-                  row[5],  // Instagram Link
-                  row[6],  // Plus One (Yes/No)
-                  row[7],  // Plus One Name
-                  row[8],  // Approval Status
-                  attendeeId,  // Unique Attendee ID
-                  'Not Checked In'  // Initial Check-In Status
-                ]]
-              }
-            });
+            await updateApprovedList(sheets, row, attendeeId,nextRow);
 
             const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
-            const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
-            const qrCodeDataURL = await QRCode.toDataURL(qrCodeLink);
+            // const qrCodeBuffer = await QRCode.toBuffer(qrCodeLink);
+            const qrCodeDataURL = await QrCodeUrl(qrCodeLink);
 
             // Generate PDF
-            const pdfBuffer = await pdf(
-              <MyDocument
-                firstName={firstName}
-                lastName={lastName}
-                party={party}
-                plusOne={plusOne}
-                partyDetails={partyDetails}
-                qrCodeDataURL={qrCodeDataURL}
-              />
-            ).toBuffer();
+            const pdfBuffer = await getPdf(firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL)
 
             const htmlTemplate = `
               <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -581,21 +668,9 @@ export async function GET(request) {
             `;
 
             // Update the "Approved" status to 'S' for "Sent" in the UNAPPROVED sheet
-            await sheets.spreadsheets.values.update({
-              spreadsheetId: process.env.GOOGLE_SHEET_ID,
-              range: `UNAPPROVED!J${rows.indexOf(row) + 2}`,
-              valueInputOption: 'USER_ENTERED',
-              requestBody: {
-                values: [['S']]
-              }
-            });
+            await updateSField(sheets, rows, row);
         
-            await sendEmail(
-              email,
-              `${party} Party Invitation`,
-              pdfBuffer,
-              htmlTemplate
-            );
+            await sendInvitateEmail(email, party, pdfBuffer, htmlTemplate)
 
           } else {
             console.log(`Skipping row for email ${email} or name ${firstName} ${lastName} as it already exists in the approved sheet for party ${party}.`);
