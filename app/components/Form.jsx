@@ -277,6 +277,7 @@ export default function Form() {
           name="modelsLink"
           value={formData.modelsLink}
           onChange={handleChange}
+          required
           placeholder="Models.com or Agency Profile Link"
         />
         <input
@@ -284,6 +285,7 @@ export default function Form() {
           name="instagramLink"
           value={formData.instagramLink}
           onChange={handleChange}
+          required
           placeholder="Instagram Handle"
         />
         <div className={styles.plusOneSelection}>
