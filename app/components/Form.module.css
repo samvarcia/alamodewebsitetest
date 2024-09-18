@@ -170,7 +170,25 @@
 .partySelection p {
   font-size: 1.5rem;
 }
-
+.signing{
+  bottom: 0
+}
+.termsCheckbox{
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.termsCheckbox input {
+  width: auto;
+  margin-bottom: 0;
+}
+.termsCheckbox a {
+  color: #fff;
+}
+.termsCheckbox input:checked ~ .checkmark {
+  background-color: #ff0000; /* Change this to your desired color */
+}
 .partyOption .partyImg {
   width: 100%;
   /* max-width: 100%; */

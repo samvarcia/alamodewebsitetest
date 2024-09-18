@@ -16,6 +16,8 @@ export default function Form() {
     instagramLink: '',
     plusOne: false,
     plusOneName: '',
+    agreeToTerms: false,
+
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -319,7 +321,21 @@ export default function Form() {
             </motion.div>
           )}
         </AnimatePresence>
+        <div className={styles.termsCheckbox}>
+          <label htmlFor="agreeToTerms">
+            By signing up, I agree to the <Link href="/terms-and-conditions">Terms and Conditions</Link>
+          </label>
+          <input
+            type="checkbox"
+            name="agreeToTerms"
+            checked={formData.agreeToTerms}
+            onChange={handleChange}
+            required
+            id="agreeToTerms"
+          />
+        </div>
       </div>
+      
       <motion.button 
         type="submit" 
         disabled={isSubmitting}
@@ -327,7 +343,7 @@ export default function Form() {
         transition={{ duration: 0.5 }}
       >
         <h3>
-          {isSubmitting ? 'SUBMITTING, PLEASE WAIT...' : 'SUBMIT'}
+          SUBMIT        
         </h3>
       </motion.button>
       {formData.parties.includes('New York City') && (

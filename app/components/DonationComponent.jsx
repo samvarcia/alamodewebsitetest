@@ -9,24 +9,31 @@ const DonationComponent = ({ onDonationComplete }) => {
   const [selectedAmount, setSelectedAmount] = useState(null);
 
   const handleDonation = async (donationAmount) => {
-    const stripe = await stripePromise;
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ amount: donationAmount }),
-    });
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount: donationAmount }),
+      });
 
-    const session = await response.json();
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
+      if (!response.ok) {
+        throw new Error('Failed to create checkout session');
+      }
 
-    if (result.error) {
-      console.error(result.error.message);
-    } else {
-      onDonationComplete(); // Call the callback function when donation is complete
+      const { id: sessionId } = await response.json();
+      
+      const stripe = await stripePromise;
+      const { error } = await stripe.redirectToCheckout({ sessionId });
+
+      if (error) {
+        console.error('Stripe redirect error:', error);
+      } else {
+        onDonationComplete();
+      }
+    } catch (err) {
+      console.error('Donation error:', err);
     }
   };
 
