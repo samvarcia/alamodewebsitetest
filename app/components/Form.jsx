@@ -3,6 +3,7 @@ import styles from './Form.module.css';
 import Image from 'next/image';
 import Link from "next/link";
 import { motion, AnimatePresence } from 'framer-motion';
+import DonationComponent from './DonationComponent'
 
 export default function Form() {
   const [step, setStep] = useState(1);
@@ -366,10 +367,12 @@ export default function Form() {
     >
       <h1>Thank you for your submission!</h1>
       <p>Your registration is being processed. If approved, an email will be sent to {formData.email} with further details.</p>
+      <DonationComponent />
       <motion.button 
         onClick={handleReset}
         whileTap={{ scale: 0.95 }}
         transition={{ duration: 0.5 }}
+        className={styles.confirmationBtn}
       >
         GO BACK
       </motion.button>
