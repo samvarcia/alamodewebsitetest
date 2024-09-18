@@ -11,17 +11,18 @@ export async function POST(request) {
     
 
     const session = await stripe.checkout.sessions.create({
+      submit_type: "donate",
       payment_method_types: ['card'],
       line_items: [
         {
+          quantity: 1,
           price_data: {
+            unit_amount: amount * 100, // Stripe uses cents
             currency: 'usd',
             product_data: {
               name: 'Donation',
             },
-            unit_amount: amount * 100, // Stripe uses cents
           },
-          quantity: 1,
         },
       ],
       mode: 'payment',
