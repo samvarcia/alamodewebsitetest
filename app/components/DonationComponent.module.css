@@ -1,9 +1,10 @@
 .donation{
     margin: 30px 0px;
-    width: 70%;
+    width: 100%;
 }
 .donation h2 {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    text-align: center;
 }
 .donaButton, .donaInput{
     background-color: transparent;

@@ -20,6 +20,8 @@ export default function Form() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [currentGlassStage, setCurrentGlassStage] = useState(0);
+  const [showDonation, setShowDonation] = useState(false);
+  const [hasDonated, setHasDonated] = useState(false);
   
   const parties = [
     { id: 'New York City', name: 'NEW YORK', imageWhite: '/newyork-party-white.svg', imageRed: '/newyork-party-red.svg' },
@@ -35,48 +37,8 @@ export default function Form() {
     '/full-glass.svg'
   ];
 
-  useEffect(() => {
-    let timer;
-    if (isSubmitting) {
-      timer = setInterval(() => {
-        setCurrentGlassStage((prevStage) => (prevStage + 1) % glassStages.length);
-      }, 500); // Change stage every 1.5 seconds for a slower animation
-    } else {
-      setCurrentGlassStage(0);
-    }
 
-    return () => {
-      if (timer) clearInterval(timer);
-    };
-  }, [isSubmitting]);
-  
-  const AnimatedGlass = () => {
-    return (
-      <div className={styles.glassContainer}>
-        {glassStages.map((src, index) => (
-          <motion.div
-            key={src}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              opacity: index === currentGlassStage ? 1 : 0,
-            }}
-            animate={{ opacity: index === currentGlassStage ? 1 : 0 }}
-            transition={{ duration: 1, ease: "easeInOut" }} // Longer, smoother transition
-          >
-            <Image 
-              src={src}
-              alt={`Glass fill stage ${index}`}
-              width={100}
-              height={100}
-              className={styles.glass}
-            />
-          </motion.div>
-        ))}
-      </div>
-    );
-  };
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -109,12 +71,9 @@ export default function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submission started");
-    setIsSubmitting(true);
+    setShowDonation(true);
     
     try {
-      // Simulate a submission process
-      await new Promise(resolve => setTimeout(resolve, 3000));
-  
       const response = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -125,18 +84,15 @@ export default function Form() {
       console.log("Server response:", responseData);
   
       if (response.ok) {
-        await new Promise(resolve => setTimeout(resolve, 500)); // Wait for final animation
         setIsSubmitted(true);
       } else {
-        alert(`Error: ${responseData.error || 'Unknown error occurred'}`);
+        console.error(`Error: ${responseData.error || 'Unknown error occurred'}`);
       }
     } catch (error) {
       console.error('Error:', error);
-      alert(`Error submitting form: ${error.message}`);
-    } finally {
-      setIsSubmitting(false);
     }
   };
+
 
   const handleReset = () => {
     setFormData({
@@ -151,7 +107,28 @@ export default function Form() {
     });
     setStep(1);
     setIsSubmitted(false);
+    setShowDonation(false);
+    setHasDonated(false);
   };
+
+  const renderDonation = () => (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={styles.donationContainer}
+    >
+      <DonationComponent onDonationComplete={handleDonationComplete} />
+      <motion.button 
+        onClick={handleSkipDonation}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className={styles.skipButton}
+      >
+        SKIP
+      </motion.button>
+    </motion.div>
+  );
 
   const renderCustomMessage = () => (
     <motion.div 
@@ -177,6 +154,16 @@ export default function Form() {
         </motion.div>
     </motion.div>
   );
+
+  const handleDonationComplete = () => {
+    setHasDonated(true);
+    setShowDonation(false);
+  };
+
+  const handleSkipDonation = () => {
+    setShowDonation(false);
+  };
+
 
   const renderSelectedParty = () => {
     const selectedParty = parties.find(party => party.id === formData.parties[0]);
@@ -367,33 +354,17 @@ export default function Form() {
     >
       <h1>Thank you for your submission!</h1>
       <p>Your registration is being processed. If approved, an email will be sent to {formData.email} with further details.</p>
-      <DonationComponent />
+      {hasDonated && <p>Thank you for your donation!</p>}
       <motion.button 
         onClick={handleReset}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.5 }}
         className={styles.confirmationBtn}
       >
         GO BACK
       </motion.button>
     </motion.div>
   );
-
-  const renderIsSubmitting = () => {
-    return (
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className={styles.submitting}
-      >
-        <div className={styles.submittingContent}>
-          <AnimatedGlass />
-          <h1>SUBMITTING, PLEASE WAIT...</h1>
-        </div>
-      </motion.div>
-    );
-  };
 
   return (
     <div className={styles.formContainer}>
@@ -423,13 +394,13 @@ export default function Form() {
         />
       </Link>
       <AnimatePresence mode="wait">
-      {isSubmitting ? renderIsSubmitting() : 
-        (isSubmitted ? renderConfirmation() : 
-          (step === 1 ? renderPartySelection() : 
-            (step === 3 ? renderCustomMessage() : renderPersonalInfo())
+      {showDonation ? renderDonation() : 
+          (isSubmitted ? renderConfirmation() : 
+            (step === 1 ? renderPartySelection() : 
+              (step === 3 ? renderCustomMessage() : renderPersonalInfo())
+            )
           )
-        )
-      }
+        }
       </AnimatePresence>
     </div>
   );

@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import styles from './DonationComponent.module.css'
 
-// Replace with your Stripe publishable key
-const stripePromise = loadStripe('pk_test_51Q0PE7JjQt0BXWdpgTOC5qX7J0D4kUmH9JY8nMcrpeX4Alx2huSrvB1oumTeVoORUnDtFojjIU3e00RGYkqyMHox00KaDOEU6h');
+const stripePromise = loadStripe('pk_live_51Q0PE7JjQt0BXWdpcYd2YmdMA3O0BaUtkWZxJQhNPp35UApyP8cxgtzsGxYA8VCH4fOyk23rUvUqTI394PVOw6yV00UW94NLFH');
 
-const DonationComponent = () => {
+const DonationComponent = ({ onDonationComplete }) => {
   const [amount, setAmount] = useState('');
   const [selectedAmount, setSelectedAmount] = useState(null);
 
@@ -26,26 +25,28 @@ const DonationComponent = () => {
 
     if (result.error) {
       console.error(result.error.message);
+    } else {
+      onDonationComplete(); // Call the callback function when donation is complete
     }
   };
 
   const handleButtonClick = (preset) => {
     setSelectedAmount(preset);
-    setAmount(preset)
+    setAmount(preset.toString());
   };
 
   return (
     <div className={styles.donation}>
-      <h2 className="text-2xl font-bold mb-4">Donation Message</h2>
+      <h2 className="text-2xl font-bold mb-4">Support us in creating more fun safe spaces for Models - Donate</h2>
       <div className={styles.buttonsCont}>
-        {[25, 50, 100].map((preset) => (
+        {[15, 30, 100].map((preset) => (
           <button
-          key={preset}
-          onClick={() => handleButtonClick(preset)}
-          className={`${styles.donaButton} ${selectedAmount === preset ? styles.selected : ''}`}
-        >
-          ${preset}
-        </button>
+            key={preset}
+            onClick={() => handleButtonClick(preset)}
+            className={`${styles.donaButton} ${selectedAmount === preset ? styles.selected : ''}`}
+          >
+            ${preset}
+          </button>
         ))}
       </div>
       <div className={styles.donaCustomContainer}>
@@ -53,12 +54,12 @@ const DonationComponent = () => {
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          placeholder="Custom amount"
+          placeholder="Pay what you can"
           className={styles.donaInput}
         />
         <button
           onClick={() => handleDonation(Number(amount))}
-          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+          className={styles.donateButton}
         >
           Donate
         </button>
