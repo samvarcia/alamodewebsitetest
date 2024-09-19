@@ -182,6 +182,7 @@
 .termsCheckbox input {
   width: auto;
   margin-bottom: 0;
+  accent-color: #BC0123;
 }
 .termsCheckbox a {
   color: #fff;

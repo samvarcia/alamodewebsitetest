@@ -322,9 +322,6 @@ export default function Form() {
           )}
         </AnimatePresence>
         <div className={styles.termsCheckbox}>
-          <label htmlFor="agreeToTerms">
-            By signing up, I agree to the <Link href="/terms-and-conditions">Terms and Conditions</Link>
-          </label>
           <input
             type="checkbox"
             name="agreeToTerms"
@@ -333,6 +330,9 @@ export default function Form() {
             required
             id="agreeToTerms"
           />
+          <label htmlFor="agreeToTerms">
+            By signing up, I agree to the <Link href="/terms-and-conditions">Terms and Conditions</Link>
+          </label>
         </div>
       </div>
       
