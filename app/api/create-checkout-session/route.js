@@ -27,7 +27,7 @@ export async function POST(request) {
         },
       ],
       mode: 'payment',
-      success_url: `${request.headers.get('origin')}/success`,
+      success_url: `${request.headers.get('origin')}/thanks`,
       cancel_url: `${request.headers.get('origin')}/checkin`,
     });
 

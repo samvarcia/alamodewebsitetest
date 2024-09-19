@@ -12,7 +12,6 @@
     flex-direction: column;
     height: 100vh;
 }
-
 .form{
     display: flex;
     flex-direction: column;
@@ -20,8 +19,26 @@
 .logo{
     height: auto;
     max-width: 150px;
+    margin-bottom: 30px;
   }
 
+  .confirmation{
+    width: 70%;
+    text-align: center;
+  }
+  .link button {
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  width: 160px;
+  background-color: transparent;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  margin-top: 30px;
+}
 @media (max-width: 768px) {
     .checkinHero {
         justify-content: center;
