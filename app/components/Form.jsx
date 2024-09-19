@@ -331,7 +331,7 @@ export default function Form() {
             id="agreeToTerms"
           />
           <label htmlFor="agreeToTerms">
-            By signing up, I agree to the <Link href="/terms-and-conditions">Terms and Conditions</Link>
+            By signing up, I agree to the <a href="/Terms and Conditions.pdf" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
           </label>
         </div>
       </div>
