@@ -9,8 +9,8 @@ const DonationComponent = ({ onDonationComplete }) => {
   const [selectedAmount, setSelectedAmount] = useState(null);
 
   const handleDonation = async (donationAmount) => {
-      try {
-     const stripe = await stripePromise;
+    try {
+      const stripe = await stripePromise;
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -19,20 +19,22 @@ const DonationComponent = ({ onDonationComplete }) => {
         body: JSON.stringify({ amount: donationAmount }),
       });
 
-
       const session = await response.json();
       
-      
-      await stripe.redirectToCheckout({ sessionId: session.id });
-      if (error) {
-        console.error('Stripe redirect error:', error);
-      } else {
-        onDonationComplete();
+      if (session.error) {
+        throw new Error(session.error);
       }
+
+      const result = await stripe.redirectToCheckout({ sessionId: session.id });
+      
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
+      
+      onDonationComplete();
     } catch (err) {
       console.error('Donation error:', err);
-    }
-  };
+    }}
 
   const handleButtonClick = (preset) => {
     setSelectedAmount(preset);

@@ -9,6 +9,7 @@ export async function POST(request) {
   try {
     const { amount } = await request.json();
     
+    console.log('SOY REQ' + request)
 
     const session = await stripe.checkout.sessions.create({
       submit_type: "donate",
