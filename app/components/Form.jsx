@@ -384,7 +384,7 @@ export default function Form() {
 
   return (
     <div className={styles.formContainer}>
-      {(step === 2 || isSubmitted) && (
+    {step !== 1 && (
         <motion.div 
           className={styles.backArrow} 
           onClick={handleBackToSelector} 
