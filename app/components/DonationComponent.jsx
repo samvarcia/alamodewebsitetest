@@ -4,7 +4,7 @@ import styles from './DonationComponent.module.css'
 
 const stripePromise = loadStripe('pk_live_51Q0PE7JjQt0BXWdpcYd2YmdMA3O0BaUtkWZxJQhNPp35UApyP8cxgtzsGxYA8VCH4fOyk23rUvUqTI394PVOw6yV00UW94NLFH');
 
-const DonationComponent = ({ onDonationComplete }) => {
+const DonationComponent = ({ onDonationComplete, onDonationCancel }) => {
   const [amount, setAmount] = useState('');
   const [selectedAmount, setSelectedAmount] = useState(null);
 
@@ -16,31 +16,29 @@ const DonationComponent = ({ onDonationComplete }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ amount: donationAmount }),
+        body: JSON.stringify({ 
+          amount: donationAmount,
+        }),
       });
 
       const session = await response.json();
-      
-      if (session.error) {
-        throw new Error(session.error);
-      }
-
       const result = await stripe.redirectToCheckout({ sessionId: session.id });
+
       
       if (result.error) {
         throw new Error(result.error.message);
       }
-      
-      onDonationComplete();
     } catch (err) {
       console.error('Donation error:', err);
-    }}
+      onDonationCancel();
+    }
+  }
+
 
   const handleButtonClick = (preset) => {
     setSelectedAmount(preset);
     setAmount(preset.toString());
   };
-
   return (
     <div className={styles.donation}>
       <h2 className="text-2xl font-bold mb-4">DONATE - SUPPORT US IN CREATING A SAFE SPACE FOR MODELS</h2>

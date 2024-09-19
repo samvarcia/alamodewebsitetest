@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from "next/link";
 import { motion, AnimatePresence } from 'framer-motion';
 import DonationComponent from './DonationComponent'
+import { useSearchParams } from 'next/navigation';
 
 export default function Form() {
   const [step, setStep] = useState(1);
@@ -21,7 +22,6 @@ export default function Form() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [currentGlassStage, setCurrentGlassStage] = useState(0);
   const [showDonation, setShowDonation] = useState(false);
   const [hasDonated, setHasDonated] = useState(false);
   
@@ -32,15 +32,32 @@ export default function Form() {
     { id: 'Paris', name: 'PARIS', imageWhite: '/paris-party-white.svg', imageRed: '/paris-party-red.svg' },
   ];
 
-  const glassStages = [
-    '/empty-glass.svg',
-    '/quarter-full-glass.svg',
-    '/half-full-glass.svg',
-    '/full-glass.svg'
-  ];
+  const searchParams = useSearchParams();
 
+  useEffect(() => {
+    const handleStripeResult = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sessionId = urlParams.get('session_id');
+      
+      if (sessionId) {
+        try {
+          const response = await fetch(`/api/check-session-status?session_id=${sessionId}`);
+          const data = await response.json();
+          
+          if (data.status === 'complete') {
+            handleDonationComplete();
+          } else {
+            handleDonationCancel();
+          }
+        } catch (error) {
+          console.error('Error checking session status:', error);
+          handleDonationCancel();
+        }
+      }
+    };
 
-
+    handleStripeResult();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -86,7 +103,7 @@ export default function Form() {
       console.log("Server response:", responseData);
   
       if (response.ok) {
-        setIsSubmitted(true);
+        // setIsSubmitted(true);
       } else {
         console.error(`Error: ${responseData.error || 'Unknown error occurred'}`);
       }
@@ -120,9 +137,12 @@ export default function Form() {
       exit={{ opacity: 0 }}
       className={styles.donationContainer}
     >
-      <DonationComponent onDonationComplete={handleDonationComplete} />
+      <DonationComponent 
+        onDonationComplete={handleDonationComplete} 
+        onDonationCancel={handleDonationCancel}
+      />      
       <motion.button 
-        onClick={handleSkipDonation}
+        onClick={handleDonationCancel}
         // whileHover={{ scale: 1.05 }}
         // whileTap={{ scale: 0.95 }}
         className={styles.skipButton}
@@ -160,6 +180,12 @@ export default function Form() {
   const handleDonationComplete = () => {
     setHasDonated(true);
     setShowDonation(false);
+    setIsSubmitted(true);
+  };
+
+  const handleDonationCancel = () => {
+    setShowDonation(false);
+    setIsSubmitted(true);
   };
 
   const handleSkipDonation = () => {
@@ -384,22 +410,22 @@ export default function Form() {
 
   return (
     <div className={styles.formContainer}>
-      {step === 2 && !isSubmitted && !isSubmitting && (
-        <motion.div 
-          className={styles.backArrow} 
-          onClick={handleBackToSelector} 
-          style={{ cursor: "pointer" }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Image
-              width={40}
-              height={40}
-              src="/backIcon.svg"
-              className={styles.back}
-            />
-        </motion.div>
-      )}
+      {(step === 2 || isSubmitted) && (
+              <motion.div 
+                className={styles.backArrow} 
+                onClick={handleBackToSelector} 
+                style={{ cursor: "pointer" }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Image
+                    width={40}
+                    height={40}
+                    src="/backIcon.svg"
+                    className={styles.back}
+                  />
+              </motion.div>
+        )}
       <Link href="/">
         <Image 
           src="/logoalamode.svg"
