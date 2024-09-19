@@ -123,11 +123,11 @@ export default function Form() {
       <DonationComponent onDonationComplete={handleDonationComplete} />
       <motion.button 
         onClick={handleSkipDonation}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        // whileHover={{ scale: 1.05 }}
+        // whileTap={{ scale: 0.95 }}
         className={styles.skipButton}
       >
-        SKIP
+        NO THANKS
       </motion.button>
     </motion.div>
   );

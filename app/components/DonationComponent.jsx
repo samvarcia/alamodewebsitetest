@@ -43,7 +43,8 @@ const DonationComponent = ({ onDonationComplete }) => {
 
   return (
     <div className={styles.donation}>
-      <h2 className="text-2xl font-bold mb-4">Support us in creating more fun safe spaces for Models - Donate</h2>
+      <h2 className="text-2xl font-bold mb-4">DONATE - SUPPORT US IN CREATING A SAFE SPACE FOR MODELS</h2>
+      <p>Your contribution directly supports us to continue to create unforgettable moments that empower fellow models globally. By donating, you also contribute to fostering a vibrant, inclusive community where models celebrate, connect and support one another. Join us in shaping the next chapter of fashion -every contribution makes a difference!</p>
       <div className={styles.buttonsCont}>
         {[15, 30, 100].map((preset) => (
           <button
@@ -60,16 +61,16 @@ const DonationComponent = ({ onDonationComplete }) => {
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          placeholder="Pay what you can"
+          placeholder="$  PAY WHAT YOU CAN"
           className={styles.donaInput}
         />
+      </div>
         <button
           onClick={() => handleDonation(Number(amount))}
           className={styles.donateButton}
         >
-          Donate
+          DONATE
         </button>
-      </div>
     </div>
   );
 };
