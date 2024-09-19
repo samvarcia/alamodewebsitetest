@@ -1,3 +1,4 @@
+
 // app/api/create-checkout-session/route.js
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
@@ -7,7 +8,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET);
 export async function POST(request) {
   try {
     const { amount } = await request.json();
-    const origin = request.headers.get('origin');
+    
+    console.log('SOY REQ' + request)
 
     const session = await stripe.checkout.sessions.create({
       submit_type: "donate",
@@ -25,8 +27,8 @@ export async function POST(request) {
         },
       ],
       mode: 'payment',
-      success_url: `${origin}?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${request.headers.get('origin')}/success`,
+      cancel_url: `${request.headers.get('origin')}/cancel`,
     });
 
     return NextResponse.json({ id: session.id });
