@@ -46,7 +46,7 @@ const DonationComponent = ({ onDonationComplete }) => {
       <h2 className="text-2xl font-bold mb-4">DONATE - SUPPORT US IN CREATING A SAFE SPACE FOR MODELS</h2>
       <p>Your contribution directly supports us to continue to create unforgettable moments that empower fellow models globally. By donating, you also contribute to fostering a vibrant, inclusive community where models celebrate, connect and support one another. Join us in shaping the next chapter of fashion -every contribution makes a difference!</p>
       <div className={styles.buttonsCont}>
-        {[15, 30, 50].map((preset) => (
+        {[10, 35, 50].map((preset) => (
           <button
             key={preset}
             onClick={() => handleButtonClick(preset)}
