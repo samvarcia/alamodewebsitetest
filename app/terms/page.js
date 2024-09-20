@@ -33,9 +33,9 @@ export default function Page() {
             className={styles.logo}
             />
         </Link>
-        <h1>à la mode Terms and Conditions</h1>
+        <h1>Terms and Conditions</h1>
     
-    <p>Welcome to the à la mode! By purchasing tickets, donating, attending, or participating in any of our events, you agree to the following terms and conditions. Please read them carefully.</p>
+    <p>Welcome to the à la mode! By purchasing tickets, attending, or participating in any of our events, you agree to the following terms and conditions. Please read them carefully.</p>
     
     <h2>1. Code of Conduct</h2>
     <ul>
@@ -96,13 +96,7 @@ export default function Page() {
         <li>These terms and conditions are governed by the laws of Ontario, Canada. Any disputes arising from or related to these terms will be resolved exclusively in the courts of Ontario, Canada.</li>
     </ul>
 
-    <h2>10. Donations</h2>
-    <ul>
-        <li>à la mode accepts donations to support the event. However, donations do not grant entry to the event. If you are not part of our community and donate, you will not be refunded if you are denied entry.</li>
-        <li>Donations are non-refundable under all circumstances, including if the event is cancelled or if entry is denied based on the eligibility criteria.</li>
-    </ul>
-
-    <h2>11. Indemnification</h2>
+    <h2>10. Indemnification</h2>
     <ul>
         <li>By attending the event or participating in any related activities, you agree to indemnify and hold harmless the founders, event organizers, employees, agents, and affiliates from any claims, damages, liabilities, or expenses arising from:
             <ul>
@@ -113,25 +107,25 @@ export default function Page() {
         </li>
     </ul>
 
-    <h2>12. Intellectual Property</h2>
+    <h2>11. Intellectual Property</h2>
     <ul>
         <li>All content provided on the À La Mode website, including logos, graphics, designs, and event material, is owned or licensed by the event organizers and is protected under copyright and intellectual property laws.</li>
         <li>Attendees are prohibited from using any intellectual property of the event for commercial purposes without prior written consent from the organizers.</li>
     </ul>
 
-    <h2>13. Data Protection and Privacy</h2>
+    <h2>12. Data Protection and Privacy</h2>
     <ul>
         <li>à la mode collects personal information from attendees and donors, including but not limited to names, contact details, and payment information, to facilitate event registration and donations.</li>
         <li>We are committed to protecting your privacy and will not share your personal information with third parties without your consent, except as required by law or for the processing of payments.</li>
         <li>By participating in the event, you consent to the collection, use, and storage of your personal information in accordance with our privacy policy.</li>
     </ul>
 
-    <h2>14. Non-Disparagement</h2>
+    <h2>13. Non-Disparagement</h2>
     <ul>
         <li>By attending the event or making donations, you agree not to make any public statements (including social media posts) that could harm the reputation of the founders, event organizers, or associated parties. This includes disparaging comments about the event, its management, or other attendees.</li>
     </ul>
 
-    <h2>15. Severability</h2>
+    <h2>14. Severability</h2>
     <ul>
         <li>If any provision of these Terms and Conditions is found to be invalid or unenforceable, the remaining provisions will remain in full force and effect.</li>
     </ul>
