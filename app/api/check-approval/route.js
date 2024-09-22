@@ -746,22 +746,12 @@ export async function GET(request) {
       }
 
       // Prepare a summary of the results
-      const summary = {
-        totalProcessed: results.length,
-        successfulInvitations: successfulResults.length,
-        failedInvitations: failedResults.length,
-        emailStatuses: {
-          sent: results.filter(r => r.emailStatus === 'sent').length,
-          failed: results.filter(r => r.emailStatus === 'failed').length,
-          not_sent: results.filter(r => r.emailStatus === 'not_sent').length,
-        },
-        failedDetails: failedResults.map(r => ({ email: r.email, reason: r.message, error: r.error }))
-      };
+    
 
       return NextResponse.json({ 
         message: 'Approval process completed', 
-        summary: summary,
-        results: results 
+        // summary: summary,
+        // results: results 
       }, { status: 200 });
     } else {
       return NextResponse.json({ message: 'No rows to process' }, { status: 200 });
