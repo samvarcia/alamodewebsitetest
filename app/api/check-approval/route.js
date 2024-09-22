@@ -617,7 +617,7 @@ async function getPdf(firstName, lastName, party, plusOne, partyDetails, qrCodeD
 
 export async function GET(request) {
   try {
-    console.log("Starting approval process");
+    console.log("Starting approval process", request);
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
       null,
