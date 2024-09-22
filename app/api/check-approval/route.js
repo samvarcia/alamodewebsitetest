@@ -5,32 +5,19 @@ import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
 
-// Configure nodemailer transporter
-const transporter = nodemailer.createTransport({
-  host: 'smtp0001.neo.space',
-  port: 465,
-  secure: true,
-  auth: {
-    user: "checkin@locationalamode.com",
-    pass: '@lamodecheckin3005',
-  },
-});
-
-// Utility function to retry operations
-const retry = async (fn, retries = 3, delay = 1000) => {
-  for (let i = 0; i < retries; i++) {
-    try {
-      return await fn();
-    } catch (error) {
-      if (i === retries - 1) throw error;
-      await new Promise(resolve => setTimeout(resolve, delay));
-    }
-  }
-};
-
 async function sendEmail(to, subject, pdfBuffer, htmlContent) {
+  let transporter = nodemailer.createTransport({
+    host: 'smtp0001.neo.space',
+    port: 465,
+    secure: true,
+    auth: {
+      user: "checkin@locationalamode.com",
+      pass: '@lamodecheckin3005',
+    },
+  });
+
   try {
-    let info = await retry(() => transporter.sendMail({
+    let info = await transporter.sendMail({
       from: '"Location à la mode" <checkin@locationalamode.com>',
       to: to,
       subject: subject,
@@ -42,7 +29,7 @@ async function sendEmail(to, subject, pdfBuffer, htmlContent) {
           contentType: 'application/pdf'
         },
       ]
-    }));
+    });
 
     console.log("Message sent successfully: %s", info.messageId);
     return { success: true, messageId: info.messageId };
@@ -52,14 +39,15 @@ async function sendEmail(to, subject, pdfBuffer, htmlContent) {
   }
 }
 
-async function processInBatches(sheets, rows, batchSize = 5) {
+async function processInBatches(sheets, rows, batchSize = 10) {
   const results = [];
   for (let i = 0; i < rows.length; i += batchSize) {
     const batch = rows.slice(i, i + batchSize);
     const batchResults = await Promise.all(batch.map(row => processRow(sheets, row)));
     results.push(...batchResults);
     
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Delay between batches
+    // Add a small delay between batches to avoid rate limiting
+    await new Promise(resolve => setTimeout(resolve, 1000));
   }
   return results;
 }
@@ -85,48 +73,44 @@ async function processRow(sheets, row) {
       hours: '12:00AM - 05:00AM'
     }
   };
+  if (row[8] === 'Y') {
+    const email = row[3];
+    const firstName = row[1];
+    const lastName = row[2];
+    const party = row[0];
+    const plusOne = row[6] === 'Yes' ? row[7] : 'None';
 
-  if (row[8] !== 'Y') {
-    return { success: false, email: row[3], message: 'Not approved' };
-  }
+    const partyDetails = partyInfo[party] || {
+      venue: 'TBA',
+      address: 'TBA',
+      date: 'TBA',
+      hours: 'TBA'
+    };
 
-  const email = row[3];
-  const firstName = row[1];
-  const lastName = row[2];
-  const party = row[0];
-  const plusOne = row[6] === 'Yes' ? row[7] : 'None';
+    const attendeeId = uuidv4();
+    const timestamp = new Date().toISOString();
 
-  const partyDetails = partyInfo[party] || {
-    venue: 'TBA',
-    address: 'TBA',
-    date: 'TBA',
-    hours: 'TBA'
-  };
-
-  const attendeeId = uuidv4();
-  const timestamp = new Date().toISOString();
-
-  try {
-    const approvedRowsResponse = await retry(() => getApprovedRowsResponse(sheets));
+    // Check if the email or name already exists in the approved sheet for this specific party
+    const approvedRowsResponse = await getApprovedRowsResponse(sheets);
     const approvedRows = approvedRowsResponse.data.values || [];
     const existingRow = approvedRows.find((r) => 
       r[0] === party && (r[3] === email || (r[1] === firstName && r[2] === lastName))
     );
 
-    if (existingRow) {
-      return { success: false, email, message: 'Already exists in approved sheet', emailStatus: 'not_sent' };
-    }
+    if (!existingRow) {
+      const currentRowsResponse = await getCurrentRowsResponse(sheets);
+      const nextRow = currentRowsResponse.data.values ? currentRowsResponse.data.values.length + 1 : 1;
 
-    const currentRowsResponse = await retry(() => getCurrentRowsResponse(sheets));
-    const nextRow = currentRowsResponse.data.values ? currentRowsResponse.data.values.length + 1 : 1;
+      
+      // Add to approved sheet with timestamp
+      await updateApprovedList(sheets, row, attendeeId, nextRow, timestamp);
 
-    const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
-    const qrCodeDataURL = await retry(() => QrCodeUrl(qrCodeLink));
+      const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
+      const qrCodeDataURL = await QrCodeUrl(qrCodeLink);
 
-    const pdfBuffer = await retry(() => getPdf(firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL));
+      const pdfBuffer = await getPdf(firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL);
 
-    const htmlTemplate = `
-       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      const htmlTemplate = `   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="https://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
       <head>
@@ -434,27 +418,20 @@ async function processRow(sheets, row) {
       </div>
       </body>
 
-      </html>
-    `;
+      </html>`; // Your existing HTML template
 
-    const emailResult = await sendEmail(email, `${party} Party Invitation`, pdfBuffer, htmlTemplate);
-    
-    let emailStatus;
-    if (emailResult.success) {
-      emailStatus = 'Sent';
-      await updateApprovedList(sheets, row, attendeeId, nextRow, timestamp, emailStatus);
-      return { success: true, email, message: 'Invitation sent successfully', emailStatus: emailStatus };
+      try {
+        await sendInvitateEmail(email, party, pdfBuffer, htmlTemplate);
+        return { success: true, email, message: 'Invitation sent successfully' };
+      } catch (error) {
+        console.error(`Failed to send invitation to ${email}:`, error);
+        return { success: false, email, message: 'Failed to send invitation' };
+      }
     } else {
-      emailStatus = 'Failed';
-      await updateApprovedList(sheets, row, attendeeId, nextRow, timestamp, emailStatus);
-      return { success: false, email, message: 'Failed to send invitation', emailStatus: emailStatus, error: emailResult.error };
+      return { success: false, email, message: 'Already exists in approved sheet' };
     }
-  } catch (error) {
-    console.error(`Failed to process invitation for ${email}:`, error);
-    const emailStatus = 'Failed';
-    await updateApprovedList(sheets, row, attendeeId, nextRow, timestamp, emailStatus);
-    return { success: false, email, message: 'Failed to process invitation', emailStatus: emailStatus, error: error.message };
   }
+  return { success: false, email: row[3], message: 'Not approved' };
 }
 
 async function removeFromUnapproved(sheets, emailsToRemove) {
@@ -467,18 +444,19 @@ async function removeFromUnapproved(sheets, emailsToRemove) {
     const rows = response.data.values;
     const rowsToDelete = rows.reduce((acc, row, index) => {
       if (emailsToRemove.includes(row[3])) {
-        acc.push(index + 2);
+        acc.push(index + 2); // +2 because we start from A2 and sheets are 1-indexed
       }
       return acc;
     }, []);
 
     if (rowsToDelete.length > 0) {
+      // Sort in descending order to avoid shifting issues when deleting
       rowsToDelete.sort((a, b) => b - a);
 
       const requests = rowsToDelete.map(rowIndex => ({
         deleteDimension: {
           range: {
-            sheetId: 0,
+            sheetId: 0, // Assuming UNAPPROVED is the first sheet. Adjust if necessary.
             dimension: 'ROWS',
             startIndex: rowIndex - 1,
             endIndex: rowIndex
@@ -493,53 +471,48 @@ async function removeFromUnapproved(sheets, emailsToRemove) {
     }
   } catch (error) {
     console.error('Error removing rows from UNAPPROVED:', error);
-    throw error;
   }
 }
 
-async function getUnapproved(sheets) {
+async function getUnapproved(sheets){
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: 'UNAPPROVED!A2:J',
     });
-    console.log('Got unapproved rows successfully');
+    console.log('get unapproved success ✅')
     return response;
   } catch (error) {
-    console.error('Failed to get unapproved rows:', error);
-    throw error;
+    console.log('get unapproved failed ❌', error)
   }
 }
-
-async function getApprovedRowsResponse(sheets) {
+async function getApprovedRowsResponse(sheets){
   try {
     const approvedRowsResponse = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: 'APPROVED!A:J',
     });
-    console.log('Got approved rows successfully');
+    console.log('get approvedRowsResponse success ✅')
     return approvedRowsResponse;
   } catch (error) {
-    console.error('Failed to get approved rows:', error);
-    throw error;
+    console.log('get approvedRowsResponse failed ❌', error)
+
   }
 }
-
-async function getCurrentRowsResponse(sheets) {
+async function getCurrentRowsResponse(sheets){
   try {
     const currentRowsResponse = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: 'APPROVED!A:A',
     });
-    console.log('Got current rows successfully');
+    console.log('get currentRowsResponse success ✅')
     return currentRowsResponse;
   } catch (error) {
-    console.error('Failed to get current rows:', error);
-    throw error;
+    console.log('get currentRowsResponse failed ❌', error)
+
   }
 }
-
-async function updateApprovedList(sheets, row, attendeeId, nextRow, timestamp, emailStatus) {
+async function updateApprovedList(sheets, row, attendeeId, nextRow, timestamp) {
   try {
     await sheets.spreadsheets.values.update({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -550,30 +523,26 @@ async function updateApprovedList(sheets, row, attendeeId, nextRow, timestamp, e
           ...row,
           attendeeId,
           'Not Checked In',
-          timestamp,
-          emailStatus
+          timestamp  // Use the passed timestamp
         ]]
       }
     });
-    console.log('Updated approved list successfully');
+    console.log('updateApprovedList success ✅')
   } catch (error) {
-    console.error('Failed to update approved list:', error);
-    throw error;
+    console.error('updateApprovedList failed ❌', error)
+    throw error;  // Re-throw the error so it's not silently caught
   }
 }
-
-async function QrCodeUrl(qrCodeLink) {
+async function QrCodeUrl(qrCodeLink){
   try {
-    const qr = await QRCode.toDataURL(qrCodeLink);
-    console.log('Generated QR code successfully');
+    const qr = await QRCode.toDataURL(qrCodeLink)
+    console.log('get QrCodeUrl success ✅')
     return qr;
   } catch (error) {
-    console.error('Failed to generate QR code:', error);
-    throw error;
+    console.log('get QrCodeUrl failed ❌' , error)
   }
 }
-
-async function getPdf(firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL) {
+async function getPdf(firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL){
   try {
     Font.register({
       family: 'Futura',
@@ -585,14 +554,110 @@ async function getPdf(firstName, lastName, party, plusOne, partyDetails, qrCodeD
       src: 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/font/SloopScriptTwoBETAMedium.ttf',
     });
     
+    // Create styles
     const styles = StyleSheet.create({
-      // ... (styles remain the same)
+      page: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        position: 'relative',
+      },
+      backgroundImage: {
+        position: 'absolute',
+        minWidth: '100%',
+        minHeight: '100%',
+        display: 'block',
+        height: '100vh',
+        width: '100vw',
+      },
+      content: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: 'center',
+      },
+      logo: {
+        width: 60,
+        marginTop: 30,
+        marginBottom: 20,
+      },
+      text: {
+        fontFamily: 'Futura',
+        color: '#FFFFFF',
+        fontSize: 10,
+        textAlign: 'center',
+        marginBottom: 5,
+      },
+      nameContainer: {
+        alignItems: 'center',
+        marginTop: 20,
+      },
+      name: {
+        fontFamily: 'Sloop Script',
+        fontSize: 66,
+        color: '#FFFFFF',
+        borderBottom: '1px solid white',
+      },
+      nameLine: {
+        width: '80%',
+        height: 2,
+        backgroundColor: '#FFFFFF',
+      },
+      qrCode: {
+        width: 170,
+        height: 170,
+        marginVertical: 20,
+        marginBottom: 30,
+        marginTop: 30,
+      },
+      dateTimeText: {
+        fontFamily: 'Futura',
+        color: '#FFFFFF',
+        fontSize: 16,
+        marginBottom: 0,
+        lineHeight: 1.2,
+      },
+      centerText: {
+        textAlign: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: 'center',
+      },
     });
     
+    // Create PDF Document component
     const MyDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL }) => (
       <Document>
         <Page size="A4" style={styles.page}>
-          {/* ... (Document content remains the same) */}
+          <View style={styles.content}>
+          <Image
+            style={styles.backgroundImage}
+            src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/gradient-background.png"
+          />
+            <Image style={styles.logo} src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" />
+            <View style={[styles.centerText, { marginTop: 15 }]}>
+              <Text style={[styles.dateTimeText, { fontSize: 14 }]}>SPRING/SUMMER 25</Text>
+              <Text style={[styles.dateTimeText, { fontSize: 26, marginBottom: 30 }]}>{party.toUpperCase()}</Text>
+            </View>
+            <Text style={[styles.text, { fontSize: 10 }]}>WOULD NOT BE THE SAME WITHOUT</Text>
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>{firstName} {lastName}</Text>
+            </View>
+              <View style={styles.nameLine}></View>
+            {plusOne !== 'None' && (
+              <Text style={[styles.text, {fontSize: 16, marginTop: 10 }]}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
+            )}
+            <Image style={styles.qrCode} src={qrCodeDataURL} />
+            <Text style={styles.text}>JOIN US AT</Text>
+            <View style={styles.centerText}>
+              <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.venue}</Text>
+              <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.address}</Text>
+            </View>
+            <Text style={[styles.text, { marginTop: 10 }]}>ON</Text>
+            <View style={styles.centerText}>
+              <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.date}</Text>
+              <Text style={[styles.dateTimeText, { fontSize: 16 }]}>{partyDetails.hours}</Text>
+            </View>
+            <Text style={[styles.text, { fontSize: 8, marginTop: 130 }]}>Please Party Responsibly: Attendees assume full responsibility for their own actions.</Text>
+          </View>
         </Page>
       </Document>
     );
@@ -607,17 +672,32 @@ async function getPdf(firstName, lastName, party, plusOne, partyDetails, qrCodeD
         qrCodeDataURL={qrCodeDataURL}
       />
     ).toBuffer();
-    console.log('Generated PDF successfully');
+    console.log('get getPdf success ✅')
     return pdfFile;
   } catch (error) {
-    console.error('Failed to generate PDF:', error);
-    throw error;
+    console.log('get getPdf failed ❌' , error)
+  }
+}
+
+
+async function sendInvitateEmail(email, party, pdfBuffer, htmlTemplate) {
+  try {
+    await sendEmail(
+      email,
+      `${party} Party Invitation`,
+      pdfBuffer,
+      htmlTemplate
+    );
+    console.log('send Invitation success ✅')
+
+  } catch (error) {
+    console.log('send Invitation failed ❌')
   }
 }
 
 export async function GET(request) {
   try {
-    console.log("Starting approval process", request);
+    console.log(request)
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
       null,
@@ -627,34 +707,28 @@ export async function GET(request) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    const response = await retry(() => getUnapproved(sheets));
+    const response = await getUnapproved(sheets);
     const rows = response.data.values;
 
     if (rows && rows.length) {
-      console.log(`Processing ${rows.length} rows`);
       const results = await processInBatches(sheets, rows);
       
-      const successfulResults = results.filter(result => result.success);
-      const failedResults = results.filter(result => !result.success);
+      // Collect emails of successfully processed rows
+      const emailsToRemove = results
+        .filter(result => result.success)
+        .map(result => result.email);
 
-      const emailsToRemove = successfulResults.map(result => result.email);
-
+      // Remove processed rows from UNAPPROVED sheet
       if (emailsToRemove.length > 0) {
-        await retry(() => removeFromUnapproved(sheets, emailsToRemove));
+        await removeFromUnapproved(sheets, emailsToRemove);
       }
 
-      console.log(`Processed ${successfulResults.length} successfully, ${failedResults.length} failed`);
-
-      return NextResponse.json({ 
-        message: 'Approval process completed', 
-        successCount: successfulResults.length,
-        failCount: failedResults.length
-      }, { status: 200 });
+      return NextResponse.json({ message: 'Approval process completed', results }, { status: 200 });
     } else {
       return NextResponse.json({ message: 'No rows to process' }, { status: 200 });
     }
   } catch (error) {
-    console.error('Error in approval process:', error);
+    console.error('Error:', error);
     return NextResponse.json({ error: error.message || 'Error in approval process' }, { status: 500 });
   }
 }
