@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
 
-const CHUNK_SIZE = 10; // Process 50 rows at a time
+const CHUNK_SIZE = 5; // Reduced chunk size for faster processing
 
 async function sendEmail(to, subject, pdfBuffer, htmlContent) {
   let transporter = nodemailer.createTransport({
@@ -41,16 +41,8 @@ async function sendEmail(to, subject, pdfBuffer, htmlContent) {
   }
 }
 
-async function processInBatches(sheets, rows, batchSize = 10) {
-  const results = [];
-  for (let i = 0; i < rows.length; i += batchSize) {
-    const batch = rows.slice(i, i + batchSize);
-    const batchResults = await Promise.all(batch.map(row => processRow(sheets, row)));
-    results.push(...batchResults);
-    
-    // Add a small delay between batches to avoid rate limiting
-    await new Promise(resolve => setTimeout(resolve, 1000));
-  }
+async function processInBatches(sheets, rows, batchSize = 5) {
+  const results = await Promise.all(rows.map(row => processRow(sheets, row)));
   return results;
 }
 
@@ -103,7 +95,6 @@ async function processRow(sheets, row) {
       const currentRowsResponse = await getCurrentRowsResponse(sheets);
       const nextRow = currentRowsResponse.data.values ? currentRowsResponse.data.values.length + 1 : 1;
 
-      
       // Add to approved sheet with timestamp
       await updateApprovedList(sheets, row, attendeeId, nextRow, timestamp);
 
@@ -367,7 +358,7 @@ async function processRow(sheets, row) {
                           </div>
                           <div style="text-align: center; text-align-last: center;"><span style="font-weight: 700;font-style: normal;color: #BC0123;">﻿</span>
                           </div>
-                          <div style="text-align: center; text-align-last: center;"><span>﻿</span>
+                          <div style="text-align: center; text-align-last: center;"><span></span>
                           </div>
                         </div>
                         </td>
@@ -723,22 +714,20 @@ export async function GET(request) {
     let allResults = [];
     let emailsToRemove = [];
 
-    for (let chunk = 0; chunk < totalChunks; chunk++) {
-      const startRow = chunk * CHUNK_SIZE + 2; // +2 because we start from A2
-      const endRow = Math.min((chunk + 1) * CHUNK_SIZE + 1, totalRows + 1);
+    // Process only the first chunk
+    const startRow = 2; // Start from A2
+    const endRow = Math.min(CHUNK_SIZE + 1, totalRows + 1);
 
-      const response = await getUnapproved(sheets, startRow, endRow);
-      const rows = response.data.values;
+    const response = await getUnapproved(sheets, startRow, endRow);
+    const rows = response.data.values;
 
-      if (rows && rows.length) {
-        const results = await processInBatches(sheets, rows);
-        allResults.push(...results);
-        
-        const chunkEmailsToRemove = results
-          .filter(result => result.success)
-          .map(result => result.email);
-        emailsToRemove.push(...chunkEmailsToRemove);
-      }
+    if (rows && rows.length) {
+      const results = await processInBatches(sheets, rows);
+      allResults.push(...results);
+      
+      emailsToRemove = results
+        .filter(result => result.success)
+        .map(result => result.email);
     }
 
     // Remove processed rows from UNAPPROVED sheet
@@ -746,7 +735,13 @@ export async function GET(request) {
       await removeFromUnapproved(sheets, emailsToRemove);
     }
 
-    return NextResponse.json({ message: 'Approval process completed', results: allResults }, { status: 200 });
+    const remainingRows = totalRows - CHUNK_SIZE;
+
+    return NextResponse.json({
+      message: 'Partial approval process completed',
+      results: allResults,
+      remainingRows: remainingRows > 0 ? remainingRows : 0
+    }, { status: 200 });
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json({ error: error.message || 'Error in approval process' }, { status: 500 });
