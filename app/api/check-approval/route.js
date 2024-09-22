@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
 
+const CHUNK_SIZE = 10; // Process 50 rows at a time
+
 async function sendEmail(to, subject, pdfBuffer, htmlContent) {
   let transporter = nodemailer.createTransport({
     host: 'smtp0001.neo.space',
@@ -125,7 +127,7 @@ async function processRow(sheets, row) {
       <meta name="format-detection" content="address=no" />
       <meta name="format-detection" content="email=no" />
       <meta name="x-apple-disable-message-reformatting" />
-      <title>You’re In! See You in ${party}</title>
+      <title>You're In! See You in ${party}</title>
       <!-- Made with Postcards by Designmodo https://designmodo.com/postcards -->
       <style>
       html,
@@ -309,7 +311,7 @@ async function processRow(sheets, row) {
                       <tr>
                         <td valign="top" align="left" style="padding: 0px 0px 20px 0px;">
                         <div class="pc-font-alt" style="line-height: 42px; letter-spacing: -0.2px; font-family: Trebuchet MS, Helvetica, sans-serif; font-size: 32px; font-weight: normal; font-variant-ligatures: normal; color: #ffffff; text-align: left; text-align-last: left;">
-                          <div><span style="font-family: ''Trebuchet MS'', Arial, Helvetica, sans-serif;font-weight: 700;font-style: normal;color: #ffffff;">You’re Confirmed!</span>
+                          <div><span style="font-family: ''Trebuchet MS'', Arial, Helvetica, sans-serif;font-weight: 700;font-style: normal;color: #ffffff;">You're Confirmed!</span>
                           </div>
                         </div>
                         </td>
@@ -392,7 +394,7 @@ async function processRow(sheets, row) {
                       <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
                       <tr>
                         <td valign="top">
-                        <img src="https://cloudfilesdm.com/postcards/image-1725844408748.png" class="" width="600" height="auto" alt="" style="display: block; outline: 0; line-height: 100%; -ms-interpolation-mode: bicubic; width:100%; height: auto; border: 0;" />
+                        <img src="https://cloudfilesdm.com/postcards/image-172584408748.png" class="" width="600" height="auto" alt="" style="display: block; outline: 0; line-height: 100%; -ms-interpolation-mode: bicubic; width:100%; height: auto; border: 0;" />
                         </td>
                       </tr>
                       </table>
@@ -418,7 +420,7 @@ async function processRow(sheets, row) {
       </div>
       </body>
 
-      </html>`; // Your existing HTML template
+      </html>`;
 
       try {
         await sendInvitateEmail(email, party, pdfBuffer, htmlTemplate);
@@ -444,25 +446,24 @@ async function removeFromUnapproved(sheets, emailsToRemove) {
     const rows = response.data.values;
     const rowsToDelete = rows.reduce((acc, row, index) => {
       if (emailsToRemove.includes(row[3])) {
-        acc.push(index + 2); // +2 because we start from A2 and sheets are 1-indexed
+        acc.push(index + 2);
       }
       return acc;
     }, []);
 
     if (rowsToDelete.length > 0) {
-      // Sort in descending order to avoid shifting issues when deleting
       rowsToDelete.sort((a, b) => b - a);
 
-      const requests = rowsToDelete.map(rowIndex => ({
+      const requests = [{
         deleteDimension: {
           range: {
-            sheetId: 0, // Assuming UNAPPROVED is the first sheet. Adjust if necessary.
+            sheetId: 0,
             dimension: 'ROWS',
-            startIndex: rowIndex - 1,
-            endIndex: rowIndex
+            startIndex: rowsToDelete[rowsToDelete.length - 1] - 1,
+            endIndex: rowsToDelete[0]
           }
         }
-      }));
+      }];
 
       await sheets.spreadsheets.batchUpdate({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -474,11 +475,11 @@ async function removeFromUnapproved(sheets, emailsToRemove) {
   }
 }
 
-async function getUnapproved(sheets){
+async function getUnapproved(sheets, startRow, endRow){
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'UNAPPROVED!A2:J',
+      range: `UNAPPROVED!A${startRow}:J${endRow}`,
     });
     console.log('get unapproved success ✅')
     return response;
@@ -486,6 +487,7 @@ async function getUnapproved(sheets){
     console.log('get unapproved failed ❌', error)
   }
 }
+
 async function getApprovedRowsResponse(sheets){
   try {
     const approvedRowsResponse = await sheets.spreadsheets.values.get({
@@ -496,9 +498,9 @@ async function getApprovedRowsResponse(sheets){
     return approvedRowsResponse;
   } catch (error) {
     console.log('get approvedRowsResponse failed ❌', error)
-
   }
 }
+
 async function getCurrentRowsResponse(sheets){
   try {
     const currentRowsResponse = await sheets.spreadsheets.values.get({
@@ -509,9 +511,9 @@ async function getCurrentRowsResponse(sheets){
     return currentRowsResponse;
   } catch (error) {
     console.log('get currentRowsResponse failed ❌', error)
-
   }
 }
+
 async function updateApprovedList(sheets, row, attendeeId, nextRow, timestamp) {
   try {
     await sheets.spreadsheets.values.update({
@@ -523,16 +525,17 @@ async function updateApprovedList(sheets, row, attendeeId, nextRow, timestamp) {
           ...row,
           attendeeId,
           'Not Checked In',
-          timestamp  // Use the passed timestamp
+          timestamp
         ]]
       }
     });
     console.log('updateApprovedList success ✅')
   } catch (error) {
     console.error('updateApprovedList failed ❌', error)
-    throw error;  // Re-throw the error so it's not silently caught
+    throw error;
   }
 }
+
 async function QrCodeUrl(qrCodeLink){
   try {
     const qr = await QRCode.toDataURL(qrCodeLink)
@@ -542,6 +545,7 @@ async function QrCodeUrl(qrCodeLink){
     console.log('get QrCodeUrl failed ❌' , error)
   }
 }
+
 async function getPdf(firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL){
   try {
     Font.register({
@@ -707,26 +711,42 @@ export async function GET(request) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    const response = await getUnapproved(sheets);
-    const rows = response.data.values;
+    // Get the total number of rows
+    const countResponse = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: 'UNAPPROVED!A2:A',
+    });
 
-    if (rows && rows.length) {
-      const results = await processInBatches(sheets, rows);
-      
-      // Collect emails of successfully processed rows
-      const emailsToRemove = results
-        .filter(result => result.success)
-        .map(result => result.email);
+    const totalRows = countResponse.data.values ? countResponse.data.values.length : 0;
+    const totalChunks = Math.ceil(totalRows / CHUNK_SIZE);
 
-      // Remove processed rows from UNAPPROVED sheet
-      if (emailsToRemove.length > 0) {
-        await removeFromUnapproved(sheets, emailsToRemove);
+    let allResults = [];
+    let emailsToRemove = [];
+
+    for (let chunk = 0; chunk < totalChunks; chunk++) {
+      const startRow = chunk * CHUNK_SIZE + 2; // +2 because we start from A2
+      const endRow = Math.min((chunk + 1) * CHUNK_SIZE + 1, totalRows + 1);
+
+      const response = await getUnapproved(sheets, startRow, endRow);
+      const rows = response.data.values;
+
+      if (rows && rows.length) {
+        const results = await processInBatches(sheets, rows);
+        allResults.push(...results);
+        
+        const chunkEmailsToRemove = results
+          .filter(result => result.success)
+          .map(result => result.email);
+        emailsToRemove.push(...chunkEmailsToRemove);
       }
-
-      return NextResponse.json({ message: 'Approval process completed', results }, { status: 200 });
-    } else {
-      return NextResponse.json({ message: 'No rows to process' }, { status: 200 });
     }
+
+    // Remove processed rows from UNAPPROVED sheet
+    if (emailsToRemove.length > 0) {
+      await removeFromUnapproved(sheets, emailsToRemove);
+    }
+
+    return NextResponse.json({ message: 'Approval process completed', results: allResults }, { status: 200 });
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json({ error: error.message || 'Error in approval process' }, { status: 500 });
