@@ -1,0 +1,20 @@
+.productPage{
+  width: 100%;
+  height: 100vh;
+  overflow-y: hidden!important;
+  color: #BC0123;
+  letter-spacing: -0.05rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.productPage img {
+  max-width: 300px;
+}
+.logo {
+  margin-bottom: 1rem;
+  width: 100px;
+  height: auto;
+  /* object-fit: contain; */
+}

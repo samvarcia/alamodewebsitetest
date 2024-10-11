@@ -1,6 +1,11 @@
 import { notFound } from 'next/navigation';
 import shopifyClient from '../../../lib/shopify';
 import AddCartButton from '@/app/components/AddCartButton';
+import Cart from '@/app/components/Cart';
+import styles from './page.module.css'
+import Link from 'next/link';
+import Image from 'next/image';
+
 
 async function getProduct(handle) {
   const query = `
@@ -53,16 +58,23 @@ export default async function ProductPage({ params }) {
   }
 
   return (
-    <div className="product-page">
+
+    <>
+    <div className={styles.productPage}>
+      <Link href="/shop">
+        <Image src="/alamodered.png" alt="a la mode" width={200} height={100} className={styles.logo}/>
+      </Link>
       <img
         src={product.images.edges[0]?.node.originalSrc}
         alt={product.images.edges[0]?.node.altText || product.title}
       />
       <h1>{product.title}</h1>
       <p>{product.description}</p>
-      <p>Price: ${product.variants.edges[0]?.node.price.amount}</p>
-      {/* <AddCartButton product={product} /> */}
+      <p>${product.variants.edges[0]?.node.price.amount}</p>
+      <AddCartButton product={product} />
     </div>
+      <Cart />
+    </>
   );
 }
 export async function generateStaticParams() {

@@ -1,3 +1,5 @@
+import { CartProvider } from '../context/CartContext';
+
 
 export default function RootLayout({ children }) {
   return (
@@ -5,7 +7,11 @@ export default function RootLayout({ children }) {
       <head>
 	      <link rel="icon" href="/icon.ico" type="imag/x-icon" sizes="16x16"/>
        </head>
-      <body >{children}</body>
+      <body >
+        <CartProvider>
+          {children}
+        </CartProvider>
+      </body>
     </html>
   );
 }
