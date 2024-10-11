@@ -16,6 +16,6 @@ export default function AddCartButton({ product }) {
   };
 
   return (
-    <button className={styles.button}onClick={handleAddToCart}>Add to Cart</button>
+    <button className={styles.button} onClick={handleAddToCart}>Add to Cart</button>
   );
 }

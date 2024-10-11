@@ -6,7 +6,7 @@ import { useState } from 'react';
 import styles from './Cart.module.css'
 
 export default function Cart() {
-  const { cart, removeFromCart, updateQuantity } = useCart();
+  const { cart, removeFromCart, updateQuantity, isCartOpen, toggleCart } = useCart();
   const [checkoutUrl, setCheckoutUrl] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -47,16 +47,16 @@ export default function Cart() {
       console.error('Error creating checkout:', error);
     }
   };
-  const toggleCart = () => setIsOpen(!isOpen);
+  // const toggleCart = () => setIsOpen(!isOpen);
 
   return (
     <>
-      {!isOpen && (
+      {!isCartOpen && (
         <button onClick={toggleCart} className={styles.cartToggle}>
           Cart
         </button>
       )}
-      <div className={`${styles.cartContainer} ${isOpen ? styles.cartOpen : ''}`}>
+      <div className={`${styles.cartContainer} ${isCartOpen ? styles.cartOpen : ''}`}>
         <div className={styles.cartHeader}>
           <h2>My Cart</h2>
           <button onClick={toggleCart} className={styles.closeButton}>
