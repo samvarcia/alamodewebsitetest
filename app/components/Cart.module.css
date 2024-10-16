@@ -3,6 +3,7 @@
   top: 0;
   right: 0;
   height: 100vh;
+  /* overflow-y: scroll; */
   width: 100%;
   max-width: 400px;
   background-color: #fff;
@@ -21,7 +22,7 @@
 
 .cartToggle {
   position: fixed;
-  top: 20px;
+  top: 40px;
   right: 20px;
   background: none;
   border: none;
@@ -101,6 +102,7 @@
 .cartFooter {
   padding: 20px;
   border-top: 1px solid #BC0123;
+  margin-bottom: 3rem;
 }
 .cartFooter p{
   font-size: 1.4rem;

@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import shopifyClient from '../../lib/shopify';
 import { useState } from 'react';
 import styles from './Cart.module.css'
+import Image from 'next/image';
 
 export default function Cart() {
   const { cart, removeFromCart, updateQuantity, isCartOpen, toggleCart } = useCart();
@@ -53,19 +54,19 @@ export default function Cart() {
     <>
       {!isCartOpen && (
         <button onClick={toggleCart} className={styles.cartToggle}>
-          Cart
+          <Image src='/bag.svg' width={32} height={32}/>
         </button>
       )}
       <div className={`${styles.cartContainer} ${isCartOpen ? styles.cartOpen : ''}`}>
         <div className={styles.cartHeader}>
-          <h2>My Cart</h2>
+          <h2>My Bag</h2>
           <button onClick={toggleCart} className={styles.closeButton}>
             ×
           </button>
         </div>
         <div className={styles.cartContent}>
           {cart.length === 0 ? (
-            <p>Your cart is empty</p>
+            <p>Your bag is empty</p>
           ) : (
             <>
               {cart.map((item) => (
