@@ -3,10 +3,9 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { motion, useAnimation } from 'framer-motion';
 import Link from "next/link";
+import SignUp from "./components/SignUp";
 
 export default function Home() {
-
-
   return (
     <main className={styles.main}>
           <Image 
@@ -16,14 +15,17 @@ export default function Home() {
             priority
             className={styles.logo}
           />
-          <Link href={"/checkin"}>
+          {/* <Link href={"/checkin"}>
             <Image
               width={45}
               height={65}
               src="/newcup.svg"
               className={styles.check}
             />
-          </Link>
+          </Link> */}
+          <div className={styles.check}>
+            <SignUp/>
+          </div>
         <div className={styles.heroContent}>
           <div></div>
           <div className={styles.heroText}>
