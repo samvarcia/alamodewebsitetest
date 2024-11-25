@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import styles from './PlaylistDetail.module.css';
 import { X, Music } from 'lucide-react';
+import Image from 'next/image';
 
 const PlaylistDetail = ({ playlist, onClose }) => {
   return (
@@ -39,12 +40,38 @@ const PlaylistDetail = ({ playlist, onClose }) => {
           <p>Created by {playlist.creator}</p>
           
           <div className={styles.links}>
-            <a href={playlist.links.spotify} target="_blank" rel="noopener noreferrer">
-              <Music size={24} />
-            </a>
-            <a href={playlist.links.apple} target="_blank" rel="noopener noreferrer">
-              <Music size={24} />
-            </a>
+          <motion.a 
+              href={playlist.links.spotify} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className={styles.spotifyLink}
+            >
+              <Image
+                src="/spotify-icon.svg"
+                alt="Spotify"
+                width={24}
+                height={24}
+                className={styles.iconSvg}
+              />
+            </motion.a>
+            <motion.a 
+              href={playlist.links.apple} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className={styles.appleLink}
+            >
+              <Image
+                src="/apple-music-icon.svg"
+                alt="Apple Music"
+                width={24}
+                height={24}
+                className={styles.iconSvg}
+              />
+            </motion.a>
             <a href={playlist.links.deezer} target="_blank" rel="noopener noreferrer">
               <Music size={24} />
             </a>
