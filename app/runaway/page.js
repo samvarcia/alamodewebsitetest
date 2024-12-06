@@ -80,7 +80,7 @@ const RunawayPage = () => {
           />
           <h1 className={styles.title}>Art Basel Miami</h1>
           <p className={styles.subtitle}>
-          Models Run-Away
+          MODELS RUN-AWAY™
           </p>
         </div>
         <Image 
