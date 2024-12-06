@@ -78,9 +78,9 @@ const RunawayPage = () => {
             priority
             className={styles.miami}
           />
-          <h1 className={styles.title}>Art Week Miami</h1>
+          <h1 className={styles.title}>Art Basel Miami</h1>
           <p className={styles.subtitle}>
-          Models Meet Up Check In
+          Models Run-Away
           </p>
         </div>
         <Image 
