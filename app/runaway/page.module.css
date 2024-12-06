@@ -108,7 +108,7 @@
 }
 
 .submitButton:hover {
-  background-color: #1d4ed8;
+  /* background-color: #1d4ed8; */
 }
 
 .submitButton:active {
@@ -116,7 +116,7 @@
 }
 
 .submitButton:disabled {
-  background-color: #93c5fd;
+  /* background-color: #93c5fd; */
   cursor: not-allowed;
 }
 
@@ -140,20 +140,20 @@
 .alert {
   margin-top: 1rem;
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 4px;
   font-size: 0.875rem;
 }
 
 .successAlert {
-  background-color: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  color: #166534;
+  /* background-color: #f0fdf4; */
+  border: 1px solid #fff;
+  /* color: #166534; */
 }
 
 .errorAlert {
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #991b1b;
+  /* background-color: #fef2f2; */
+  border: 1px solid #991b1b;
+  /* color: #991b1b; */
 }
 
 /* Responsive Design */
