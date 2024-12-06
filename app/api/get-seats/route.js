@@ -16,7 +16,7 @@ export async function GET() {
 
     const data = await response.json()
     const totalMembers = data.stats.member_count
-    const maxSeats = 50 // Set your maximum seats
+    const maxSeats = 29 // Set your maximum seats
     const availableSeats = Math.max(0, maxSeats - totalMembers)
 
     return NextResponse.json({ availableSeats }, { status: 200 })
