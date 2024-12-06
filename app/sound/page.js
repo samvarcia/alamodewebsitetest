@@ -256,6 +256,7 @@ export default function SoundPage() {
 
   return (
     <div className={styles.container}>
+      <h1>EVERY TWO WEEKS A MODEL SHARES A PLAYLIST WITH YOU</h1>
       <AnimatePresence mode="wait">
         {!selectedPlaylist ? (
           <motion.div 
