@@ -158,6 +158,10 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  .contentWrapper {
+  max-width: 100%;
+  margin: 0 40px;
+  }
   .palm {
     width: 100%;
     max-width: 350px;
@@ -189,7 +193,7 @@
 
 @media (max-width: 640px) {
   .mainContainer {
-    padding: 2rem 1rem;
+    padding: 0 0;
   }
 
   .palm {
