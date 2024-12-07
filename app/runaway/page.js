@@ -68,8 +68,8 @@ const RunawayPage = () => {
     transition={{ ease: "easeInOut", duration: 5 }}
     >
       
-      <div className={styles.contentWrapper}>
-        {/* Hero Section */}
+      {/* <div className={styles.contentWrapper}>
+        
         <div className={styles.heroSection}>
           <Image 
             src="/à la mode Miami.png"
@@ -90,7 +90,6 @@ const RunawayPage = () => {
             priority
             className={styles.palm}
           />
-        {/* Registration Section - replaced Card with custom container */}
         <div className={styles.registrationContainer}>
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.inputWrapper}>
@@ -104,7 +103,6 @@ const RunawayPage = () => {
               />
             </div>
             
-            {/* Custom button instead of Button component */}
             <button 
               type="submit" 
               className={styles.submitButton}
@@ -114,7 +112,7 @@ const RunawayPage = () => {
             </button>
           </form>
 
-          {/* Seats Counter */}
+          {/* Seats Counter 
           <div className={styles.seatsCounter}>
             <p className={styles.seatsCount}>
               Only {seatsLeft} seats remaining!
@@ -124,7 +122,7 @@ const RunawayPage = () => {
             </p>
           </div>
 
-          {/* Alert Messages */}
+
           {success && (
             <div className={styles.alert + ' ' + styles.successAlert}>
               Thank you for registering! Check your email for confirmation.
@@ -136,7 +134,8 @@ const RunawayPage = () => {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
+      <h1>TILL NEXT TIME</h1>
     </motion.main>
   );
 };
