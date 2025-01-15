@@ -22,6 +22,24 @@ export async function getUnapprovedAttendees() {
   }
 }
 
+export async function checkForDuplicate(party, email) {
+  try {
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: 'APPROVED!A:D',
+    });
+    
+    const approvedAttendees = response.data.values || [];
+    return approvedAttendees.some(row => 
+      row[0]?.toLowerCase() === party.toLowerCase() && 
+      row[3]?.toLowerCase() === email.toLowerCase()
+    );
+  } catch (error) {
+    console.error('Error checking for duplicates:', error);
+    throw error;
+  }
+}
+
 export async function updateAttendeeStatus(range, values) {
   try {
     await sheets.spreadsheets.values.update({
@@ -38,6 +56,12 @@ export async function updateAttendeeStatus(range, values) {
 
 export async function moveToApprovedSheet(attendeeData) {
   try {
+    // Check for duplicate before moving
+    const isDuplicate = await checkForDuplicate(attendeeData[0], attendeeData[3]);
+    if (isDuplicate) {
+      throw new Error('Duplicate entry: Attendee already approved for this party');
+    }
+
     // Get the next empty row in the APPROVED sheet
     const approvedResponse = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
