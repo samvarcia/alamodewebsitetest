@@ -131,6 +131,8 @@ export async function GET() {
     // Get updated recently processed list
     const updatedRecentlyProcessed = await getRecentlyProcessed();
 
+    console.log(updatedRecentlyProcessed)
+
     return NextResponse.json({ 
       message: 'Approval processing completed',
       processed: processed.length,
