@@ -1,0 +1,42 @@
+.mapContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #01044C;
+}
+.fixedLogo {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 150px;
+  height: auto;
+  transition: opacity 0.3s ease;
+}
+
+.map {
+  width: 100vw;
+  height: auto;
+  display: block;
+}
+
+.cityLabel {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 4px 8px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  transform: translate(-50%, -50%);
+  /* z-index: 1; Bring the labels in front of the map */
+}
+
+.cityLabel a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.cityLabel a:hover {
+  text-decoration: underline;
+}
