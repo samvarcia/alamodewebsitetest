@@ -5,27 +5,35 @@
   overflow: hidden;
   background-color: #01044C;
 }
+
 .logoContainer {
   position: fixed;
-  transition: all 1s ease;
-  z-index: 51; /* Higher than modalOverlay to stay on top */
+  z-index: 51;
 }
 
 .logoDefault {
   bottom: 20px;
   right: 20px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .logoModal {
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.logoHidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .fixedLogo {
   width: 150px;
   height: auto;
-  transition: opacity 1s ease;
 }
 
 .map {

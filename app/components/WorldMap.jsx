@@ -29,7 +29,19 @@ export default function WorldMap() {
         />
       </svg>
 
-      <div className={`${styles.logoContainer} ${isModalOpen ? styles.logoModal : styles.logoDefault}`}>
+      {/* Default logo position (bottom right) */}
+      <div className={`${styles.logoContainer} ${styles.logoDefault} ${isModalOpen ? styles.logoHidden : ''}`}>
+        <Image 
+          src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
+          width={150}
+          height={100}
+          priority
+          className={styles.fixedLogo}
+        />
+      </div>
+
+      {/* Modal logo position (top center) */}
+      <div className={`${styles.logoContainer} ${styles.logoModal} ${!isModalOpen ? styles.logoHidden : ''}`}>
         <Image 
           src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
           width={150}
