@@ -1,7 +1,6 @@
 .modalOverlay {
   position: fixed;
   inset: 0;
-  /* background-color: rgba(0, 0, 0, 0.5); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,13 +8,10 @@
 }
 
 .modalContent {
-  /* background-color: black; */
-  /* border: 1px solid white; */
   padding: 2rem 15rem;
   margin-top: 50px;
   border-radius: 8px;
   width: 100%;
-  /* max-width: 36rem; */
   position: relative;
 }
 
@@ -62,12 +58,11 @@
   backdrop-filter: blur(50px);
   border-radius: 12px;
 }
+
 .form input:focus,
 .form input:active {
   outline: none;
-  /* background-color: transparent; */
 }
-
 
 .input::placeholder {
   color: #fff;
@@ -83,7 +78,6 @@
 .plusOneButtons {
   display: flex;
   gap: 1rem;
-  /* margin-top: 0.5rem; */
 }
 
 .plusOneButton {
@@ -101,17 +95,16 @@
 
 .plusOneButton.selected {
   border: 1px solid white;
-  /* color: black; */
 }
 
 .termsSection {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* gap: 0.5rem; */
   color: white;
 }
-.termsSection a{
+
+.termsSection a {
   color: white;
 }
 
@@ -131,27 +124,30 @@
   backdrop-filter: blur(50px);
   border-radius: 12px;
 }
+
 .form input::placeholder {
   color: #fff;
 }
 
-.form input{
+.form input {
   font-family: inherit;
   font-size: 1.2rem;
   letter-spacing: -0.5px;
-
 }
+
 .submitButton:hover {
   background-color: white;
   color: black;
 }
 
-.loadingState, .successState {
+.loadingState,
+.successState {
   text-align: center;
   color: white;
 }
 
-.loadingState h2, .successState h2 {
+.loadingState h2,
+.successState h2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -172,4 +168,94 @@
 .backButton:hover {
   background-color: white;
   color: black;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  .modalContent {
+    padding: 2rem 1rem;
+    margin-top: 200px;
+    height: 100vh;
+    overflow-y: auto;
+    gap: 0.5rem;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  /* Keep nameInputs in one line but adjust for mobile */
+  .nameInputs {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  /* Keep plusOneSection in one line but adjust spacing */
+  .plusOneSection {
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .plusOneSection p {
+    font-size: 0.9rem;
+  }
+
+  .plusOneButtons {
+    gap: 0.5rem;
+  }
+
+  .plusOneButton {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .termsSection {
+    /* flex-direction: column;
+    gap: 0.5rem;
+    text-align: center; */
+  }
+
+  .form input {
+    font-size: 1rem;
+  }
+
+  .submitButton {
+    max-width: 70%;
+    margin-top: 20px;
+  }
+
+  .loadingState h2,
+  .successState h2 {
+    font-size: 1.2rem;
+  }
+
+  .successState p {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+}
+
+/* Small mobile devices */
+@media screen and (max-width: 375px) {
+  .modalContent {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .form {
+    gap: 0.8rem;
+  }
+
+  .nameInputs {
+    gap: 0.3rem;
+  }
+
+  .plusOneButton {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .plusOneSection p {
+    font-size: 0.8rem;
+  }
 }
