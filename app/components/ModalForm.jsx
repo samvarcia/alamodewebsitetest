@@ -109,7 +109,7 @@ const ModalForm = ({ isOpen, onClose, selectedCity }) => {
                 className={styles.input}
               />
               <input
-                type="text"
+                type="text" 
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}

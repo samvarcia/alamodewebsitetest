@@ -10,11 +10,12 @@
 
 .modalContent {
   /* background-color: black; */
-  border: 1px solid white;
-  padding: 2rem;
+  /* border: 1px solid white; */
+  padding: 2rem 15rem;
+  margin-top: 50px;
   border-radius: 8px;
   width: 100%;
-  max-width: 36rem;
+  /* max-width: 36rem; */
   position: relative;
 }
 
@@ -41,8 +42,8 @@
 .title {
   font-size: 1.5rem;
   color: white;
-  text-align: center;
-  margin-bottom: 1.5rem;
+  text-align: left;
+  margin-bottom: 0.5rem;
 }
 
 .nameInputs {
@@ -52,57 +53,94 @@
 }
 
 .input {
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   background-color: transparent;
-  border: 1px solid white;
+  border: none;
   color: white;
   width: 100%;
+  background: rgba(215, 216, 215, 0.13);
+  backdrop-filter: blur(50px);
+  border-radius: 12px;
+}
+.form input:focus,
+.form input:active {
+  outline: none;
+  /* background-color: transparent; */
 }
 
+
 .input::placeholder {
-  color: #999;
+  color: #fff;
 }
 
 .plusOneSection {
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .plusOneButtons {
   display: flex;
   gap: 1rem;
-  margin-top: 0.5rem;
+  /* margin-top: 0.5rem; */
 }
 
 .plusOneButton {
-  padding: 0.5rem 1rem;
-  border: 1px solid white;
+  padding: 0.5rem 1.3rem;
   background: none;
   color: white;
+  background: rgba(215, 216, 215, 0.13);
+  backdrop-filter: blur(50px);
+  border-radius: 12px;
   cursor: pointer;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
 }
 
 .plusOneButton.selected {
-  background-color: white;
-  color: black;
+  border: 1px solid white;
+  /* color: black; */
 }
 
 .termsSection {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between;
+  /* gap: 0.5rem; */
+  color: white;
+}
+.termsSection a{
   color: white;
 }
 
 .submitButton {
   width: 100%;
+  max-width: 150px;
   padding: 0.5rem;
+  align-self: center;
   border: 1px solid white;
   background: none;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 1rem;
+  font-family: inherit;
+  background: rgba(215, 216, 215, 0.13);
+  backdrop-filter: blur(50px);
+  border-radius: 12px;
+}
+.form input::placeholder {
+  color: #fff;
 }
 
+.form input{
+  font-family: inherit;
+  font-size: 1.2rem;
+  letter-spacing: -0.5px;
+
+}
 .submitButton:hover {
   background-color: white;
   color: black;

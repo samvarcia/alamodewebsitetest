@@ -29,7 +29,7 @@ export default function WorldMap() {
         />
       </svg>
 
-      <div className={styles.logoContainer}>
+      <div className={`${styles.logoContainer} ${isModalOpen ? styles.logoModal : styles.logoDefault}`}>
         <Image 
           src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
           width={150}
