@@ -1,0 +1,137 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modalContent {
+  background-color: black;
+  border: 1px solid white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 36rem;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  color: #cccccc;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  color: white;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.nameInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.input {
+  padding: 0.5rem;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  width: 100%;
+}
+
+.input::placeholder {
+  color: #999;
+}
+
+.plusOneSection {
+  color: white;
+}
+
+.plusOneButtons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.plusOneButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid white;
+  background: none;
+  color: white;
+  cursor: pointer;
+}
+
+.plusOneButton.selected {
+  background-color: white;
+  color: black;
+}
+
+.termsSection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid white;
+  background: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: white;
+  color: black;
+}
+
+.loadingState, .successState {
+  text-align: center;
+  color: white;
+}
+
+.loadingState h2, .successState h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.successState p {
+  margin-bottom: 1.5rem;
+}
+
+.backButton {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid white;
+  background: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.backButton:hover {
+  background-color: white;
+  color: black;
+}
