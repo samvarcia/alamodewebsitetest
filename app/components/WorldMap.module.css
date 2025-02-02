@@ -5,6 +5,7 @@
   overflow: hidden;
   background-color: #01044C;
 }
+
 .fixedLogo {
   position: fixed;
   bottom: 20px;
@@ -21,22 +22,19 @@
 }
 
 .cityLabel {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 4px 8px;
-  font-size: 14px;
+  transition: opacity 0.3s ease;
+  fill: white;
   font-weight: bold;
-  border-radius: 4px;
-  transform: translate(-50%, -50%);
-  /* z-index: 1; Bring the labels in front of the map */
-}
-
-.cityLabel a {
-  text-decoration: none;
-  color: inherit;
+  font-size: 27px;
   cursor: pointer;
 }
 
-.cityLabel a:hover {
-  text-decoration: underline;
+.cityDot {
+  transition: opacity 0.3s ease;
+  fill: white;
+  opacity: 1;
+}
+
+.cityHidden {
+  opacity: 0;
 }

@@ -22,8 +22,11 @@ export default function WorldMap() {
         xmlns="http://www.w3.org/2000/svg"
         className={styles.map}
       >
-        <WorldMapSVG />
-        <CityLabels onCityClick={handleCityClick} />
+        <WorldMapSVG isModalOpen={isModalOpen} />
+        <CityLabels 
+          onCityClick={handleCityClick} 
+          isModalOpen={isModalOpen}
+        />
       </svg>
 
       <div className={styles.logoContainer}>

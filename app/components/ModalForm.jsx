@@ -96,7 +96,7 @@ const ModalForm = ({ isOpen, onClose, selectedCity }) => {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <h2 className={styles.title}>{selectedCity.toUpperCase()} SS 25</h2>
+            <h2 className={styles.title}>{selectedCity.toUpperCase()} FW 25</h2>
             
             <div className={styles.nameInputs}>
               <input
@@ -105,7 +105,7 @@ const ModalForm = ({ isOpen, onClose, selectedCity }) => {
                 value={formData.firstName}
                 onChange={handleChange}
                 required
-                placeholder="First Name"
+                placeholder="Name"
                 className={styles.input}
               />
               <input
