@@ -72,8 +72,9 @@
     width: auto;
     width: 100vw;
     height: auto;
+    height: 100%;
     /* min-width: 150%; */
-    /* transform: translateX(-10%); Adjust this value to center the important parts of the map */
+    /* transform: translateX(5%);  */
   }
 
   .cityLabel {
