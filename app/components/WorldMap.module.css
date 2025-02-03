@@ -59,3 +59,24 @@
 .cityHidden {
   opacity: 0;
 }
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .mapContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .map {
+    width: auto;
+    width: 100vw;
+    height: auto;
+    /* min-width: 150%; */
+    /* transform: translateX(-10%); Adjust this value to center the important parts of the map */
+  }
+
+  .cityLabel {
+    font-size: 20px; /* Slightly smaller font for mobile */
+  }
+}
