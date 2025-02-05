@@ -9,14 +9,14 @@ export default function WorldMap() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
   const [isMobile, setIsMobile] = useState(false);
-  const [viewBox, setViewBox] = useState("0 0 1509 980");
+  const [viewBox, setViewBox] = useState("0 0 2057 1242");
 
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
       // Zoom into Europe/US area for mobile
-      setViewBox(mobile ? "300 250 900 500" : "0 0 1509 980");
+      setViewBox(mobile ? "300 250 900 500" : "0 0 2057 1242");
     };
 
     handleResize();

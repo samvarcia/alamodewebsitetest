@@ -5,23 +5,23 @@ export const CityLabels = ({ onCityClick, isModalOpen, isMobile }) => {
   const cities = [
     {
       name: 'New York',
-      desktop: { x: 350, y: 390 },
-      mobile: { x: 350, y: 390 }
+      desktop: { x: 510, y: 490 },
+      mobile: { x: 510, y: 490 }
     },
     {
       name: 'London',
-      desktop: { x: 776, y: 308 },
-      mobile: { x: 776, y: 308 }
+      desktop: { x: 936, y: 408 },
+      mobile: { x: 936, y: 408 }
     },
     {
       name: 'Milan',
-      desktop: { x: 837, y: 448 },
-      mobile: { x: 837, y: 428 } // Slightly adjusted for mobile
+      desktop: { x: 997, y: 548 },
+      mobile: { x: 997, y: 548 } // Slightly adjusted for mobile
     },
     {
       name: 'Paris',
-      desktop: { x: 870, y: 358 },
-      mobile: { x: 870, y: 358 }
+      desktop: { x: 1035, y: 458 },
+      mobile: { x: 1035, y: 458 }
     }
   ];
 
@@ -33,7 +33,7 @@ export const CityLabels = ({ onCityClick, isModalOpen, isMobile }) => {
           <a key={city.name} href="#" onClick={(e) => onCityClick(city.name, e)}>
             <circle 
               cx={coords.x} 
-              cy={coords.y}
+              cy={coords.y} 
               className={`${styles.cityDot} ${isModalOpen ? styles.cityHidden : ''}`}
             />
             <text
