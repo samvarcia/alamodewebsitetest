@@ -15,8 +15,8 @@ export default function WorldMap() {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
-      // Zoom into Europe/US area for mobile
-      setViewBox(mobile ? "300 250 900 500" : "0 0 2057 1242");
+      // More precise zoom for mobile, focusing on US and Europe
+      setViewBox(mobile ? "0 150 1800 1000" : "0 0 2057 1242");
     };
 
     handleResize();
