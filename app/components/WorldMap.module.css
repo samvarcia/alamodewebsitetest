@@ -73,14 +73,15 @@
     }
     
     .map {
+      margin-top: 20px;
       width: 260vw; 
       height: 100vh;
       min-width: 100%;
-      transform: translateX(80px); 
+      transform: translateX(65px); 
   }
   
     .cityLabel {
-      font-size: 21px; /* Smaller, more legible font */
+      font-size: 29px; /* Smaller, more legible font */
     }
   
     .cityDot {
