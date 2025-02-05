@@ -70,11 +70,9 @@
   
   .map {
     width: auto;
-    width: 100vw;
-    height: auto;
-    height: 100%;
-    /* min-width: 150%; */
-    /* transform: translateX(5%);  */
+    height: 300vh;
+    min-width: 150%;
+    transform: translateX(90px); 
   }
 
   .cityLabel {

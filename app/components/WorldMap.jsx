@@ -38,7 +38,10 @@ export default function WorldMap() {
         className={styles.map}
         preserveAspectRatio="xMidYMid meet"
       >
-        <WorldMapSVG isModalOpen={isModalOpen} />
+        <WorldMapSVG 
+          isModalOpen={isModalOpen} 
+          isLoading={false} // default state is not loading
+        />        
         <CityLabels 
           onCityClick={handleCityClick} 
           isModalOpen={isModalOpen}

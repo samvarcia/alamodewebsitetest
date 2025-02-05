@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styles from './ModalForm.module.css';
 import Link from 'next/link';
+import WorldMapSVG from './WorldMapSVG'
+
 
 const ModalForm = ({ isOpen, onClose, selectedCity }) => {
   const [formData, setFormData] = useState({
@@ -81,8 +83,9 @@ const ModalForm = ({ isOpen, onClose, selectedCity }) => {
 
         {isSubmitting ? (
           <div className={styles.loadingState}>
-            <h2>SUBMITTING, PLEASE WAIT...</h2>
-          </div>
+          <h2>SUBMITTING, PLEASE WAIT...</h2>
+          <WorldMapSVG isModalOpen={true} isLoading={true} />
+        </div>
         ) : isSubmitted ? (
           <div className={styles.successState}>
             <h2>Thank you for your submission!</h2>
