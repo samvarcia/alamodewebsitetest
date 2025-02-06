@@ -15,31 +15,43 @@
 .image1 {
   grid-column: 1 / span 7;
   grid-row: 3 / span 5;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5I0tVBqvaNxEchdfrpk3OHPZGBWwXFCMJeLgY);
+  background-size: cover;
 }
 
 .image2 {
   grid-column: 3 / span 12;
   grid-row: 10 / span 4;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5oR7O4Ma5JKtXRFgQsOia31TfDuo8MPvznlLy);
+  background-size: cover;
 }
 
 .image3 {
   grid-column: 34 / span 10;
   grid-row: 1 / span 3;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5k4jfGQFbzaR50NlHWejvVOMES4AJrx8wqiYf);
+  background-size: cover;
 }
 
 .image4 {
   grid-column: 15 / span 11;
   grid-row: 2 / span 4;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ZXe7pVLEwM5xcgiDB81Wf0T2ztHSVbnYCmAo);
+  background-size: cover;
 }
 
 .image5 {
   grid-column: 19 / span 10;
   grid-row: 9 / span 3;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5euSGQbqCC3HfZPSQz6uBoK2tX5Op1rTMcAlJ);
+  background-size: cover;
 }
 
 .image6 {
   grid-column: 33 / span 9;
   grid-row: 5 / span 6;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5xg6cduKFtIYdo9AvZnfspCON6KRh4SU5HBTc);
+  background-size: cover;
 }
 
 .imageWrapper {
@@ -52,8 +64,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: white;
-  border: 1px solid #eee;
+  /* background-color: white; */
 }
 
 .vertical .imageContainer {
