@@ -1,12 +1,16 @@
+// app/api/check-approval/route.js
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { generatePDF } from '../../utils/pdf-generator';
 import { sendEmail } from '../../utils/email-service';
 import { getUnapprovedAttendees, updateAttendeeStatus, moveToApprovedSheet, getRecentlyProcessed } from '../../utils/sheets-service';
 
-// Reduce batch size for Vercel's free tier limitations
+// Force dynamic execution
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const BATCH_SIZE = 1;
-const MAX_EXECUTION_TIME = 9000; // 9 seconds (leaving 1 second buffer)
+const MAX_EXECUTION_TIME = 9000;
 
 const PARTY_INFO = {
   'New York City': {
@@ -35,11 +39,18 @@ const PARTY_INFO = {
   }
 };
 
-export async function GET() {
+export async function GET(req) {
+  // Log request details
+  console.log('🔄 Check-approval request received:', {
+    url: req.url,
+    method: req.method,
+    timestamp: new Date().toISOString()
+  });
+
   try {
     const startTime = Date.now();
     
-    // Get current state
+    console.log('📊 Fetching current state...');
     const [unapprovedAttendees, recentlyProcessed] = await Promise.all([
       getUnapprovedAttendees(),
       getRecentlyProcessed()
@@ -48,6 +59,8 @@ export async function GET() {
     // Only get attendees that are approved ('Y') but not yet processed ('S')
     const approvedAttendees = unapprovedAttendees.filter(row => row[8] === 'Y' && row[9] !== 'S');
     const pendingCount = unapprovedAttendees.filter(row => row[8] === '').length;
+    
+    console.log(`✨ Found ${approvedAttendees.length} approved attendees to process`);
     
     if (approvedAttendees.length === 0) {
       return NextResponse.json({
@@ -58,6 +71,10 @@ export async function GET() {
           party: row[0],
           timestamp: row[11] || 'Recently'
         }))
+      }, {
+        headers: {
+          'Cache-Control': 'no-store, must-revalidate',
+        }
       });
     }
 
@@ -67,18 +84,20 @@ export async function GET() {
 
     // Process attendees one at a time with timeout check
     for (const attendee of approvedAttendees) {
-      // Check if we're approaching the timeout limit
       if (Date.now() - startTime > MAX_EXECUTION_TIME) {
+        console.log('⚠️ Approaching timeout limit, stopping processing');
         break;
       }
 
-      // Limit the number of attendees processed in a single request
       if (processedCount >= BATCH_SIZE) {
+        console.log('✋ Batch size limit reached');
         break;
       }
 
       try {
         const [party, firstName, lastName, email, , , plusOneStatus, plusOneName] = attendee;
+        console.log(`🎫 Processing: ${firstName} ${lastName} for ${party}`);
+
         const attendeeId = uuidv4();
         const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
         const timestamp = new Date().toISOString();
@@ -96,7 +115,7 @@ export async function GET() {
           }
         };
 
-        // Generate PDF and send email sequentially to reduce memory usage
+        console.log('📄 Generating PDF...');
         const pdfBuffer = await generatePDF(attendeeData, qrCodeLink);
         
         const htmlTemplate = `
@@ -115,9 +134,10 @@ export async function GET() {
           </div>
         `;
 
+        console.log('📧 Sending email...');
         await sendEmail(email, `${party} Party Invitation`, pdfBuffer, htmlTemplate);
         
-        // Update sheets status and move to approved sheet sequentially
+        console.log('📝 Updating sheets...');
         const rowIndex = unapprovedAttendees.indexOf(attendee) + 2;
         await updateAttendeeStatus(`UNAPPROVED!J${rowIndex}`, [['S']]);
         await moveToApprovedSheet([
@@ -127,24 +147,24 @@ export async function GET() {
         
         processed.push(`${firstName} ${lastName} - ${party}`);
         processedCount++;
+        console.log(`✅ Successfully processed ${firstName} ${lastName}`);
 
       } catch (error) {
+        console.error('❌ Error processing attendee:', error);
         if (error.message.includes('Duplicate entry')) {
-          // Mark as processed in UNAPPROVED sheet to prevent future processing
           const rowIndex = unapprovedAttendees.indexOf(attendee) + 2;
           await updateAttendeeStatus(`UNAPPROVED!J${rowIndex}`, [['S']]);
           errors.push(`${attendee[1]} ${attendee[2]} - Already approved for ${attendee[0]}`);
         } else {
-          console.error('Error processing attendee:', error);
           errors.push(`${attendee[1]} ${attendee[2]} - Processing failed: ${error.message}`);
         }
       }
     }
 
-    // Get updated recently processed list
+    console.log('🔄 Getting updated recently processed list...');
     const updatedRecentlyProcessed = await getRecentlyProcessed();
 
-    return NextResponse.json({ 
+    const response = {
       message: processed.length > 0 
         ? 'Approval processing completed' 
         : 'Partial processing completed due to time constraints',
@@ -158,14 +178,25 @@ export async function GET() {
         party: row[0],
         timestamp: row[11] || 'Recently'
       }))
+    };
+
+    console.log('✨ Processing complete:', response);
+
+    return NextResponse.json(response, {
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      }
     });
   } catch (error) {
-    console.error('Error processing approvals:', error);
+    console.error('❌ Fatal error:', error);
     return NextResponse.json({ 
       error: error.message,
       errorDetail: process.env.NODE_ENV === 'development' ? error.stack : undefined
     }, { 
-      status: 500 
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      }
     });
   }
 }
