@@ -9,94 +9,97 @@ Font.register({
 
 Font.register({
   family: 'LTRailway',
-  src: 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/font/LTRailway-Regular.otf', // You'll need to add this font
+  src: 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/font/LTRailway-Regular.otf',
 });
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: 'column',
+    backgroundColor: '#000033',
+    flexDirection: 'row', // Changed to row for horizontal layout
+    width: '100%',
+  },
+  leftSection: {
+    width: '50%',
+    padding: 40,
+    justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative',
-    backgroundColor: '#000033', // Dark blue background
+  },
+  rightSection: {
+    width: '50%',
+    padding: 40,
+    justifyContent: 'center',
+    alignItems: 'flex-end', // Align items to the right
   },
   backgroundMap: {
     position: 'absolute',
-    minWidth: '100%',
-    minHeight: '100%',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     opacity: 0.1,
   },
-  content: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: 'center',
-    width: '100%',
-    padding: 40,
-  },
   logo: {
-    width: 120,
-    marginTop: 30,
-    marginBottom: 20,
+    width: 150,
+    marginBottom: 40,
+    alignSelf: 'flex-start', // Align logo to the left
   },
   season: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 14,
-    textAlign: 'center',
     marginBottom: 10,
+    alignSelf: 'flex-start',
   },
   city: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
-    fontSize: 40,
-    textAlign: 'center',
+    fontSize: 48,
     marginBottom: 30,
+    alignSelf: 'flex-start',
   },
   preNameText: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
-    fontSize: 10,
-    textAlign: 'center',
+    fontSize: 12,
     marginBottom: 20,
-  },
-  nameContainer: {
-    alignItems: 'center',
-    marginVertical: 20,
-    width: '100%',
+    alignSelf: 'flex-start',
   },
   name: {
     fontFamily: 'LTRailway',
     fontSize: 48,
     color: '#FFFFFF',
-    textAlign: 'center',
+    marginBottom: 10,
+    alignSelf: 'flex-start',
   },
   plusOneText: {
     fontFamily: 'LTRailway',
     color: '#FFFFFF',
     fontSize: 16,
-    textAlign: 'center',
     marginTop: 10,
+    alignSelf: 'flex-start',
   },
-  venueContainer: {
-    alignItems: 'center',
-    marginTop: 20,
+  venueInfo: {
+    alignSelf: 'flex-end',
+    alignItems: 'flex-end',
+    marginTop: 'auto',
   },
   venueLabel: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 12,
-    marginBottom: 10,
+    marginBottom: 5,
+    textAlign: 'right',
   },
   venueText: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 16,
-    textAlign: 'center',
     marginBottom: 5,
+    textAlign: 'right',
   },
   qrCode: {
     width: 150,
     height: 150,
-    marginTop: 30,
     marginBottom: 30,
   },
   disclaimer: {
@@ -106,7 +109,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     position: 'absolute',
     bottom: 20,
-    width: '100%',
+    left: 0,
+    right: 0,
   },
 });
 
@@ -119,35 +123,30 @@ const cityMaps = {
 
 const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL }) => (
   <Document>
-    <Page size="A4" style={styles.page}>
+    <Page size={[842, 595]} orientation="landscape" style={styles.page}> {/* A4 landscape dimensions */}
       <Image
         style={styles.backgroundMap}
-        src={cityMaps[party] || cityMaps['Paris']} // Default to Paris map if city not found
+        src={cityMaps[party] || cityMaps['Paris']}
       />
-      <View style={styles.content}>
+      
+      {/* Left Section */}
+      <View style={styles.leftSection}>
         <Image 
           style={styles.logo} 
           src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1" 
         />
-        
         <Text style={styles.season}>FALL/WINTER 25</Text>
         <Text style={styles.city}>{party.toUpperCase()}</Text>
-        
         <Text style={styles.preNameText}>WOULD NOT BE THE SAME WITHOUT</Text>
-        
-        <View style={styles.nameContainer}>
-          <Text style={styles.name}>{`${firstName} ${lastName}`.toUpperCase()}</Text>
-        </View>
-        
+        <Text style={styles.name}>{`${firstName} ${lastName}`.toUpperCase()}</Text>
         {plusOne !== 'None' && (
-          <View>
-            <Text style={styles.plusOneText}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
-          </View>
+          <Text style={styles.plusOneText}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
         )}
-        
-        <Image style={styles.qrCode} src={qrCodeDataURL} />
-        
-        <View style={styles.venueContainer}>
+      </View>
+
+      {/* Right Section */}
+      <View style={styles.rightSection}>
+        <View style={styles.venueInfo}>
           <Text style={styles.venueLabel}>JOIN US AT</Text>
           <Text style={styles.venueText}>{partyDetails.venue}</Text>
           <Text style={styles.venueText}>{partyDetails.address}</Text>
@@ -155,11 +154,12 @@ const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCode
           <Text style={styles.venueText}>{partyDetails.date}</Text>
           <Text style={styles.venueText}>{partyDetails.hours}</Text>
         </View>
-        
-        <Text style={styles.disclaimer}>
-          Please Party Responsibly: Attendees assume full responsibility for their own actions.
-        </Text>
+        <Image style={[styles.qrCode, { marginTop: 30 }]} src={qrCodeDataURL} />
       </View>
+
+      <Text style={styles.disclaimer}>
+        Please Party Responsibly: Attendees assume full responsibility for their own actions.
+      </Text>
     </Page>
   </Document>
 );
