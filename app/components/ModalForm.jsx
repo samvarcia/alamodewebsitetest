@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import styles from './ModalForm.module.css';
 import Link from 'next/link';
-import WorldMapSVG from './WorldMapSVG'
 
-
-const ModalForm = ({ isOpen, onClose, selectedCity }) => {
+const ModalForm = ({ 
+  isOpen, 
+  onClose, 
+  selectedCity, 
+  onSubmitStart,
+  onSubmitEnd 
+}) => {
   const [formData, setFormData] = useState({
     parties: [],
     firstName: '',
@@ -30,6 +34,7 @@ const ModalForm = ({ isOpen, onClose, selectedCity }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    onSubmitStart();
     
     try {
       const response = await fetch('/api/submit', {
@@ -50,6 +55,7 @@ const ModalForm = ({ isOpen, onClose, selectedCity }) => {
       alert(`Error submitting form: ${error.message}`);
     } finally {
       setIsSubmitting(false);
+      onSubmitEnd();
     }
   };
 
@@ -81,12 +87,7 @@ const ModalForm = ({ isOpen, onClose, selectedCity }) => {
           ✕
         </button>
 
-        {isSubmitting ? (
-          <div className={styles.loadingState}>
-          <h2>SUBMITTING, PLEASE WAIT...</h2>
-          <WorldMapSVG isModalOpen={true} isLoading={true} />
-        </div>
-        ) : isSubmitted ? (
+        {isSubmitted ? (
           <div className={styles.successState}>
             <h2>Thank you for your submission!</h2>
             <p>Your registration is being processed. If approved, an email will be sent to {formData.email} with further details.</p>
@@ -98,114 +99,123 @@ const ModalForm = ({ isOpen, onClose, selectedCity }) => {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <h2 className={styles.title}>{selectedCity.toUpperCase()} FW 25</h2>
-            
-            <div className={styles.nameInputs}>
-              <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-                placeholder="Name"
-                className={styles.input}
-              />
-              <input
-                type="text" 
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-                placeholder="Last Name"
-                className={styles.input}
-              />
-            </div>
-
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="Email"
-              className={styles.input}
-            />
-            <input
-              type="url"
-              name="modelsLink"
-              value={formData.modelsLink}
-              onChange={handleChange}
-              required
-              placeholder="Models.com or Agency Profile Link"
-              className={styles.input}
-            />
-            <input
-              type="text"
-              name="instagramLink"
-              value={formData.instagramLink}
-              onChange={handleChange}
-              required
-              placeholder="Instagram Handle"
-              className={styles.input}
-            />
-
-            <div className={styles.plusOneSection}>
-              <p>Bringing a plus one?</p>
-              <div className={styles.plusOneButtons}>
-                <button
-                  type="button"
-                  onClick={() => setFormData(prev => ({ ...prev, plusOne: true }))}
-                  className={`${styles.plusOneButton} ${formData.plusOne ? styles.selected : ''}`}
-                >
-                  Yes
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setFormData(prev => ({ ...prev, plusOne: false, plusOneName: '' }))}
-                  className={`${styles.plusOneButton} ${!formData.plusOne ? styles.selected : ''}`}
-                >
-                  No
-                </button>
-              </div>
-            </div>
-
-            {formData.plusOne && (
-              <div>
-                <input
-                  type="text"
-                  name="plusOneName"
-                  value={formData.plusOneName}
-                  onChange={handleChange}
-                  placeholder="Plus One's Name"
-                  required
-                  className={styles.input}
-                />
-                <p className={styles.plusOneText}>Is your plus one a model? Please get them to sign up</p>
+          <>
+            {isSubmitting && (
+              <div className={styles.loadingState}>
+                <h2>SUBMITTING, PLEASE WAIT...</h2>
               </div>
             )}
+            {!isSubmitting && (
+              <form onSubmit={handleSubmit} className={styles.form}>
+                <h2 className={styles.title}>{selectedCity.toUpperCase()} FW 25</h2>
+                
+                <div className={styles.nameInputs}>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
+                    placeholder="Name"
+                    className={styles.input}
+                  />
+                  <input
+                    type="text" 
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                    placeholder="Last Name"
+                    className={styles.input}
+                  />
+                </div>
 
-            <div className={styles.termsSection}>
-              <input
-                type="checkbox"
-                name="agreeToTerms"
-                checked={formData.agreeToTerms}
-                onChange={handleChange}
-                required
-                id="agreeToTerms"
-              />
-              <label htmlFor="agreeToTerms">
-                By signing up, I agree to the <Link href="/terms">Terms and Conditions</Link>
-              </label>
-            </div>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Email"
+                  className={styles.input}
+                />
+                <input
+                  type="url"
+                  name="modelsLink"
+                  value={formData.modelsLink}
+                  onChange={handleChange}
+                  required
+                  placeholder="Models.com or Agency Profile Link"
+                  className={styles.input}
+                />
+                <input
+                  type="text"
+                  name="instagramLink"
+                  value={formData.instagramLink}
+                  onChange={handleChange}
+                  required
+                  placeholder="Instagram Handle"
+                  className={styles.input}
+                />
 
-            <button 
-              type="submit"
-              className={styles.submitButton}
-            >
-              SUBMIT
-            </button>
-          </form>
+                <div className={styles.plusOneSection}>
+                  <p>Bringing a plus one?</p>
+                  <div className={styles.plusOneButtons}>
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, plusOne: true }))}
+                      className={`${styles.plusOneButton} ${formData.plusOne ? styles.selected : ''}`}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, plusOne: false, plusOneName: '' }))}
+                      className={`${styles.plusOneButton} ${!formData.plusOne ? styles.selected : ''}`}
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+
+                {formData.plusOne && (
+                  <div>
+                    <input
+                      type="text"
+                      name="plusOneName"
+                      value={formData.plusOneName}
+                      onChange={handleChange}
+                      placeholder="Plus One's Name"
+                      required
+                      className={styles.input}
+                    />
+                    <p className={styles.plusOneText}>Is your plus one a model? Please get them to sign up</p>
+                  </div>
+                )}
+
+                <div className={styles.termsSection}>
+                  <input
+                    type="checkbox"
+                    name="agreeToTerms"
+                    checked={formData.agreeToTerms}
+                    onChange={handleChange}
+                    required
+                    id="agreeToTerms"
+                  />
+                  <label htmlFor="agreeToTerms">
+                    By signing up, I agree to the <Link href="/terms">Terms and Conditions</Link>
+                  </label>
+                </div>
+
+                <button 
+                  type="submit"
+                  className={styles.submitButton}
+                >
+                  SUBMIT
+                </button>
+              </form>
+            )}
+          </>
         )}
       </div>
     </div>

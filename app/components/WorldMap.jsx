@@ -10,6 +10,7 @@ export default function WorldMap() {
   const [selectedCity, setSelectedCity] = useState('');
   const [isMobile, setIsMobile] = useState(false);
   const [viewBox, setViewBox] = useState("0 0 2057 1242");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,7 +41,7 @@ export default function WorldMap() {
       >
         <WorldMapSVG 
           isModalOpen={isModalOpen} 
-          isLoading={false} // default state is not loading
+          isLoading={isSubmitting} // Pass isSubmitting here
         />        
         <CityLabels 
           onCityClick={handleCityClick} 
@@ -73,6 +74,8 @@ export default function WorldMap() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         selectedCity={selectedCity}
+        onSubmitStart={() => setIsSubmitting(true)}
+        onSubmitEnd={() => setIsSubmitting(false)}
       />
     </div>
   );
