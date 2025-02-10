@@ -8,8 +8,8 @@ Font.register({
 });
 
 Font.register({
-  family: 'PixelFont',
-  src: 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/font/pixel.ttf', // You'll need to add this font
+  family: 'LTRailway',
+  src: 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/font/LTRailway-Regular.otf', // You'll need to add this font
 });
 
 const styles = StyleSheet.create({
@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   name: {
-    fontFamily: 'PixelFont',
+    fontFamily: 'LTRailway',
     fontSize: 48,
     color: '#FFFFFF',
     textAlign: 'center',
   },
   plusOneText: {
-    fontFamily: 'PixelFont',
+    fontFamily: 'LTRailway',
     color: '#FFFFFF',
     fontSize: 16,
     textAlign: 'center',
@@ -111,10 +111,10 @@ const styles = StyleSheet.create({
 });
 
 const cityMaps = {
-  'New York City': 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/maps/nyc-map.png',
-  'Milan': 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/maps/milan-map.png',
-  'Paris': 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/maps/paris-map.png',
-  'London': 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/maps/london-map.png',
+  'New York City': 'https://h8b8ligav2.ufs.sh/f/1HacuqBhXBpbyEmlQBupzoah5itw7Pd8O0sEAxSuC4lqrVBg',
+  'Milan': 'https://h8b8ligav2.ufs.sh/f/1HacuqBhXBpboYMNqugwq0OplGu7W4PmbjzJr5kUC8L9TyEF',
+  'Paris': 'https://h8b8ligav2.ufs.sh/f/1HacuqBhXBpbsGwfqmUjxKg6pPHaZI5dBo3hEvfjNeV1yOi7',
+  'London': 'https://h8b8ligav2.ufs.sh/f/1HacuqBhXBpb5oCDrlze6uGOJ0BtMc4DiVwkNHZjKhgndCAl',
 };
 
 const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL }) => (
@@ -127,7 +127,7 @@ const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCode
       <View style={styles.content}>
         <Image 
           style={styles.logo} 
-          src="https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/logoalamode.png" 
+          src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1" 
         />
         
         <Text style={styles.season}>FALL/WINTER 25</Text>
