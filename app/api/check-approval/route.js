@@ -4,7 +4,10 @@ import { generatePDF } from '../../utils/pdf-generator';
 import { sendEmail } from '../../utils/email-service';
 import { getUnapprovedAttendees, updateAttendeeStatus, moveToApprovedSheet, getRecentlyProcessed } from '../../utils/sheets-service';
 
-const BATCH_SIZE = 5;
+// Reduce batch size for Vercel's free tier limitations
+const BATCH_SIZE = 1;
+const MAX_EXECUTION_TIME = 9000; // 9 seconds (leaving 1 second buffer)
+
 const PARTY_INFO = {
   'New York City': {
     venue: 'SELINA CHELSEA',
@@ -34,6 +37,8 @@ const PARTY_INFO = {
 
 export async function GET() {
   try {
+    const startTime = Date.now();
+    
     // Get current state
     const [unapprovedAttendees, recentlyProcessed] = await Promise.all([
       getUnapprovedAttendees(),
@@ -44,7 +49,6 @@ export async function GET() {
     const approvedAttendees = unapprovedAttendees.filter(row => row[8] === 'Y' && row[9] !== 'S');
     const pendingCount = unapprovedAttendees.filter(row => row[8] === '').length;
     
-    // If there are no new approvals, return current status
     if (approvedAttendees.length === 0) {
       return NextResponse.json({
         message: 'No new approvals to process',
@@ -59,85 +63,96 @@ export async function GET() {
 
     const processed = [];
     const errors = [];
+    let processedCount = 0;
 
-    // Process approved attendees in batches
-    for (let i = 0; i < approvedAttendees.length; i += BATCH_SIZE) {
-      const batch = approvedAttendees.slice(i, i + BATCH_SIZE);
-      await Promise.all(batch.map(async (attendee) => {
-        try {
-          const [party, firstName, lastName, email, , , plusOneStatus, plusOneName] = attendee;
-          const attendeeId = uuidv4();
-          const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
-          const timestamp = new Date().toISOString();
-          
-          const attendeeData = {
-            firstName,
-            lastName,
-            party,
-            plusOne: plusOneStatus === 'Yes' ? plusOneName : 'None',
-            partyDetails: PARTY_INFO[party] || {
-              venue: 'TBA',
-              address: 'TBA',
-              date: 'TBA',
-              hours: 'TBA'
-            }
-          };
+    // Process attendees one at a time with timeout check
+    for (const attendee of approvedAttendees) {
+      // Check if we're approaching the timeout limit
+      if (Date.now() - startTime > MAX_EXECUTION_TIME) {
+        break;
+      }
 
-          const pdfBuffer = await generatePDF(attendeeData, qrCodeLink);
-          
-          // Your existing HTML template
-          const htmlTemplate = `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h2>Welcome to the ${party} Party!</h2>
-              <p>Dear ${firstName},</p>
-              <p>Your attendance has been confirmed. Please find your invitation attached.</p>
-              <h3>Event Details:</h3>
-              <p><strong>Venue:</strong> ${attendeeData.partyDetails.venue}</p>
-              <p><strong>Address:</strong> ${attendeeData.partyDetails.address}</p>
-              <p><strong>Date:</strong> ${attendeeData.partyDetails.date}</p>
-              <p><strong>Time:</strong> ${attendeeData.partyDetails.hours}</p>
-              ${plusOneStatus === 'Yes' ? `<p><strong>Plus One:</strong> ${plusOneName}</p>` : ''}
-              <p>Please keep this invitation safe and present it at the entrance.</p>
-              <p>Looking forward to seeing you!</p>
-            </div>
-          `;
+      // Limit the number of attendees processed in a single request
+      if (processedCount >= BATCH_SIZE) {
+        break;
+      }
 
-          await sendEmail(email, `${party} Party Invitation`, pdfBuffer, htmlTemplate);
-          
-          // Update sheets status and move to approved sheet
-          const rowIndex = unapprovedAttendees.indexOf(attendee) + 2;
-          await Promise.all([
-            updateAttendeeStatus(`UNAPPROVED!J${rowIndex}`, [['S']]),
-            moveToApprovedSheet([
-              party, firstName, lastName, email, attendee[4], attendee[5], 
-              plusOneStatus, plusOneName, 'Y', 'S', attendeeId, timestamp
-            ])
-          ]);
-          
-          processed.push(`${firstName} ${lastName} - ${party}`);
-        } catch (error) {
-          if (error.message.includes('Duplicate entry')) {
-            // Mark as processed in UNAPPROVED sheet to prevent future processing
-            const rowIndex = unapprovedAttendees.indexOf(attendee) + 2;
-            await updateAttendeeStatus(`UNAPPROVED!J${rowIndex}`, [['S']]);
-            errors.push(`${attendee[1]} ${attendee[2]} - Already approved for ${attendee[0]}`);
-          } else {
-            throw error;
+      try {
+        const [party, firstName, lastName, email, , , plusOneStatus, plusOneName] = attendee;
+        const attendeeId = uuidv4();
+        const qrCodeLink = `${process.env.BASE_URL}/checkin/${attendeeId}`;
+        const timestamp = new Date().toISOString();
+        
+        const attendeeData = {
+          firstName,
+          lastName,
+          party,
+          plusOne: plusOneStatus === 'Yes' ? plusOneName : 'None',
+          partyDetails: PARTY_INFO[party] || {
+            venue: 'TBA',
+            address: 'TBA',
+            date: 'TBA',
+            hours: 'TBA'
           }
+        };
+
+        // Generate PDF and send email sequentially to reduce memory usage
+        const pdfBuffer = await generatePDF(attendeeData, qrCodeLink);
+        
+        const htmlTemplate = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2>Welcome to the ${party} Party!</h2>
+            <p>Dear ${firstName},</p>
+            <p>Your attendance has been confirmed. Please find your invitation attached.</p>
+            <h3>Event Details:</h3>
+            <p><strong>Venue:</strong> ${attendeeData.partyDetails.venue}</p>
+            <p><strong>Address:</strong> ${attendeeData.partyDetails.address}</p>
+            <p><strong>Date:</strong> ${attendeeData.partyDetails.date}</p>
+            <p><strong>Time:</strong> ${attendeeData.partyDetails.hours}</p>
+            ${plusOneStatus === 'Yes' ? `<p><strong>Plus One:</strong> ${plusOneName}</p>` : ''}
+            <p>Please keep this invitation safe and present it at the entrance.</p>
+            <p>Looking forward to seeing you!</p>
+          </div>
+        `;
+
+        await sendEmail(email, `${party} Party Invitation`, pdfBuffer, htmlTemplate);
+        
+        // Update sheets status and move to approved sheet sequentially
+        const rowIndex = unapprovedAttendees.indexOf(attendee) + 2;
+        await updateAttendeeStatus(`UNAPPROVED!J${rowIndex}`, [['S']]);
+        await moveToApprovedSheet([
+          party, firstName, lastName, email, attendee[4], attendee[5], 
+          plusOneStatus, plusOneName, 'Y', 'S', attendeeId, timestamp
+        ]);
+        
+        processed.push(`${firstName} ${lastName} - ${party}`);
+        processedCount++;
+
+      } catch (error) {
+        if (error.message.includes('Duplicate entry')) {
+          // Mark as processed in UNAPPROVED sheet to prevent future processing
+          const rowIndex = unapprovedAttendees.indexOf(attendee) + 2;
+          await updateAttendeeStatus(`UNAPPROVED!J${rowIndex}`, [['S']]);
+          errors.push(`${attendee[1]} ${attendee[2]} - Already approved for ${attendee[0]}`);
+        } else {
+          console.error('Error processing attendee:', error);
+          errors.push(`${attendee[1]} ${attendee[2]} - Processing failed: ${error.message}`);
         }
-      }));
+      }
     }
 
     // Get updated recently processed list
     const updatedRecentlyProcessed = await getRecentlyProcessed();
 
-    console.log(updatedRecentlyProcessed)
-
     return NextResponse.json({ 
-      message: 'Approval processing completed',
+      message: processed.length > 0 
+        ? 'Approval processing completed' 
+        : 'Partial processing completed due to time constraints',
       processed: processed.length,
       pending: pendingCount,
+      remainingToProcess: approvedAttendees.length - processed.length,
       duplicates: errors.length > 0 ? errors : undefined,
+      timeElapsed: `${((Date.now() - startTime) / 1000).toFixed(2)}s`,
       recentlyProcessed: updatedRecentlyProcessed.map(row => ({
         name: `${row[1]} ${row[2]}`,
         party: row[0],
@@ -146,6 +161,11 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Error processing approvals:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ 
+      error: error.message,
+      errorDetail: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    }, { 
+      status: 500 
+    });
   }
 }

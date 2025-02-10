@@ -84,7 +84,7 @@ const ModalForm = ({
           onClick={onClose}
           className={styles.closeButton}
         >
-          ✕
+          <span className={styles.dot}></span>
         </button>
 
         {isSubmitted ? (

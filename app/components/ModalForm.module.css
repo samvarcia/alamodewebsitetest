@@ -24,7 +24,13 @@
   color: white;
   cursor: pointer;
 }
-
+.dot {
+  display: block;
+  width: 18px;  /* Adjust size as needed */
+  height: 18px; /* Adjust size as needed */
+  background-color: white;
+  border-radius: 50%;
+}
 .closeButton:hover {
   color: #cccccc;
 }
