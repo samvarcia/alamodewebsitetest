@@ -20,7 +20,7 @@ export default function Home() {
               width={45}
               height={65}
               src="/newcup.svg"
-              className={styles.check}
+              className={styles.check} 
             />
           </Link> */}
           <div className={styles.check}>
