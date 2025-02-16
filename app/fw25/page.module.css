@@ -40,7 +40,17 @@
 .fixedLogoVisible {
   opacity: 1;
 }
-
+.checkinDot{
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-right: 20px;
+  margin-top: 20px;
+  background-color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
 .citiesList ul {
   list-style-type: none;
   display: flex;

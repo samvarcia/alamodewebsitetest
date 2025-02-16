@@ -4,6 +4,7 @@ import Image from 'next/image';
 import ModalForm from './ModalForm';
 import { WorldMapSVG } from './WorldMapSVG';
 import { CityLabels } from './CityLabels';
+import Link from 'next/link';
 
 export default function WorldMap() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,25 +51,30 @@ export default function WorldMap() {
         />
       </svg>
 
-      <div className={`${styles.logoContainer} ${styles.logoDefault} ${isModalOpen ? styles.logoHidden : ''}`}>
-        <Image 
-          src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
-          width={150}
-          height={100}
-          priority
-          className={styles.fixedLogo}
-        />
-      </div>
 
-      <div className={`${styles.logoContainer} ${styles.logoModal} ${!isModalOpen ? styles.logoHidden : ''}`}>
-        <Image 
-          src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
-          width={150}
-          height={100}
-          priority
-          className={styles.fixedLogo}
-        />
-      </div>
+      <Link href={"/fw25"}>
+        <div className={`${styles.logoContainer} ${styles.logoDefault} ${isModalOpen ? styles.logoHidden : ''}`}>
+          <Image 
+            src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
+            width={150}
+            height={100}
+            priority
+            className={styles.fixedLogo}
+          />
+        </div>
+      </Link>
+
+      <Link href={"/fw25"}>
+        <div className={`${styles.logoContainer} ${styles.logoModal} ${!isModalOpen ? styles.logoHidden : ''}`}>
+          <Image 
+            src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
+            width={150}
+            height={100}
+            priority
+            className={styles.fixedLogo}
+          />
+        </div>
+      </Link>
 
       <ModalForm 
         isOpen={isModalOpen}

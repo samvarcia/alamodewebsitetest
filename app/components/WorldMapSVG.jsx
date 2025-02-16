@@ -21,7 +21,7 @@ export const WorldMapSVG = ({ isModalOpen, isLoading }) => {
             randomDot.style.animation = 'pulse 2s infinite';
           }
         }
-      }, 1000); // Slower interval for changing dots
+      }, 500); // Slower interval for changing dots
     } else {
       // Clear animations when not loading
       const dots = document.querySelectorAll('path[fill="#011070"]');

@@ -16,8 +16,10 @@
 }
 
 .logoDefault {
-  bottom: 20px;
-  right: 20px;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+
   opacity: 1;
   transition: opacity 0.3s ease;
 }
@@ -36,7 +38,7 @@
 }
 
 .fixedLogo {
-  width: 150px;
+  width: 200px;
   height: auto;
 }
 

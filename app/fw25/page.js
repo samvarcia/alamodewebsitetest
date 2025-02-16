@@ -5,6 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import Image from 'next/image';
 import PhotoGrid from '../components/PhotoGrid.jsx'
 import AboutFw25 from '../components/AboutFw25';
+import Link from 'next/link';
 
 const FwPage = () => {
   const [showFixedLogo, setShowFixedLogo] = useState(false);
@@ -27,6 +28,9 @@ const FwPage = () => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
+        <Link href={"/fw25/checkin"}>
+          <div className={styles.checkinDot}></div>
+        </Link>
         <div className={styles.mainContent}>
           <Image 
             src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
@@ -44,7 +48,7 @@ const FwPage = () => {
             </ul>
           </div>
         </div>
-      </main>
+      </main> 
 
       <motion.div
         initial={{ opacity: 0 }}
