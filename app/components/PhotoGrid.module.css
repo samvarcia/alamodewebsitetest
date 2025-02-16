@@ -1,7 +1,7 @@
 .container {
   width: 100%;
-  margin-top: 100px;
-  padding: 0 2.5rem;
+  /* margin-top: 100px; */
+  /* padding: 0 2.5rem; */
 }
 
 .grid {
@@ -10,7 +10,39 @@
   grid-template-rows: repeat(14, 50px);
   gap: 0.75rem;
 }
+.container section{
+  background-attachment: local;
+  background-size: cover;
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-position: center;
+  min-height: 110vh;
+}
+.slideOne{
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5I0tVBqvaNxEchdfrpk3OHPZGBWwXFCMJeLgY);
 
+}
+.slideTwo{
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5oR7O4Ma5JKtXRFgQsOia31TfDuo8MPvznlLy);
+
+}
+.slideThree{
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5k4jfGQFbzaR50NlHWejvVOMES4AJrx8wqiYf);
+
+
+}
+.slideFour{
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ZXe7pVLEwM5xcgiDB81Wf0T2ztHSVbnYCmAo);
+
+
+}
+.slideFive{
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5euSGQbqCC3HfZPSQz6uBoK2tX5Op1rTMcAlJ);
+
+}
+.slideSix{
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5xg6cduKFtIYdo9AvZnfspCON6KRh4SU5HBTc);
+
+}
 /* Desktop layout remains unchanged */
 .image1 {
   grid-column: 1 / span 7;

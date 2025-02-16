@@ -43,19 +43,30 @@ const PhotoGrid = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.grid}>
-        {placeholders.map((item) => (
-          <div 
-            key={item.id} 
-            className={`${styles.imageWrapper} ${item.className} ${
-              item.isVertical ? styles.vertical : styles.horizontal
-            }`}
-          >
-            <div className={styles.imageContainer} />
-            <div className={styles.tag}>{item.tag}</div>
+        {/* <section className={styles.slideOne}>
+          <div className={styles.slideContent}>
           </div>
-        ))}
-      </div>
+        </section> */}
+        <section className={styles.slideTwo}>
+          <div className={styles.slideContent}>
+          </div>
+        </section>
+        <section className={styles.slideThree}>
+          <div className={styles.slideContent}>
+          </div>
+        </section>
+        <section className={styles.slideFour}>
+          <div className={styles.slideContent}>
+          </div>
+        </section>
+        <section className={styles.slideFive}>
+          <div className={styles.slideContent}>
+          </div>
+        </section>
+        {/* <section className={styles.slideSix}>
+          <div className={styles.slideContent}>
+          </div>
+        </section> */}
     </div>
   );
 };

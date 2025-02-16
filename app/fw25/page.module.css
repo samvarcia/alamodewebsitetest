@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url('https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5To1HSH7fU2XHGIho0RB9SPJmw6dQeajWMD75');
+  background-image: url('https://h8b8ligav2.ufs.sh/f/1HacuqBhXBpbAdMP4UV1K7rjv4VfITptsXM0ueLwNWyHUxhi');
   background-size: cover;
   background-position: center;
   position: relative;
@@ -22,7 +22,7 @@
 }
 
 .logo {
-  width: 330px;
+  width: 360px;
   height: auto;
 }
 
@@ -30,7 +30,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 150px;
+  width: 190px;
   height: auto;
   z-index: 100;
   opacity: 0;
