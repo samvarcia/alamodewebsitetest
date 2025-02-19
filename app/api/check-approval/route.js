@@ -118,23 +118,23 @@ export async function GET(req) {
         console.log('📄 Generating PDF...');
         const pdfBuffer = await generatePDF(attendeeData, qrCodeLink);
         
-        const htmlTemplate = `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2>Welcome to the ${party} Party!</h2>
-            <p>Dear ${firstName},</p>
-            <p>Your attendance has been confirmed. Please find your invitation attached.</p>
-            <h3>Event Details:</h3>
-            <p><strong>Venue:</strong> ${attendeeData.partyDetails.venue}</p>
-            <p><strong>Address:</strong> ${attendeeData.partyDetails.address}</p>
-            <p><strong>Date:</strong> ${attendeeData.partyDetails.date}</p>
-            <p><strong>Time:</strong> ${attendeeData.partyDetails.hours}</p>
-            ${plusOneStatus === 'Yes' ? `<p><strong>Plus One:</strong> ${plusOneName}</p>` : ''}
-            <p>Please keep this invitation safe and present it at the entrance.</p>
-            <p>Looking forward to seeing you!</p>
-          </div>
-        `;
+        // const htmlTemplate = `
+        //   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        //     <h2>Welcome to the ${party} Party!</h2>
+        //     <p>Dear ${firstName},</p>
+        //     <p>Your attendance has been confirmed. Please find your invitation attached.</p>
+        //     <h3>Event Details:</h3>
+        //     <p><strong>Venue:</strong> ${attendeeData.partyDetails.venue}</p>
+        //     <p><strong>Address:</strong> ${attendeeData.partyDetails.address}</p>
+        //     <p><strong>Date:</strong> ${attendeeData.partyDetails.date}</p>
+        //     <p><strong>Time:</strong> ${attendeeData.partyDetails.hours}</p>
+        //     ${plusOneStatus === 'Yes' ? `<p><strong>Plus One:</strong> ${plusOneName}</p>` : ''}
+        //     <p>Please keep this invitation safe and present it at the entrance.</p>
+        //     <p>Looking forward to seeing you!</p>
+        //   </div>
+        // `;
 
-        const htmlTemplate2 = `
+        const htmlTemplate = `
         <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head>
 <!--[if gte mso 15]>
 <xml>
@@ -147,7 +147,7 @@ export async function GET(req) {
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>*|MC:SUBJECT|*</title>
+<title>Welcome to the ${party}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
 <!--[if !mso]><!--><link rel="stylesheet" type="text/css" id="newGoogleFontsStatic" href="https://fonts.googleapis.com/css?family=Della+Respira:400,400i,700,700i,900,900i|Alegreya+Sans:400,400i,700,700i,900,900i|Work+Sans:400,400i,700,700i,900,900i|Merriweather:400,400i,700,700i,900,900i"/><!--<![endif]--><style>          img{-ms-interpolation-mode:bicubic;} 
