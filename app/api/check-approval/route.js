@@ -7,7 +7,7 @@ import { getUnapprovedAttendees, updateAttendeeStatus, moveToApprovedSheet, getR
 
 // Force dynamic execution
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 0; 
 
 const BATCH_SIZE = 1;
 const MAX_EXECUTION_TIME = 9000;
@@ -32,10 +32,10 @@ const PARTY_INFO = {
     hours: '12:00AM - 05:00AM'
   },
   'London': {
-    venue: 'TBA',
-    address: 'TBA',
-    date: 'TBA',
-    hours: 'TBA'
+    venue: 'PRINTWORKS LONDON',
+    address: 'Surrey Quays Rd, London SE16 7PJ, United Kingdom',
+    date: 'THURSDAY, 13TH FEBRUARY 2025',
+    hours: '10:00PM - 06:00AM'
   }
 };
 
