@@ -4,7 +4,7 @@ export const CityLabels = ({ onCityClick, isModalOpen, isMobile }) => {
   // Adjusted label positions for better mobile visibility
   const cities = [
     {
-      name: 'New York',
+      name: 'New York City',
       desktop: { x: 510, y: 490 },
       mobile: { x: 510, y: 490 }
     },
