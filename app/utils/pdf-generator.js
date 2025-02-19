@@ -15,74 +15,63 @@ Font.register({
 const styles = StyleSheet.create({
   page: {
     backgroundColor: '#000033',
-    padding: 0,
-    position: 'relative',
-  },
-  content: {
-    width: '100%',
-    height: '100%',
-    position: 'relative',
+    flexDirection: 'row',
     padding: 40,
   },
-  backgroundMap: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    opacity: 0.15,
+  leftSection: {
+    width: '60%',
+    position: 'relative',
+  },
+  rightSection: {
+    width: '40%',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   logo: {
     width: 150,
-    marginBottom: 60,
+    marginBottom: 20,
   },
-  leftContent: {
-    position: 'absolute',
-    left: 40,
-    top: 40,
-    width: '50%',
-  },
-  rightContent: {
-    position: 'absolute',
-    right: 40,
-    top: 40,
-    width: '45%',
-    alignItems: 'flex-end',
+  worldMap: {
+    width: '80%',
+    height: 200,
+    marginBottom: 20,
   },
   season: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 14,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   city: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 48,
-    marginBottom: 40,
+    marginBottom: 30,
+  },
+  nameSection: {
+    marginTop: 'auto',
   },
   preNameText: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 12,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   name: {
     fontFamily: 'LTRailway',
     fontSize: 36,
     color: '#FFFFFF',
-    marginBottom: 15,
+    marginBottom: 10,
     letterSpacing: 1,
   },
   plusOneText: {
     fontFamily: 'LTRailway',
     color: '#FFFFFF',
     fontSize: 16,
-    marginTop: 10,
+    marginTop: 5,
   },
   venueInfo: {
     alignItems: 'flex-end',
-    marginTop: 'auto',
   },
   venueLabel: {
     fontFamily: 'Futura',
@@ -90,6 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 5,
     marginTop: 15,
+    textAlign: 'right',
   },
   venueText: {
     fontFamily: 'Futura',
@@ -99,9 +89,9 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   qrCode: {
-    width: 150,
-    height: 150,
-    marginTop: 40,
+    width: 120,
+    height: 120,
+    marginTop: 30,
   },
   disclaimer: {
     fontFamily: 'Futura',
@@ -124,20 +114,22 @@ const cityMaps = {
 
 const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL }) => (
   <Document>
-    <Page size="A4" style={styles.page}>
-      <Image
-        style={styles.backgroundMap}
-        src={cityMaps[party] || cityMaps['Paris']}
-      />
-      
-      <View style={styles.content}>
-        <View style={styles.leftContent}>
-          <Image 
-            style={styles.logo} 
-            src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1" 
-          />
-          <Text style={styles.season}>FALL/WINTER 25</Text>
-          <Text style={styles.city}>{party.toUpperCase()}</Text>
+    <Page size={[842, 595]} orientation="landscape" style={styles.page}>
+      <View style={styles.leftSection}>
+        <Image 
+          style={styles.logo} 
+          src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1" 
+        />
+        <Image
+          style={styles.worldMap}
+          src={cityMaps[party] || cityMaps['Paris']}
+        />
+        <Text style={styles.season}>FALL/WINTER 25</Text>
+        <Text style={styles.city}>{party.toUpperCase()}</Text>
+      </View>
+
+      <View style={styles.rightSection}>
+        <View style={styles.nameSection}>
           <Text style={styles.preNameText}>WOULD NOT BE THE SAME WITHOUT</Text>
           <Text style={styles.name}>{`${firstName} ${lastName}`.toUpperCase()}</Text>
           {plusOne !== 'None' && (
@@ -145,22 +137,20 @@ const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCode
           )}
         </View>
 
-        <View style={styles.rightContent}>
-          <View style={styles.venueInfo}>
-            <Text style={styles.venueLabel}>JOIN US AT</Text>
-            <Text style={styles.venueText}>{partyDetails.venue}</Text>
-            <Text style={styles.venueText}>{partyDetails.address}</Text>
-            <Text style={styles.venueLabel}>ON</Text>
-            <Text style={styles.venueText}>{partyDetails.date}</Text>
-            <Text style={styles.venueText}>{partyDetails.hours}</Text>
-            <Image style={styles.qrCode} src={qrCodeDataURL} />
-          </View>
+        <View style={styles.venueInfo}>
+          <Text style={styles.venueLabel}>JOIN US AT</Text>
+          <Text style={styles.venueText}>{partyDetails.venue}</Text>
+          <Text style={styles.venueText}>{partyDetails.address}</Text>
+          <Text style={styles.venueLabel}>ON</Text>
+          <Text style={styles.venueText}>{partyDetails.date}</Text>
+          <Text style={styles.venueText}>{partyDetails.hours}</Text>
+          <Image style={styles.qrCode} src={qrCodeDataURL} />
         </View>
-
-        <Text style={styles.disclaimer}>
-          Please Party Responsibly: Attendees assume full responsibility for their own actions.
-        </Text>
       </View>
+
+      <Text style={styles.disclaimer}>
+        Please Party Responsibly: Attendees assume full responsibility for their own actions.
+      </Text>
     </Page>
   </Document>
 );
@@ -172,7 +162,7 @@ export async function generatePDF(attendeeData, qrCodeLink) {
         dark: '#FFFFFF',
         light: '#00000000'
       },
-      width: 150,
+      width: 120,
       margin: 1,
     });
     
