@@ -119,7 +119,7 @@ const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCode
         />
         <Image
           style={styles.worldMap}
-          src={cityMaps[party] || cityMaps['Paris']}
+          src={cityMaps[party]}
         />
         <View style={styles.textGroup}>
           <Text style={styles.season}>FALL/WINTER 25</Text>
