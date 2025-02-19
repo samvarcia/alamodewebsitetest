@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     fontSize: 48,
     color: '#FFFFFF',
     marginBottom: 15,
-    letterSpacing: 2,
     textAlign: 'right',
   },
   plusOneText: {
@@ -152,6 +151,8 @@ const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCode
 );
 
 export async function generatePDF(attendeeData, qrCodeLink) {
+  console.log('PDF Generator received:', { attendeeData, qrCodeLink });
+  
   try {
     const qrCodeDataURL = await QRCode.toDataURL(qrCodeLink, {
       color: {
