@@ -33,11 +33,11 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 180,
-    marginBottom: 40,
+    marginBottom: 10,
   },
   worldMap: {
     width: 320,
-    marginBottom: 40,
+    marginBottom: 10,
   },
   textGroup: {
     alignItems: 'center',
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 16,
-    marginBottom: 5,
+    marginBottom: 0,
   },
   city: {
     fontFamily: 'Futura',
@@ -68,10 +68,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 5,
     marginBottom: 40,
-    textAlign: 'right',
+    textAlign: 'center',
   },
   venueInfo: {
-    alignItems: 'flex-end',
+    alignItems: 'center',
     marginTop: 20,
   },
   venueLabel: {
@@ -80,14 +80,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 5,
     marginTop: 15,
-    textAlign: 'right',
+    textAlign: 'center',
   },
   venueText: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 16,
     marginBottom: 5,
-    textAlign: 'right',
+    textAlign: 'center',
   },
   qrCode: {
     width: 140,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 8,
-    textAlign: 'right',
+    textAlign: 'center',
     marginTop: 20,
   },
 });
