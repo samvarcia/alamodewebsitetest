@@ -14,7 +14,7 @@ Font.register({
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: '#000033',
+    backgroundColor: '#01044C',
     flexDirection: 'row',
     padding: 40,
   },
@@ -32,8 +32,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   worldMap: {
-    width: '80%',
-    height: 200,
+    width: 300,
     marginBottom: 20,
   },
   season: {
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   venueInfo: {
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
   venueLabel: {
     fontFamily: 'Futura',
@@ -86,7 +85,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     marginBottom: 5,
-    textAlign: 'right',
+    textAlign: 'center',
   },
   qrCode: {
     width: 120,
@@ -98,10 +97,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 8,
     textAlign: 'center',
-    position: 'absolute',
-    bottom: 20,
-    left: 0,
-    right: 0,
+
   },
 });
 
@@ -114,7 +110,7 @@ const cityMaps = {
 
 const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCodeDataURL }) => (
   <Document>
-    <Page size={[842, 595]} orientation="landscape" style={styles.page}>
+    <Page orientation="landscape" style={styles.page}>
       <View style={styles.leftSection}>
         <Image 
           style={styles.logo} 
@@ -130,7 +126,6 @@ const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCode
 
       <View style={styles.rightSection}>
         <View style={styles.nameSection}>
-          <Text style={styles.preNameText}>WOULD NOT BE THE SAME WITHOUT</Text>
           <Text style={styles.name}>{`${firstName} ${lastName}`.toUpperCase()}</Text>
           {plusOne !== 'None' && (
             <Text style={styles.plusOneText}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
@@ -145,12 +140,12 @@ const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCode
           <Text style={styles.venueText}>{partyDetails.date}</Text>
           <Text style={styles.venueText}>{partyDetails.hours}</Text>
           <Image style={styles.qrCode} src={qrCodeDataURL} />
+          <Text style={styles.disclaimer}>
+            Please Party Responsibly: Attendees assume full responsibility for their own actions.
+          </Text>
         </View>
       </View>
 
-      <Text style={styles.disclaimer}>
-        Please Party Responsibly: Attendees assume full responsibility for their own actions.
-      </Text>
     </Page>
   </Document>
 );
