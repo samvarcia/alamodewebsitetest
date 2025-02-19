@@ -15,19 +15,20 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: '#01044C',
     flexDirection: 'row',
-    padding: 60,
+    padding: 20,
   },
   leftSection: {
     width: '50%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   rightSection: {
     width: '50%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
@@ -39,18 +40,18 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   textGroup: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   season: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   city: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
-    fontSize: 60,
+    fontSize: 30,
     marginBottom: 0,
   },
   name: {
