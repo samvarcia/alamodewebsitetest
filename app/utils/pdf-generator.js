@@ -1,7 +1,6 @@
 import { pdf, Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
 import QRCode from 'qrcode';
 
-// Register the fonts
 Font.register({
   family: 'Futura',
   src: 'https://raw.githubusercontent.com/samvarcia/alamodewebsitetest/master/public/font/futuraregular.ttf',
@@ -16,61 +15,63 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: '#01044C',
     flexDirection: 'row',
-    padding: 40,
+    padding: 60,
   },
   leftSection: {
-    width: '60%',
-    position: 'relative',
+    width: '50%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   rightSection: {
-    width: '40%',
+    width: '50%',
+    display: 'flex',
+    flexDirection: 'column',
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
   logo: {
-    width: 150,
-    marginBottom: 20,
+    width: 180,
+    marginBottom: 40,
   },
   worldMap: {
-    width: 300,
-    marginBottom: 20,
+    width: 320,
+    marginBottom: 40,
+  },
+  textGroup: {
+    alignItems: 'flex-start',
   },
   season: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 10,
   },
   city: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
-    fontSize: 48,
-    marginBottom: 30,
-  },
-  nameSection: {
-    marginTop: 'auto',
-  },
-  preNameText: {
-    fontFamily: 'Futura',
-    color: '#FFFFFF',
-    fontSize: 12,
-    marginBottom: 10,
+    fontSize: 60,
+    marginBottom: 0,
   },
   name: {
     fontFamily: 'LTRailway',
-    fontSize: 36,
+    fontSize: 48,
     color: '#FFFFFF',
-    marginBottom: 10,
-    letterSpacing: 1,
+    marginBottom: 15,
+    letterSpacing: 2,
+    textAlign: 'right',
   },
   plusOneText: {
     fontFamily: 'LTRailway',
     color: '#FFFFFF',
     fontSize: 16,
     marginTop: 5,
+    marginBottom: 40,
+    textAlign: 'right',
   },
   venueInfo: {
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    marginTop: 20,
   },
   venueLabel: {
     fontFamily: 'Futura',
@@ -85,19 +86,19 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     marginBottom: 5,
-    textAlign: 'center',
+    textAlign: 'right',
   },
   qrCode: {
-    width: 120,
-    height: 120,
+    width: 140,
+    height: 140,
     marginTop: 30,
   },
   disclaimer: {
     fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 8,
-    textAlign: 'center',
-
+    textAlign: 'right',
+    marginTop: 20,
   },
 });
 
@@ -120,17 +121,17 @@ const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCode
           style={styles.worldMap}
           src={cityMaps[party] || cityMaps['Paris']}
         />
-        <Text style={styles.season}>FALL/WINTER 25</Text>
-        <Text style={styles.city}>{party.toUpperCase()}</Text>
+        <View style={styles.textGroup}>
+          <Text style={styles.season}>FALL/WINTER 25</Text>
+          <Text style={styles.city}>{party.toUpperCase()}</Text>
+        </View>
       </View>
 
       <View style={styles.rightSection}>
-        <View style={styles.nameSection}>
-          <Text style={styles.name}>{`${firstName} ${lastName}`.toUpperCase()}</Text>
-          {plusOne !== 'None' && (
-            <Text style={styles.plusOneText}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
-          )}
-        </View>
+        <Text style={styles.name}>{`${firstName} ${lastName}`.toUpperCase()}</Text>
+        {plusOne !== 'None' && (
+          <Text style={styles.plusOneText}>ATTENDING WITH: {plusOne.toUpperCase()}</Text>
+        )}
 
         <View style={styles.venueInfo}>
           <Text style={styles.venueLabel}>JOIN US AT</Text>
@@ -145,7 +146,6 @@ const PDFDocument = ({ firstName, lastName, party, plusOne, partyDetails, qrCode
           </Text>
         </View>
       </View>
-
     </Page>
   </Document>
 );
@@ -157,7 +157,7 @@ export async function generatePDF(attendeeData, qrCodeLink) {
         dark: '#FFFFFF',
         light: '#00000000'
       },
-      width: 120,
+      width: 140,
       margin: 1,
     });
     
