@@ -124,10 +124,10 @@ export async function GET(req) {
             <p>Dear ${firstName},</p>
             <p>Your attendance has been confirmed. Please find your invitation attached.</p>
             <h3>Event Details:</h3>
-            <p><strong>Venue:</strong> ${partyDetails.venue}</p>
-            <p><strong>Address:</strong> ${partyDetails.address}</p>
-            <p><strong>Date:</strong> ${partyDetails.date}</p>
-            <p><strong>Time:</strong> ${partyDetails.hours}</p>
+            <p><strong>Venue:</strong> ${attendeeData.partyDetails.venue}</p>
+            <p><strong>Address:</strong> ${attendeeData.partyDetails.address}</p>
+            <p><strong>Date:</strong> ${attendeeData.partyDetails.date}</p>
+            <p><strong>Time:</strong> ${attendeeData.partyDetails.hours}</p>
             ${plusOneStatus === 'Yes' ? `<p><strong>Plus One:</strong> ${plusOneName}</p>` : ''}
             <p>Please keep this invitation safe and present it at the entrance.</p>
             <p>Looking forward to seeing you!</p>
