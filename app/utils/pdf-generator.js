@@ -59,6 +59,8 @@ const styles = StyleSheet.create({
     fontSize: 48,
     color: '#FFFFFF',
     textAlign: 'center',
+    fontFamily: 'Futura',
+
   },
   plusOneText: {
     color: '#FFFFFF',
