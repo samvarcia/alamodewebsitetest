@@ -55,7 +55,9 @@
   font-size: 27px;
   cursor: pointer;
 }
-
+.parisLabel {
+  font-size: 39px;  /* Larger font size for Paris */
+}
 .cityDot {
   transition: opacity 0.3s ease;
   fill: white;
@@ -79,12 +81,15 @@
       width: 260vw; 
       height: 100vh;
       min-width: 100%;
-      transform: translateX(70px); 
+      transform: translateX(-40px); 
   }
-  
-    .cityLabel {
-      font-size: 29px; /* Smaller, more legible font */
-    }
+  .cityLabel {
+    font-size: 29px; /* Smaller, more legible font */
+  }
+  .parisLabel {
+    font-size: 39px;  /* Larger font size for Paris */
+  }
+ 
   
     .cityDot {
       /* r: 6; Slightly larger dot for easier tapping */

@@ -41,15 +41,15 @@
 }
 .slideFive{
   /* backgrounsd-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5euSGQbqCC3HfZPSQz6uBoK2tX5Op1rTMcAlJ); */
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 35.5%, #01044C 100%), url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5euSGQbqCC3HfZPSQz6uBoK2tX5Op1rTMcAlJ) lightgray 50% / cover no-repeat;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 35.5%, #01044C 100%), url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5euSGQbqCC3HfZPSQz6uBoK2tX5Op1rTMcAlJ) #01044C 50% / cover no-repeat;
 
-
-}
-.slideSix{
-  /* background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5xg6cduKFtIYdo9AvZnfspCON6KRh4SU5HBTc); */
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 35.5%, #01044C 100%), url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5xg6cduKFtIYdo9AvZnfspCON6KRh4SU5HBTc) lightgray 50% / cover no-repeat;
+  height: 90vh;
 
 }
+/* .slideSix{
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 25.5%, #01044C 110%), url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5xg6cduKFtIYdo9AvZnfspCON6KRh4SU5HBTc) lightgray 50% / fill no-repeat;
+
+} */
 /* Desktop layout remains unchanged */
 .image1 {
   grid-column: 1 / span 7;
@@ -186,7 +186,7 @@
 @media (max-width: 480px) {
   .container {
     /* padding: 2rem 0.5rem; */
-  }
+  } 
 
   .grid {
     gap: 3rem;

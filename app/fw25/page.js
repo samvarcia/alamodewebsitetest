@@ -31,7 +31,7 @@ const FwPage = () => {
         <Link href={"/fw25/checkin"}>
           <div className={styles.checkinDot}></div>
         </Link>
-        <div className={styles.mainContent}>
+        <div className={styles.mainContent}> 
           <Image 
             src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
             width={380}
@@ -41,10 +41,42 @@ const FwPage = () => {
           />
           <div className={styles.citiesList}>
             <ul>
-              <li>NewYork</li>
-              <li>London</li>
-              <li>Milan</li>
-              <li>Paris</li>
+              <li>
+                <Image 
+                  src="/newyorksvg.svg"
+                  width={150}
+                  height={50}
+                  priority
+                  // className={styles.logo}
+                />
+              </li>
+              <li>
+                <Image 
+                    src="/londonsvg.svg"
+                    width={150}
+                    height={50}
+                    priority
+                    // className={styles.logo}
+                  />
+              </li>
+              <li>
+                <Image 
+                    src="/milansvg.svg"
+                    width={150}
+                    height={50}
+                    priority
+                    // className={styles.logo}
+                  />
+              </li>
+              <li>
+                <Image 
+                    src="/parissvg.svg"
+                    width={150}
+                    height={50}
+                    priority
+                    // className={styles.logo}
+                  />
+              </li>
             </ul>
           </div>
         </div>

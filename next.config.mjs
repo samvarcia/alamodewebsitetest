@@ -4,7 +4,8 @@ const nextConfig = {
   images: {
     domains: [
       'cdn.shopify.com',
-      '5b4ey7iavy.ufs.sh'  // Add the new domain here
+      '5b4ey7iavy.ufs.sh',
+      'h8b8ligav2.ufs.sh'  // Add the new domain here
     ],
   },
   webpack: (config) => {

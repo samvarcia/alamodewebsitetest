@@ -15,13 +15,13 @@ export const CityLabels = ({ onCityClick, isModalOpen, isMobile }) => {
     },
     {
       name: 'Milan',
-      desktop: { x: 997, y: 548 },
-      mobile: { x: 997, y: 548 } // Slightly adjusted for mobile
+      desktop: { x: 992, y: 548 },
+      mobile: { x: 992, y: 548 } // Slightly adjusted for mobile
     },
     {
       name: 'Paris',
-      desktop: { x: 1035, y: 458 },
-      mobile: { x: 1035, y: 458 }
+      desktop: { x: 1037, y: 458 },
+      mobile: { x: 1037, y: 458 }
     }
   ];
 
@@ -37,7 +37,7 @@ export const CityLabels = ({ onCityClick, isModalOpen, isMobile }) => {
               className={`${styles.cityDot} ${isModalOpen ? styles.cityHidden : ''}`}
             />
             <text
-              className={`${styles.cityLabel} ${isModalOpen ? styles.cityHidden : ''}`}
+              className={`${styles.cityLabel} ${city.name === 'Paris' ? styles.parisLabel : ''} ${isModalOpen ? styles.cityHidden : ''}`}
               x={coords.x}
               y={coords.y}
               textAnchor="middle"

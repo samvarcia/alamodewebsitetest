@@ -58,23 +58,28 @@
   justify-content: space-evenly;
   width: 100%;
   font-size: 2rem;
-  gap: 40px;
+  gap: 20px;
   margin-top: 40px;
 }
 
 @media (max-width: 768px) {
+  .citiesList img{
+    width: 60px;
+    height: auto;
+  }
+  
   .mainContent {
     padding: 0 1rem;
   }
 
   .logo {
-    width: 100%;
+    width: 90%;
   }
 
   .citiesList ul {
     /* flex-direction: column; */
     font-size: 1.5rem;
-    gap: 15px;
+    gap: 35px;
     margin-top: 10px;
   }
 
@@ -87,13 +92,12 @@
 
 @media (max-width: 480px) {
   .logo {
-    width: 100%;
+    width: 90%;
   }
 
   .citiesList ul {
     font-size: 1.2rem;
-    gap: 10px;
-  }
+    gap: 30px;  }
 
   .fixedLogo {
     width: 100px !important;
