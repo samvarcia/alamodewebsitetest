@@ -68,11 +68,11 @@
   }
 
   .logo {
-    width: 250px;
+    width: 100%;
   }
 
   .citiesList ul {
-    flex-direction: column;
+    /* flex-direction: column; */
     font-size: 1.5rem;
     gap: 15px;
     margin-top: 10px;
@@ -87,7 +87,7 @@
 
 @media (max-width: 480px) {
   .logo {
-    width: 200px;
+    width: 100%;
   }
 
   .citiesList ul {
