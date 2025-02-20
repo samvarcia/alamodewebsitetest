@@ -59,13 +59,13 @@ const styles = StyleSheet.create({
     fontSize: 48,
     color: '#FFFFFF',
     textAlign: 'center',
-    fontFamily: 'Futura',
-
+    
   },
   plusOneText: {
+    fontFamily: 'Futura',
     color: '#FFFFFF',
     fontSize: 16,
-    marginBottom: 40,
+    marginBottom: 20,
     textAlign: 'center',
   },
   venueInfo: {
