@@ -5,7 +5,7 @@ const AboutFw25 = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.aboutContent}> 
+      <div className={styles.aboutContent}>  
         <div>
           <h2>About This Season FW 25 - “Behind the Seen”</h2>
           <p>For the FW25 season, à la mode explores the dualities of appearance and reality, taking you behind the seen. We shine a spotlight on the unseen or lesser-known elements that support and shape what we observe, mirroring the craft of modeling itself—an art form often admired for its surface but driven by unseen dedication, effort, and intent.

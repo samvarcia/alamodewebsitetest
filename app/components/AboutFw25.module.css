@@ -45,6 +45,7 @@
   .aboutContent {
     width: 100%;
     gap: 24px;
+
   }
 
   .aboutContent h2 {
@@ -64,6 +65,8 @@
   
   .aboutContent {
     gap: 20px;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .aboutContent h2 {
