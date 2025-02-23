@@ -70,6 +70,9 @@
 
 /* Mobile styles */
   @media screen and (max-width: 768px) {
+    .fixedLogo {
+    margin-bottom: 30px;
+    }
     .mapContainer {
       display: flex;
       align-items: center;

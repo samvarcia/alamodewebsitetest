@@ -8,7 +8,7 @@
 }
 
 .modalContent {
-  padding: 2rem 15rem;
+  padding: 2rem 15rem; 
   margin-top: 50px;
   border-radius: 8px;
   width: 100%;
@@ -16,9 +16,10 @@
 }
 
 .closeButton {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  position: fixed;
+  top: 4rem;
+  margin-bottom: 20px;
+  left: 1rem;
   background: none;
   border: none;
   color: white;
@@ -38,7 +39,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .title {
@@ -180,7 +181,7 @@
 @media screen and (max-width: 768px) {
   .modalContent {
     padding: 2rem 1rem;
-    margin-top: 100px;
+    margin-top: 150px;
     /* height: 100vh; */
     overflow-y: auto;
     gap: 0.5rem;
@@ -249,7 +250,7 @@
   }
 
   .form {
-    gap: 0.8rem;
+    gap: 0.5rem;
   }
 
   .nameInputs {
