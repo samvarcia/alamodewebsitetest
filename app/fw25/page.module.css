@@ -40,7 +40,8 @@
 .fixedLogoVisible {
   opacity: 1;
 }
-.checkinDot{
+
+.checkinDot {
   position: fixed;
   top: 0;
   right: 0;
@@ -51,6 +52,7 @@
   height: 20px;
   border-radius: 50%;
 }
+
 .citiesList ul {
   list-style-type: none;
   display: flex;
@@ -62,12 +64,29 @@
   margin-top: 40px;
 }
 
+.citiesList li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 50px;
+}
+
+.citiesList li img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-width: 130px; /* Control maximum width */
+  transform: scale(0.95); /* Slightly reduce the scale */
+}
+
+
 @media (max-width: 768px) {
-  .citiesList img{
-    width: 60px;
-    height: auto;
-  }
-  
+  /* Specific adjustments for New York and London */
+.citiesList li:nth-child(1) img,
+.citiesList li:nth-child(2) img {
+  transform: scale(0.75); /* Further reduce scale for longer city names */
+}
   .mainContent {
     padding: 0 1rem;
   }
@@ -77,10 +96,14 @@
   }
 
   .citiesList ul {
-    /* flex-direction: column; */
-    font-size: 1.5rem;
-    gap: 35px;
-    margin-top: 10px;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 0;
+  }
+
+  .citiesList li {
+    width: 80px;
+    height: 30px;
   }
 
   .fixedLogo {
@@ -96,8 +119,13 @@
   }
 
   .citiesList ul {
-    font-size: 1.2rem;
-    gap: 30px;  }
+    gap: 10px;
+  }
+
+  .citiesList li {
+    width: 65px;
+    height: 25px;
+  }
 
   .fixedLogo {
     width: 100px !important;

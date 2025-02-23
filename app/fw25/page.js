@@ -47,7 +47,7 @@ const FwPage = () => {
                   width={150}
                   height={50}
                   priority
-                  // className={styles.logo}
+                  style={{ width: '100%', height: '100%' }}
                 />
               </li>
               <li>
@@ -56,7 +56,7 @@ const FwPage = () => {
                     width={150}
                     height={50}
                     priority
-                    // className={styles.logo}
+                    style={{ width: '100%', height: '100%' }}
                   />
               </li>
               <li>
@@ -65,7 +65,7 @@ const FwPage = () => {
                     width={150}
                     height={50}
                     priority
-                    // className={styles.logo}
+                    style={{ width: '100%', height: '100%' }}
                   />
               </li>
               <li>
@@ -74,7 +74,7 @@ const FwPage = () => {
                     width={150}
                     height={50}
                     priority
-                    // className={styles.logo}
+                    style={{ width: '100%', height: '100%' }}
                   />
               </li>
             </ul>
