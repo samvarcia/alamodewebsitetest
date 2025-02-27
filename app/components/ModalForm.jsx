@@ -84,13 +84,14 @@ const ModalForm = ({
           onClick={onClose}
           className={styles.closeButton}
         >
-          <span className={styles.dot}></span>
+          <span className={styles.dot}></span> 
         </button>
 
         {isSubmitted ? (
           <div className={styles.successState}>
             <h2>Thank you for your submission!</h2>
             <p>Your registration is being processed. If approved, an email will be sent to {formData.email} with further details.</p>
+            <p>Take a peek in spam just in case our email landed there.</p>
             <button 
               onClick={handleReset}
               className={styles.backButton}

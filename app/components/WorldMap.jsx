@@ -31,9 +31,10 @@ export default function WorldMap() {
     setSelectedCity(city);
     setIsModalOpen(true);
   };
-
+  
   return (
     <div className={styles.mapContainer}>
+      <h1 className={`${styles.select} ${isModalOpen ? styles.selectHidden : ''}`}>SELECT A CITY:</h1>
       <svg
         viewBox={viewBox}
         xmlns="http://www.w3.org/2000/svg"
@@ -63,6 +64,7 @@ export default function WorldMap() {
           />
         </div>
       </Link>
+
 
       <Link href={"/fw25"}>
         <div className={`${styles.logoContainer} ${styles.logoModal} ${!isModalOpen ? styles.logoHidden : ''}`}>

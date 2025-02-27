@@ -164,13 +164,20 @@
 }
 
 .backButton {
-  padding: 0.5rem 1.5rem;
+  width: 100%;
+  max-width: 150px;
+  padding: 0.5rem;
+  align-self: center;
   border: 1px solid white;
   background: none;
   color: white;
   cursor: pointer;
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
+  font-size: 1rem;
   font-family: inherit;
+  background: rgba(215, 216, 215, 0.13);
+  backdrop-filter: blur(50px);
+  border-radius: 12px;
 }
 
 .backButton:hover {
@@ -237,6 +244,7 @@
   .loadingState h2,
   .successState h2 {
     font-size: 1.2rem;
+    z-index: 51;
   }
 
   .successState p {

@@ -36,6 +36,16 @@
   opacity: 0;
   pointer-events: none;
 }
+.select{
+  font-size: 1.4rem;
+  /* margin-bottom: 100px; */
+  position: absolute;
+  bottom: 100px;
+  z-index: 51;
+}
+.selectHidden{
+  opacity: 0;
+}
 
 .fixedLogo {
   width: 200px;
