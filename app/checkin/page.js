@@ -1,28 +1,32 @@
 "use client"
-import Image from "next/image";
-import styles from "./page.module.css";
+import React, { useState, useEffect } from 'react';
+import styles from './page.module.css';
 import { motion, useAnimation } from 'framer-motion';
-import Link from "next/link";
-import { useState } from "react";
-import Form from "../components/Form";
-
-export default function Page() {
-    
+import Image from 'next/image';
+import WorldMap from '@/app/components/WorldMap';
+import Link from 'next/link';
+const checkin = () => {
+ 
   return (
-    <motion.main className={styles.checkin}
-    
-    >
-        <motion.section className={styles.checkinHero}
-        animate={{
-          background:["radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14) 25%, rgba(112, 0, 22, 1) 100%), #000",
-          "radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.57) 30.62%, #700014 52.24%), #000", 
-          "radial-gradient(115.53% 100% at 50% 0%, rgba(0, 0, 0, 0.14) 25%, rgba(112, 0, 22, 1) 100%), #000",]
-        }}
-        transition={{ ease: "easeInOut", duration: 5 }}
-        >
-          <Form/>
-      </motion.section>
-    
-    </motion.main>
+    <div className={styles.container}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 2 }}
+      >
+        <Link href={"/fw25"}>
+          <Image 
+            src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
+            width={150}
+            height={100}
+            priority
+            className={styles.fixedLogo}
+          />
+        </Link>
+      </motion.div>
+      <WorldMap/>
+    </div>
   );
-}
+};
+
+export default checkin;

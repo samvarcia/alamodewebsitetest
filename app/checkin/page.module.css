@@ -1,33 +1,11 @@
-.checkin{
-    height: 100vh;
-    overflow-y: hidden;
-}
-.checkinHero{
-    overflow-y: hidden;
-    overflow-x: hidden ;
-    background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-    height: 100vh;
-}
-
-.form{
-    display: flex;
-    flex-direction: column;
-}
-.logo{
+.fixedLogo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
     height: auto;
-    max-width: 150px;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-
-@media (max-width: 768px) {
-    .checkinHero {
-        justify-content: center;
-    }
-    .logo{
-        margin-left: 20px;
-        max-width: 100px;
-    }
-}
+  
