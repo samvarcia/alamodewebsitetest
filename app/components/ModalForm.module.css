@@ -169,7 +169,7 @@
   background: none;
   color: white;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease; 
 }
 
 .backButton:hover {
@@ -218,9 +218,9 @@
   }
 
   .termsSection {
-    /* flex-direction: column;
-    gap: 0.5rem;
-    text-align: center; */
+    /* flex-direction: column; */
+    gap: 1rem;
+    /* text-align: center; */
   }
 
   .form input {
