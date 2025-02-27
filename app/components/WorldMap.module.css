@@ -67,35 +67,58 @@
 .cityHidden {
   opacity: 0;
 }
+.cityImageContainer {
+  pointer-events: none;
+  overflow: visible;
+}
+
+.cityImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* Makes the SVG white */
+}
+
+.cityHidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
 
 /* Mobile styles */
-  @media screen and (max-width: 768px) {
-    .fixedLogo {
+@media screen and (max-width: 768px) {
+  .cityImageContainer {
+    transform: scale(1.2); /* Increased from 0.8 to make labels larger */
+  }
+  
+  .fixedLogo {
     margin-bottom: 30px;
-    }
-    .mapContainer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .map {
-      margin-top: 20px;
-      width: 260vw; 
-      height: 100vh;
-      min-width: 100%;
-      transform: translateX(-40px); 
   }
-  .cityLabel {
-    font-size: 29px; /* Smaller, more legible font */
-  }
-  .parisLabel {
-    font-size: 39px;  /* Larger font size for Paris */
-  }
- 
   
-    .cityDot {
-      /* r: 6; Slightly larger dot for easier tapping */
-    }
+  .mapContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
+  .map {
+    margin-top: 20px;
+    width: 260vw; 
+    height: 100vh;
+    min-width: 100%;
+    transform: translateX(-40px);
+  }
+
+  
+
+  .cityImage {
+    filter: brightness(0) invert(1);
+    transform: scale(1.2); /* Increased scale for better visibility */
+  }
+  
+  /* Ensure the container doesn't clip the scaled content */
+  .cityImageContainer foreignObject {
+    overflow: visible;
+  }
 }
