@@ -1,11 +1,9 @@
-// app/api/check-approval/route.js
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { generatePDF } from '../../utils/pdf-generator';
 import { sendEmail } from '../../utils/email-service';
 import { getUnapprovedAttendees, updateAttendeeStatus, moveToApprovedSheet, getRecentlyProcessed } from '../../utils/sheets-service';
 
-// Force dynamic execution
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; 
 
@@ -40,7 +38,6 @@ const PARTY_INFO = {
 };
 
 export async function GET(req) {
-  // Log request details
   console.log('🔄 Check-approval request received:', {
     url: req.url,
     method: req.method,
@@ -56,7 +53,6 @@ export async function GET(req) {
       getRecentlyProcessed()
     ]);
     
-    // Only get attendees that are approved ('Y') but not yet processed ('S')
     const approvedAttendees = unapprovedAttendees.filter(row => row[8] === 'Y' && row[9] !== 'S');
     const pendingCount = unapprovedAttendees.filter(row => row[8] === '').length;
     
