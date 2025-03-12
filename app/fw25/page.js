@@ -6,6 +6,7 @@ import Image from 'next/image';
 import PhotoGrid from '../components/PhotoGrid.jsx'
 import AboutFw25 from '../components/AboutFw25';
 import Link from 'next/link';
+import SignUpfw25 from '../components/SignUpfw25'
 
 const FwPage = () => {
   const [showFixedLogo, setShowFixedLogo] = useState(false);
@@ -28,9 +29,12 @@ const FwPage = () => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <Link href={"/fw25/checkin"}>
+        <div className={styles.check}>
+          <SignUpfw25/>
+        </div>
+        {/* <Link href={"/fw25/checkin"}>
           <div className={styles.checkinDot}></div>
-        </Link>
+        </Link> */}
         <div className={styles.mainContent}> 
           <Image 
             src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
