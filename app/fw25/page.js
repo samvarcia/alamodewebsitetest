@@ -40,53 +40,14 @@ const FwPage = () => {
             priority
             className={styles.logo}
           />
-          {/* <div className={styles.citiesList}>
-            <ul>
-              <li>
-                <Image 
-                  src="/newyorksvg.svg"
-                  width={150}
-                  height={50}
-                  priority
-                  style={{ width: '100%', height: '100%' }}
-                />
-              </li>
-              <li>
-                <Image 
-                    src="/londonsvg.svg"
-                    width={150}
-                    height={50}
-                    priority
-                    style={{ width: '100%', height: '100%' }}
-                  />
-              </li>
-              <li>
-                <Image 
-                    src="/milansvg.svg"
-                    width={150}
-                    height={50}
-                    priority
-                    style={{ width: '100%', height: '100%' }}
-                  />
-              </li>
-              <li>
-                <Image 
-                    src="/parissvg.svg"
-                    width={150}
-                    height={50}
-                    priority
-                    style={{ width: '100%', height: '100%' }}
-                  />
-              </li>
-            </ul>
-          </div> */}
+
           <div className={styles.check}>
             <SignUpfw25/>
           </div>
         </div>
       </main> 
 
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: showFixedLogo ? 1 : 0 }}
         transition={{ duration: 0.3 }}
@@ -106,7 +67,7 @@ const FwPage = () => {
       </section>
       <section>
         <AboutFw25/>
-      </section>
+      </section> */}
     </div>
   );
 };
