@@ -1,0 +1,245 @@
+.container {
+  width: 100%;
+  /* margin-top: 100px; */
+  /* padding: 0 2.5rem; */
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(42, 1fr);
+  grid-template-rows: repeat(14, 50px);
+  gap: 0.75rem;
+}
+
+.container section {
+  background-attachment: local;
+  background-size: cover;
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-position: center;
+  min-height: 110vh;
+  position: relative; /* Add position relative for absolute positioning of download button */
+}
+
+.slideOne {
+  background: radial-gradient(348.99% 48.39% at 50% 0%, #BC0123 14%, rgba(0, 0, 0, 0.00) 100%), url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5I0tVBqvaNxEchdfrpk3OHPZGBWwXFCMJeLgY) lightgray 20% / cover no-repeat;
+}
+
+.slideTwo {
+  background: radial-gradient(348.99% 48.39% at 50% 0%, #01044C 14%, rgba(0, 0, 0, 0.00) 100%), url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5oR7O4Ma5JKtXRFgQsOia31TfDuo8MPvznlLy) lightgray 20% / cover no-repeat;
+}
+
+.slideThree {
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5k4jfGQFbzaR50NlHWejvVOMES4AJrx8wqiYf);
+}
+
+.slideFour {
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ZXe7pVLEwM5xcgiDB81Wf0T2ztHSVbnYCmAo);
+}
+
+.slideFive {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 35.5%, #01044C 100%), url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5euSGQbqCC3HfZPSQz6uBoK2tX5Op1rTMcAlJ) #01044C 50% / cover no-repeat;
+  height: 90vh;
+}
+
+/* Download button styles */
+.downloadButton {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.downloadButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.downloadButton svg {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Desktop layout remains unchanged */
+.image1 {
+  grid-column: 1 / span 7;
+  grid-row: 3 / span 5;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5I0tVBqvaNxEchdfrpk3OHPZGBWwXFCMJeLgY);
+  background-size: cover;
+}
+
+.image2 {
+  grid-column: 3 / span 12;
+  grid-row: 10 / span 4;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5oR7O4Ma5JKtXRFgQsOia31TfDuo8MPvznlLy);
+  background-size: cover;
+}
+
+.image3 {
+  grid-column: 34 / span 10;
+  grid-row: 1 / span 3;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5k4jfGQFbzaR50NlHWejvVOMES4AJrx8wqiYf);
+  background-size: cover;
+}
+
+.image4 {
+  grid-column: 15 / span 11;
+  grid-row: 2 / span 4;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ZXe7pVLEwM5xcgiDB81Wf0T2ztHSVbnYCmAo);
+  background-size: cover;
+}
+
+.image5 {
+  grid-column: 19 / span 10;
+  grid-row: 9 / span 3;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5euSGQbqCC3HfZPSQz6uBoK2tX5Op1rTMcAlJ);
+  background-size: cover;
+}
+
+.image6 {
+  grid-column: 33 / span 9;
+  grid-row: 5 / span 6;
+  background-image: url(https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5xg6cduKFtIYdo9AvZnfspCON6KRh4SU5HBTc);
+  background-size: cover;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* background-color: white; */
+}
+
+.vertical .imageContainer {
+  aspect-ratio: 2/3;
+}
+
+.horizontal .imageContainer {
+  aspect-ratio: 4/3;
+}
+
+.tag {
+  position: absolute;
+  bottom: -24px;
+  right: 0;
+  font-size: 10px;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .container {
+    /* padding: 3rem 1rem; */
+    margin-top: 40px;
+  }
+
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    /* padding: 0 1rem; */
+  }
+
+  .imageWrapper {
+    width: 100%;
+  }
+
+  /* First vertical image - right aligned */
+  .image1 {
+    width: 65%;
+    margin-left: auto;
+  }
+
+  /* First horizontal - left aligned */
+  .image2 {
+    width: 90%;
+    margin-right: auto;
+  }
+
+  /* Second horizontal - right aligned */
+  .image3 {
+    width: 90%;
+    margin-left: auto;
+  }
+
+  /* Third horizontal - left aligned */
+  .image4 {
+    width: 90%;
+    margin-right: auto;
+  }
+
+  /* Fourth horizontal - right aligned */
+  .image5 {
+    width: 90%;
+    margin-left: auto;
+  }
+
+  /* Second vertical image - left aligned */
+  .image6 {
+    width: 65%;
+    margin-right: auto;
+  }
+
+  .tag {
+    font-size: 9px;
+    bottom: -20px;
+  }
+  
+  /* Adjust download button for mobile */
+  .downloadButton {
+    width: 40px;
+    height: 40px;
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .downloadButton svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    /* padding: 2rem 0.5rem; */
+  } 
+
+  .grid {
+    gap: 3rem;
+    /* padding: 0 0.5rem; */
+  }
+
+  /* Adjust horizontal images for smaller screens */
+  .image2, .image3, .image4, .image5 {
+    width: 85%;
+  }
+
+  /* Keep vertical images slightly larger */
+  .image1, .image6 {
+    width: 75%;
+  }
+
+  .tag {
+    font-size: 8px;
+    bottom: -18px;
+  }
+}

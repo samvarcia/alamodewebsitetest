@@ -29,9 +29,6 @@ const FwPage = () => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <div className={styles.check}>
-          <SignUpfw25/>
-        </div>
         {/* <Link href={"/fw25/checkin"}>
           <div className={styles.checkinDot}></div>
         </Link> */}
@@ -43,7 +40,7 @@ const FwPage = () => {
             priority
             className={styles.logo}
           />
-          <div className={styles.citiesList}>
+          {/* <div className={styles.citiesList}>
             <ul>
               <li>
                 <Image 
@@ -82,6 +79,9 @@ const FwPage = () => {
                   />
               </li>
             </ul>
+          </div> */}
+          <div className={styles.check}>
+            <SignUpfw25/>
           </div>
         </div>
       </main> 
