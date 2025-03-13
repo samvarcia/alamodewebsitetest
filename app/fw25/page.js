@@ -41,7 +41,7 @@ const FwPage = () => {
                   className={styles.logo}
                 />
                 <Image 
-                  src="/bts.svg"
+                  src="/BTS.svg"
                   width={380}
                   height={250}
                   priority
