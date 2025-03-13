@@ -1,7 +1,8 @@
 .container {
   width: 100%;
-  /* margin-top: 100px; */
-  /* padding: 0 2.5rem; */
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .grid {
@@ -41,17 +42,31 @@
   height: 90vh;
 }
 
-/* Download button styles */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .downloadButton {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,12 +130,6 @@
   background-size: cover;
 }
 
-.imageWrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
 .imageContainer {
   position: relative;
   width: 100%;
@@ -146,75 +155,35 @@
   text-transform: uppercase;
 }
 
+/* Mobile styles */
 @media (max-width: 768px) {
   .container {
-    /* padding: 3rem 1rem; */
-    /* margin-top: 40px; */
-  }
-
-  .grid {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    /* padding: 0 1rem; */
+    gap: 20px;
+    padding: 20px 0;
   }
 
   .imageWrapper {
+    width: 90vw;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .image {
     width: 100%;
+    height: auto;
+    object-fit: contain;
   }
 
-  /* First vertical image - right aligned */
-  .image1 {
-    width: 65%;
-    margin-left: auto;
-  }
-
-  /* First horizontal - left aligned */
-  .image2 {
-    width: 90%;
-    margin-right: auto;
-  }
-
-  /* Second horizontal - right aligned */
-  .image3 {
-    width: 90%;
-    margin-left: auto;
-  }
-
-  /* Third horizontal - left aligned */
-  .image4 {
-    width: 90%;
-    margin-right: auto;
-  }
-
-  /* Fourth horizontal - right aligned */
-  .image5 {
-    width: 90%;
-    margin-left: auto;
-  }
-
-  /* Second vertical image - left aligned */
-  .image6 {
-    width: 65%;
-    margin-right: auto;
+  .downloadButton {
+    width: 20px;
+    height: 20px;
+    bottom: 15px;
+    right: 15px;
   }
 
   .tag {
     font-size: 9px;
     bottom: -20px;
-  }
-  
-  /* Adjust download button for mobile */
-  .downloadButton {
-    width: 40px;
-    height: 40px;
-    bottom: 15px;
-    right: 15px;
-  }
-  
-  .downloadButton svg {
-    width: 20px;
-    height: 20px;
   }
 }
 
@@ -241,5 +210,12 @@
   .tag {
     font-size: 8px;
     bottom: -18px;
+  }
+}
+
+/* Keep desktop layout unchanged */
+@media (min-width: 769px) {
+  .section {
+    min-height: 110vh;
   }
 }

@@ -4,8 +4,9 @@
   background-color: #01044C;
 }
 
+/* Styles for the landing page */
 .topLogo {
-  position: absolute;
+  position: fixed;
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
@@ -14,10 +15,32 @@
 
 .bottomCounter {
   position: absolute;
-  top: calc(100vh - 80px); /* Position relative to viewport height */
+  top: calc(100vh - 80px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
+}
+
+/* Styles for the gallery view */
+.galleryContainer {
+  position: relative;
+  width: 100%;
+}
+
+.stickyHeader {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.stickyFooter {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
 }
 
 .logo {
@@ -30,6 +53,7 @@
   font-size: 2rem;
   color: white;
   letter-spacing: 2px;
+  text-align: center;
 }
 
 .landingContent {
@@ -120,6 +144,18 @@
   .countdown {
     font-size: 1.5rem;
   }
+
+  .galleryContainer {
+    padding: 60px 0;
+  }
+
+  .stickyHeader {
+    top: 20px;
+  }
+
+  .stickyFooter {
+    bottom: 20px;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -141,6 +177,18 @@
 
   .accessForm {
     gap: 10px;
+  }
+
+  .galleryContainer {
+    padding: 10px 0;
+  }
+
+  .stickyHeader {
+    top: 10px;
+  }
+
+  .stickyFooter {
+    bottom: 10px;
   }
 }
 

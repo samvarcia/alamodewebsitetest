@@ -46,40 +46,58 @@ const fw25Images = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.topLogo}>
-        <Image 
-          src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
-          width={260}
-          height={173}
-          priority
-          className={styles.logo}
-        />
-      </div>
-
       {!hasAccess ? (
-        <div className={styles.landingContent}>
-          <div className={styles.accessForm}>
-            <input
-              type="text"
-              value={inputValue}
-              readOnly
-              className={styles.input}
+        <>
+          <div className={styles.topLogo}>
+            <Image 
+              src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
+              width={260}
+              height={173}
+              priority
+              className={styles.logo}
             />
-            <button 
-              onClick={handleAccess}
-              className={styles.accessButton}
-            >
-              ACCESS
-            </button>
+          </div>
+
+          <div className={styles.landingContent}>
+            <div className={styles.accessForm}>
+              <input
+                type="text"
+                value={inputValue}
+                readOnly
+                className={styles.input}
+              />
+              <button 
+                onClick={handleAccess}
+                className={styles.accessButton}
+              >
+                ACCESS
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.bottomCounter}>
+            <div className={styles.countdown}>{countdown}</div>
+          </div>
+        </>
+      ) : (
+        <div className={styles.galleryContainer}>
+          <div className={styles.stickyHeader}>
+            <Image 
+              src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
+              width={260}
+              height={173}
+              priority
+              className={styles.logo}
+            />
+          </div>
+          
+          <PhotoGridGallery />
+          
+          <div className={styles.stickyFooter}>
+            <div className={styles.countdown}>{countdown}</div>
           </div>
         </div>
-      ) : (
-        <PhotoGridGallery />
       )}
-
-      <div className={styles.bottomCounter}>
-        <div className={styles.countdown}>{countdown}</div>
-      </div>
     </div>
   );
 };
