@@ -23,7 +23,7 @@ export async function POST(req) {
     const API_KEY = process.env.MAILCHIMP_API_KEY
     const DATACENTER = API_KEY.split('-')[1]
 
-    const url = `https://us21.api.mailchimp.com/3.0/lists/${LIST_ID}/members/`
+    const url = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${LIST_ID}/members/`
 
     const data = {
       email_address: email,
