@@ -46,16 +46,18 @@ const fw25Images = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.topLogo}>
+        <Image 
+          src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
+          width={260}
+          height={173}
+          priority
+          className={styles.logo}
+        />
+      </div>
+
       {!hasAccess ? (
         <div className={styles.landingContent}>
-          <Image 
-            src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
-            width={260}
-            height={173}
-            priority
-            className={styles.logo}
-          />
-          
           <div className={styles.accessForm}>
             <input
               type="text"
@@ -70,24 +72,14 @@ const fw25Images = () => {
               ACCESS
             </button>
           </div>
-
-          <div className={styles.countdown}>{countdown}</div>
         </div>
       ) : (
-        <>
-          <div className={styles.header}>
-            <Image 
-              src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
-              width={260}
-              height={173}
-              priority
-              className={styles.logo}
-            />
-            <div className={styles.countdown}>{countdown}</div>
-          </div>
-          <PhotoGridGallery />
-        </>
+        <PhotoGridGallery />
       )}
+
+      <div className={styles.bottomCounter}>
+        <div className={styles.countdown}>{countdown}</div>
+      </div>
     </div>
   );
 };

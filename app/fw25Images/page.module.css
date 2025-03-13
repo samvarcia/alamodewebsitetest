@@ -1,15 +1,23 @@
 .container {
   position: relative;
-  background-color: #01044C;
   min-height: 100vh;
+  background-color: #01044C;
 }
 
-.landingContent {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 20px;
+.topLogo {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.bottomCounter {
+  position: absolute;
+  top: calc(100vh - 80px); /* Position relative to viewport height */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
 }
 
 .logo {
@@ -22,15 +30,16 @@
   font-size: 2rem;
   color: white;
   letter-spacing: 2px;
-  position: absolute;
-  bottom: 40px;
+}
+
+.landingContent {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .accessForm {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   gap: 20px;
   align-items: center;
@@ -96,49 +105,42 @@
 }
 
 @media screen and (max-width: 768px) {
+  .topLogo {
+    top: 30px;
+  }
+
+  .bottomCounter {
+    top: calc(100vh - 60px);
+  }
+
   .logo {
     width: 200px;
   }
 
   .countdown {
     font-size: 1.5rem;
-    bottom: 30px;
-  }
-
-  .input {
-    font-size: 1rem;
-    padding: 8px 16px;
-  }
-
-  .accessButton {
-    padding: 6px;
-    font-size: 0.95rem;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .accessForm {
-
-    gap: 10px;
-
+  .topLogo {
+    top: 20px;
   }
+
+  .bottomCounter {
+    top: calc(100vh - 40px);
+  }
+
   .logo {
     width: 160px;
   }
 
   .countdown {
     font-size: 1.2rem;
-    bottom: 20px;
   }
 
-  .input {
-    font-size: 0.7rem;
-    padding: 8px 14px;
-  }
-
-  .accessButton {
-    padding: 6px;
-    font-size: 0.7rem;
+  .accessForm {
+    gap: 10px;
   }
 }
 
