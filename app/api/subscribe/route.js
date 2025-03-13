@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(req) {
   try {
-    const { email } = await req.json()
+    const { email, firstName, lastName } = await req.json()
 
     if (!email || !email.length) {
       return NextResponse.json(
@@ -28,6 +28,10 @@ export async function POST(req) {
     const data = {
       email_address: email,
       status: 'subscribed',
+      merge_fields: {
+        FNAME: firstName,
+        LNAME: lastName
+      }
     }
 
     const options = {
