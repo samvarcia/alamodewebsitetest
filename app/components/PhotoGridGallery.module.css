@@ -158,12 +158,12 @@
 /* Mobile styles */
 @media (max-width: 768px) {
   .container {
-    gap: 0px;
-    padding: 0px 0;
+    gap: 10px;
+    padding: 10px 0;
   }
 
   .imageWrapper {
-    width: 100vw;
+    width: 90vw;
     height: auto;
     margin: 0 auto;
   }

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import PhotoGridGallery from '../components/PhotoGridGallery.jsx'
 
 const fw25Images = () => {
-  const [hasAccess, setHasAccess] = useState(false);
+  const [hasAccess, setHasAccess] = useState(true);
   const [countdown, setCountdown] = useState('00:00:00:00');
   const [inputValue] = useState('Takem3b3h1ndthe5e3n');
 
