@@ -25,7 +25,7 @@ const SignUp = ({ setIsLoading, setSubscriptionSuccess }) => {
     setIsError(false);
 
     try {
-      const res = await fetch('/api/subscribe-fw25P', {
+      const res = await fetch('/api/subscribe-fw25p', {
         body: JSON.stringify(formData),
         headers: {
           'Content-Type': 'application/json',
