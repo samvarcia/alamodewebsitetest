@@ -8,7 +8,11 @@ import { useState } from 'react';
 import styles from './SignUpfw25.module.css'
 
 const SignUp = ({ setIsLoading, setSubscriptionSuccess }) => {
-  const [email, setEmail] = useState('');
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: ''
+  });
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [localLoading, setLocalLoading] = useState(false);
@@ -21,8 +25,8 @@ const SignUp = ({ setIsLoading, setSubscriptionSuccess }) => {
     setIsError(false);
 
     try {
-      const res = await fetch('/api/subscribe', {
-        body: JSON.stringify({ email }),
+      const res = await fetch('/api/subscribe-fw25P', {
+        body: JSON.stringify(formData),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -40,7 +44,7 @@ const SignUp = ({ setIsLoading, setSubscriptionSuccess }) => {
       }
 
       setMessage(data.message);
-      setEmail('');
+      setFormData({ firstName: '', lastName: '', email: '' });
       
       setTimeout(() => {
         setSubscriptionSuccess(true);
@@ -54,26 +58,55 @@ const SignUp = ({ setIsLoading, setSubscriptionSuccess }) => {
     }
   };
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
   return (
     <form onSubmit={subscribe} className={styles.form}>
-      <p>GET ACCESS TO à la mode FW25 IMAGES:</p>
+      <p>GET EXCLUSIVE ACCESS TO OUR FW25 IMAGES:</p>
       <div className={styles.inputBox}>
         <input
-          type="email"
-          placeholder="Your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          name="firstName"
+          placeholder="First name"
+          value={formData.firstName}
+          onChange={handleChange}
           disabled={localLoading}
           required
-          className=""
+          className={styles.input}
+        />
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last name"
+          value={formData.lastName}
+          onChange={handleChange}
+          disabled={localLoading}
+          required
+          className={styles.input}
+        />
+      </div>
+        <input
+          type="email"
+          name="email"
+          placeholder="Your email"
+          value={formData.email}
+          onChange={handleChange}
+          disabled={localLoading}
+          required
+          className={styles.input}
         />
         <button 
+        className={styles.loadingButton}
           type="submit"
           disabled={localLoading}
         >
           {localLoading ? 'LOADING...' : 'ACCESS'}
         </button>  
-      </div>
       {message && isError && (
         <p className={styles.errorMessage}>
           {message}

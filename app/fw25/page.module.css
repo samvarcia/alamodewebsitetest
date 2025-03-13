@@ -25,6 +25,17 @@
   justify-content: center;
 }
 
+.logoContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.bts{
+  width: 200px;
+  height: auto;
+}
+
 .mapWrapper {
   position: absolute;
   top: 0;
@@ -62,14 +73,20 @@
 }
 
 .goBackButton {
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1.3rem;
+  background: none;
+  color: white;
   background: rgba(215, 216, 215, 0.13);
   backdrop-filter: blur(50px);
-  border: 1px solid white;
-  color: white;
+  border-radius: 12px;
   cursor: pointer;
   font-family: inherit;
+  font-size: 0.8rem;
+  border: 1px solid white;
   transition: all 0.2s ease;
+  width: 100px;
+  margin-top: 20px;
+  align-self: flex-end;
 }
 
 .goBackButton:hover {
@@ -199,7 +216,7 @@
   }
 
   .logo {
-    width: 220px;
+    width: 180px;
     margin-bottom: 10px;
   }
   
@@ -244,8 +261,8 @@
 }
 
 @media (max-width: 480px) {
-  .logo {
-    width: 180px;
+  .logo, .bts {
+    width: 120px;
   }
   
   .check {

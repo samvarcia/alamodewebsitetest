@@ -32,13 +32,22 @@ const FwPage = () => {
         <div className={styles.mainContent}> 
           {!isLoading && !subscriptionSuccess && (
             <>
-              <Image 
-                src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
-                width={380}
-                height={250}
-                priority
-                className={styles.logo}
-              />
+              <div className={styles.logoContainer}>
+                <Image 
+                  src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
+                  width={380}
+                  height={250}
+                  priority
+                  className={styles.logo}
+                />
+                <Image 
+                  src="/bts.svg"
+                  width={380}
+                  height={250}
+                  priority
+                  className={styles.bts}
+                />
+              </div>
               <div className={styles.check}>
                 <SignUpfw25 
                   setIsLoading={setIsLoading} 
@@ -79,10 +88,11 @@ const FwPage = () => {
                 </svg>
               </div>
               <div className={styles.successContent}>
-                <h2 className={styles.successTitle}>THANK YOU FOR SUBSCRIBING</h2>
+                <h2 className={styles.successTitle}>YOU’RE IN</h2>
                 <p className={styles.successMessage}>
-                  You'll receive exclusive access to à la mode FW25 images. 
-                  Check your inbox for further details.
+                Few get to experience à la mode, but you’re about to see what happens
+                behind the seen. Stay tuned—when its time, you'll be the first to know. 
+                Keep an eye on your inbox.                
                 </p>
                 <button onClick={handleGoBack} className={styles.goBackButton}>
                   GO BACK
