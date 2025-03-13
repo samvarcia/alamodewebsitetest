@@ -104,7 +104,7 @@ const PhotoGrid = () => {
       filename: 'fw25-image-18.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5a24gjGfI0ENGWTiK3VtQs6A2k9FDM5RXdeBj',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5t7LYOu1sIMDbYaw4Ki02yjLOTlufP68HSopc',
       filename: 'fw25-image-19.jpg'
     },
     { 
@@ -150,6 +150,14 @@ const PhotoGrid = () => {
     { 
       url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ccEmjgAAC8XpqHQoY3tExIyT1BvalJmP20Z7',
       filename: 'fw25-image-30.jpg'
+    },
+    { 
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5jx3ILq0i8Ml3urIKcgY5aozEwNGpshLq17SH',
+      filename: 'fw25-image-31.jpg'
+    },
+    { 
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN578TVTjxaFNA09pgyriHKbJEsm18IZDQd365T',
+      filename: 'fw25-image-32.jpg'
     }
   ];
 
