@@ -62,7 +62,7 @@ const PhotoGrid = () => {
               onClick={() => handleDownload(image.url, image.filename)}
               aria-label="Download image"
             >
-              D
+              
             </button>
           </div>
         </section>

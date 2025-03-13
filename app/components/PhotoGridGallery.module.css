@@ -49,8 +49,8 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
   display: flex;
   align-items: center;
@@ -58,8 +58,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 5;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 4px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
 }
 
 .downloadButton:hover {
@@ -149,7 +149,7 @@
 @media (max-width: 768px) {
   .container {
     /* padding: 3rem 1rem; */
-    margin-top: 40px;
+    /* margin-top: 40px; */
   }
 
   .grid {
