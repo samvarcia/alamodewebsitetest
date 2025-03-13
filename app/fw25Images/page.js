@@ -46,34 +46,47 @@ const fw25Images = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <Image 
-          src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
-          width={260}
-          height={173}
-          priority
-          className={styles.logo}
-        />
-        <div className={styles.countdown}>{countdown}</div>
-      </div>
-
       {!hasAccess ? (
-        <div className={styles.accessForm}>
-          <input
-            type="text"
-            value={inputValue}
-            readOnly
-            className={styles.input}
+        <div className={styles.landingContent}>
+          <Image 
+            src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
+            width={260}
+            height={173}
+            priority
+            className={styles.logo}
           />
-          <button 
-            onClick={handleAccess}
-            className={styles.accessButton}
-          >
-            ACCESS
-          </button>
+          
+          <div className={styles.accessForm}>
+            <input
+              type="text"
+              value={inputValue}
+              readOnly
+              className={styles.input}
+            />
+            <button 
+              onClick={handleAccess}
+              className={styles.accessButton}
+            >
+              ACCESS
+            </button>
+          </div>
+
+          <div className={styles.countdown}>{countdown}</div>
         </div>
       ) : (
-        <PhotoGridGallery />
+        <>
+          <div className={styles.header}>
+            <Image 
+              src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
+              width={260}
+              height={173}
+              priority
+              className={styles.logo}
+            />
+            <div className={styles.countdown}>{countdown}</div>
+          </div>
+          <PhotoGridGallery />
+        </>
       )}
     </div>
   );
