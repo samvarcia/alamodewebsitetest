@@ -11,7 +11,6 @@ const fw25Images = () => {
 
   useEffect(() => {
     const updateCountdown = () => {
-      // Set target date to Monday March 18th, 2025, midnight Paris time
       const target = new Date(2025, 2, 18, 0, 0, 0); // Month is 0-based, so 2 = March
       const now = new Date();
       
