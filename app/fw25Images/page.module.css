@@ -1,0 +1,145 @@
+.container {
+  position: relative;
+  background-color: #01044C;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 20px 40px; */
+  background-color: rgba(1, 4, 76, 0.9);
+}
+
+.logo {
+  width: 260px;
+  height: auto;
+}
+
+.countdown {
+  font-family: inherit;
+  font-size: 2rem;
+  color: white;
+  /* letter-spacing: 2px; */
+}
+
+.accessForm {
+  margin-top: 20px;
+  display: flex;
+  /* flex-direction: column; */
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 5;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.input {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: none;
+  color: white;
+  width: 100%;
+  background: rgba(215, 216, 215, 0.13);
+  backdrop-filter: blur(50px);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1.2rem;
+}
+
+.input:focus,
+.input:active {
+  outline: none;
+}
+
+.input::placeholder {
+  color: #fff;
+}
+
+.accessButton {
+  padding: 0.5rem 1.3rem;
+  background: none;
+  color: white;
+  background: rgba(215, 216, 215, 0.13);
+  backdrop-filter: blur(50px);
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid white;
+  transition: all 0.2s ease;
+  width: 200px;
+}
+
+.accessButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .accessForm {
+    padding: 0 20px;
+  }
+
+  .input {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+
+  .accessButton {
+    padding: 6px;
+    font-size: 0.95rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logo {
+    width: 180px;
+  }
+  .input {
+    font-size: 0.7rem;
+    padding: 8px 14px;
+  }
+
+  .accessButton {
+    padding: 6px;
+    font-size: 0.7rem;
+  }
+
+  .countdown {
+    font-size: 1.5rem;
+  }
+}
+
+.logoOverlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.fixedLogo {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 190px;
+  height: auto;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
