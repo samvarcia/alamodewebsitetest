@@ -91,8 +91,7 @@ const FwPage = () => {
                 <h2 className={styles.successTitle}>YOU’RE IN</h2>
                 <p className={styles.successMessage}>
                 Few get to experience à la mode, but you’re about to see what happens
-                behind the seen. Stay tuned—when its time, you'll be the first to know. 
-                Keep an eye on your inbox.                
+                behind the seen. Stay tuned and keep an eye on your inbox.            
                 </p>
                 <button onClick={handleGoBack} className={styles.goBackButton}>
                   GO BACK
