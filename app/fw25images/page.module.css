@@ -1,0 +1,216 @@
+.container {
+  position: relative;
+  min-height: 100vh;
+  background-color: #01044C;
+}
+
+/* Styles for the landing page */
+.topLogo {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.bottomCounter {
+  position: absolute;
+  top: calc(100vh - 80px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+/* Styles for the gallery view */
+.galleryContainer {
+  position: relative;
+  width: 100%;
+}
+
+.stickyHeader {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.stickyFooter {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.logo {
+  width: 260px;
+  height: auto;
+}
+
+.countdown {
+  font-family: monospace;
+  font-size: 2rem;
+  color: white;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.landingContent {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accessForm {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  max-width: 500px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.input {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: none;
+  color: white;
+  width: 100%;
+  background: rgba(215, 216, 215, 0.13);
+  backdrop-filter: blur(50px);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1.2rem;
+}
+
+.input:focus,
+.input:active {
+  outline: none;
+}
+
+.input::placeholder {
+  color: #fff;
+}
+
+.accessButton {
+  padding: 0.5rem 1.3rem;
+  background: none;
+  color: white;
+  background: rgba(215, 216, 215, 0.13);
+  backdrop-filter: blur(50px);
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid white;
+  transition: all 0.2s ease;
+  width: 200px;
+}
+
+.accessButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Styles for after access is granted */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: rgba(1, 4, 76, 0.9);
+}
+
+@media screen and (max-width: 768px) {
+  .topLogo {
+    top: 30px;
+  }
+
+  .bottomCounter {
+    top: calc(100vh - 60px);
+  }
+
+  .logo {
+    width: 200px;
+  }
+
+  .countdown {
+    font-size: 1.5rem;
+  }
+
+  .galleryContainer {
+    padding: 0px 0;
+  }
+
+  .stickyHeader {
+    top: 20px;
+  }
+
+  .stickyFooter {
+    bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .topLogo {
+    top: 20px;
+  }
+
+  .bottomCounter {
+    top: calc(100vh - 40px);
+  }
+
+  .logo {
+    width: 160px;
+  }
+
+  .countdown {
+    font-size: 1.2rem;
+  }
+
+  .accessForm {
+    gap: 10px;
+  }
+
+  .galleryContainer {
+    padding: 0px 0;
+  }
+
+  .stickyHeader {
+    top: 10px;
+  }
+
+  .stickyFooter {
+    bottom: 10px;
+  }
+}
+
+.logoOverlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.fixedLogo {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 190px;
+  height: auto;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
