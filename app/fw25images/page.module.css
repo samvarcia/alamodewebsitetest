@@ -1,6 +1,23 @@
 .container {
   position: relative;
   min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerLanding {
+  height: 100vh; /* Fixed height for landing page */
+  background-color: #01044C;
+  background-image: url('https://h8b8ligav2.ufs.sh/f/1HacuqBhXBpbAdMP4UV1K7rjv4VfITptsXM0ueLwNWyHUxhi');
+  background-size: cover;
+  background-position: center;
+}
+
+.containerAccess {
+  min-height: 100%; /* Changed to ensure full coverage */
+  height: auto; /* Allow container to grow with content */
   background-color: #01044C;
 }
 
@@ -25,6 +42,9 @@
 .galleryContainer {
   position: relative;
   width: 100%;
+  background-color: #01044C; /* Added background color here as well */
+  min-height: 100vh;
+  padding: 80px 0; /* Add padding to account for fixed header and footer */
 }
 
 .stickyHeader {
@@ -44,7 +64,7 @@
 }
 
 .logo {
-  width: 260px;
+  width: 200px;
   height: auto;
 }
 
@@ -57,16 +77,25 @@
 }
 
 .landingContent {
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
 }
 
+.bts{
+  width: 120px;
+  height: auto;
+}
 .accessForm {
   display: flex;
-  gap: 20px;
+  /* gap: 20px; */
   align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 500px;
   width: 100%;
   padding: 0 20px;
@@ -83,6 +112,7 @@
   border-radius: 12px;
   font-family: inherit;
   font-size: 1.2rem;
+  width: 100%;
 }
 
 .input:focus,
@@ -138,7 +168,7 @@
   }
 
   .logo {
-    width: 200px;
+    width: 160px;
   }
 
   .countdown {
@@ -159,6 +189,13 @@
 }
 
 @media screen and (max-width: 480px) {
+  .landingContent p {
+
+    font-size: 0.8rem;
+  }
+  .container{
+    padding: 0 0.8rem;
+  }
   .topLogo {
     top: 20px;
   }
@@ -168,7 +205,7 @@
   }
 
   .logo {
-    width: 160px;
+    width: 120px;
   }
 
   .countdown {
@@ -177,8 +214,11 @@
 
   .accessForm {
     gap: 10px;
+    padding: 0;
   }
-
+  .accessButton{
+    width: 160px;
+  }
   .galleryContainer {
     padding: 0px 0;
   }

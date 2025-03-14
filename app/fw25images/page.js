@@ -45,7 +45,7 @@ const fw25Images = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${hasAccess ? styles.containerAccess : styles.containerLanding}`}>
       {!hasAccess ? (
         <>
           <div className={styles.topLogo}>
@@ -57,9 +57,18 @@ const fw25Images = () => {
               className={styles.logo}
             />
           </div>
-
           <div className={styles.landingContent}>
-            
+                <Image 
+                  src="/BTS.svg"
+                  width={380}
+                  height={250}
+                  priority
+                  className={styles.bts}
+                />
+            <p>
+              YOU'VE UNLOCKED EXCLUSIVE ACCESS. <br/>
+              STEP IN AND SEE WHAT UNFOLDED IN PARIS.
+            </p>
             <div className={styles.accessForm}>
               <input
                 type="text"
