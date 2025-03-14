@@ -7,7 +7,19 @@ const PhotoGrid = () => {
   // Function to handle image downloads
   const handleDownload = async (url, filename) => {
     try {
-      // Fetch the image as a blob
+      // Track the download using the new endpoint
+      await fetch('/api/track-download', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          imageUrl: url,
+          filename: filename
+        }),
+      });
+
+      // Proceed with the download
       const response = await fetch(url);
       const blob = await response.blob();
       
