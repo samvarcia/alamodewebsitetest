@@ -59,7 +59,7 @@ const fw25Images = () => {
           </div>
 
           <div className={styles.landingContent}>
-            p
+            
             <div className={styles.accessForm}>
               <input
                 type="text"
