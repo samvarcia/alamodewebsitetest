@@ -3,7 +3,7 @@ import { google } from 'googleapis';
 
 export async function POST(req) {
   try {
-    const { imageUrl, filename } = await req.json();
+    const { imageNumber } = await req.json();
 
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
@@ -14,38 +14,44 @@ export async function POST(req) {
 
     const sheets = google.sheets({ version: 'v4', auth });
     
-    // Check if the image URL already exists in the sheet
+    // First, check if the sheet exists and has the correct structure
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'FW25IMAGES!A:C',
+      range: 'FW25IMAGES!A:B',
     });
 
     const rows = response.data.values || [];
-    const existingRowIndex = rows.findIndex(row => row[0] === imageUrl);
 
-    if (existingRowIndex === -1) {
-      // If image doesn't exist, add new row
-      await sheets.spreadsheets.values.append({
-        spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: 'FW25IMAGES!A:C',
-        valueInputOption: 'USER_ENTERED',
-        insertDataOption: 'INSERT_ROWS',
-        requestBody: {
-          values: [[imageUrl, filename, 1]],
-        },
-      });
-    } else {
-      // If image exists, increment download count
-      const currentCount = parseInt(rows[existingRowIndex][2]) || 0;
+    // If sheet is empty or needs initialization
+    if (rows.length === 0) {
+      // Initialize the sheet with headers and image numbers
+      const initialData = [
+        ['IMAGE NUMBER', 'DOWNLOADS'],
+        ...Array.from({ length: 32 }, (_, i) => [`IMAGE ${i + 1}`, '0'])
+      ];
+
       await sheets.spreadsheets.values.update({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: `FW25IMAGES!C${existingRowIndex + 1}`,
+        range: 'FW25IMAGES!A1:B33',
         valueInputOption: 'USER_ENTERED',
         requestBody: {
-          values: [[currentCount + 1]],
+          values: initialData,
         },
       });
     }
+
+    // Update download count for specific image
+    const rowIndex = imageNumber + 1; // +1 for header row
+    const currentValue = rows[rowIndex] ? parseInt(rows[rowIndex][1]) || 0 : 0;
+    
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: `FW25IMAGES!B${rowIndex + 1}`,
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [[currentValue + 1]],
+      },
+    });
 
     return NextResponse.json({ message: 'Download tracked successfully' }, { status: 200 });
   } catch (error) {

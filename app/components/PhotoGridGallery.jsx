@@ -5,17 +5,16 @@ import Image from 'next/image';
 
 const PhotoGrid = () => {
   // Function to handle image downloads
-  const handleDownload = async (url, filename) => {
+  const handleDownload = async (url, filename, index) => {
     try {
-      // Track the download using the new endpoint
+      // Track the download using the image number
       await fetch('/api/track-download', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          imageUrl: url,
-          filename: filename
+          imageNumber: index + 1 // Adding 1 because array is 0-based
         }),
       });
 
@@ -187,7 +186,7 @@ const PhotoGrid = () => {
           />
           <button 
             className={styles.downloadButton}
-            onClick={() => handleDownload(image.url, image.filename)}
+            onClick={() => handleDownload(image.url, image.filename, index)}
             aria-label="Download image"
           >
           </button>
