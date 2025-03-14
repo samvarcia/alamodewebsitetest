@@ -43,131 +43,131 @@ const PhotoGrid = () => {
   // Expanded images array for 30 sections
   const images = [
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5oAhWN6a5JKtXRFgQsOia31TfDuo8MPvznlLy',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5fzxgBcZ7MwLfNjSr8PiFmg2OyCJ49v3ousHz',
       filename: 'fw25-image-01.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5If7IktvaNxEchdfrpk3OHPZGBWwXFCMJeLgY',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5f5qoDKZ7MwLfNjSr8PiFmg2OyCJ49v3ousHz',
       filename: 'fw25-image-02.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5TIxlpv7fU2XHGIho0RB9SPJmw6dQeajWMD75',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN539rdLv8LBglidcVU9rjhyk8MN7e4ouxbanKw',
       filename: 'fw25-image-03.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5OIvAlm5bx6mn0yG5r4KzfYh8g739AwitckEZ',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5AWmZptindTBaZIDG0nxi2RvKb4UskjmMlQ9Y',
       filename: 'fw25-image-04.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5EJwJ0Si0NIhsqCgWTSJHufoPxB328jbQRk5L',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5QT0Li8snS05CJXFdom7LABrl32NtsciRUTMG',
       filename: 'fw25-image-05.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5zq9rJSGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5CAqf3g5JUxXV5Weuslt6qj4v2BIEz0P7ypwZ',
       filename: 'fw25-image-06.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5rul7ZikU6IkVe1p48yMCcizsGjDgamNORlF9',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5x88cUrjKFtIYdo9AvZnfspCON6KRh4SU5HBT',
       filename: 'fw25-image-07.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5OILYVNcbx6mn0yG5r4KzfYh8g739AwitckEZ',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5fASLl7Z7MwLfNjSr8PiFmg2OyCJ49v3ousHz',
       filename: 'fw25-image-08.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN52yL1hNE8Fmf4SytL5DGJrRUVzqv1QsgaOPpc',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5o73orQa5JKtXRFgQsOia31TfDuo8MPvznlLy',
       filename: 'fw25-image-09.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5CtMwtRp5JUxXV5Weuslt6qj4v2BIEz0P7ypw',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ap3XaOfI0ENGWTiK3VtQs6A2k9FDM5RXdeBj',
       filename: 'fw25-image-10.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5t2nBq61sIMDbYaw4Ki02yjLOTlufP68HSopc',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5Ctw7EbR5JUxXV5Weuslt6qj4v2BIEz0P7ypw',
       filename: 'fw25-image-11.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5SG0LSfMNsUq1MfgSJwtZaId6VXxYPFLey3Tc',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5zDUkaMoGWGeO9CyJiqhFg5S3kH6Q8afZc0DB',
       filename: 'fw25-image-12.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5A4Az3andTBaZIDG0nxi2RvKb4UskjmMlQ9Y1',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5KHXapb32YA98TUXCuphaBQqZm6sJGztlR34W',
       filename: 'fw25-image-13.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5eyHnxjCC3HfZPSQz6uBoK2tX5Op1rTMcAlJ7',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5UhaHRFq8VSZXdkougFAfstnKe931vIaRG2qi',
       filename: 'fw25-image-14.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5Q2maAtsnS05CJXFdom7LABrl32NtsciRUTMG',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5cVmnT5QAAC8XpqHQoY3tExIyT1BvalJmP20Z',
       filename: 'fw25-image-15.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5OINwWG6bx6mn0yG5r4KzfYh8g739AwitckEZ',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5IlDB07vaNxEchdfrpk3OHPZGBWwXFCMJeLgY',
       filename: 'fw25-image-16.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5tScNtJg1sIMDbYaw4Ki02yjLOTlufP68HSop',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN57hBK7exaFNA09pgyriHKbJEsm18IZDQd365T',
       filename: 'fw25-image-17.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5yXWoMVYMqtL5hPovGWSpXJYH4auOUblN9KgA',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5B4w3UuOOJLgRZ7jHdIcMl1E526yrFVPbKz4A',
       filename: 'fw25-image-18.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5t7LYOu1sIMDbYaw4Ki02yjLOTlufP68HSopc',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5eYGjcACC3HfZPSQz6uBoK2tX5Op1rTMcAlJ7',
       filename: 'fw25-image-19.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5sYzkUtcVYJN5qE8WIpzfFsXUxDnu6y17tLHT',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN50fG2GiXEPKy3CSsVjZfLnuM5GdrpANbvzkIF',
       filename: 'fw25-image-20.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ibFslJGBm9L16gFHXnQ4xJMzvpt5AlI3weVZ',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5AWyitJ6ndTBaZIDG0nxi2RvKb4UskjmMlQ9Y',
       filename: 'fw25-image-21.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5zkpPV6GWGeO9CyJiqhFg5S3kH6Q8afZc0DB1',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5EF0LbXi0NIhsqCgWTSJHufoPxB328jbQRk5L',
       filename: 'fw25-image-22.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5HCeiXB5lorAWPdZh7iQ3JmpOBDzRvE5XguMn',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5mZ1zIpjnYi8vWf9hCg2QHsKlZeR4xqwoBapG',
       filename: 'fw25-image-23.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5fgeTstZ7MwLfNjSr8PiFmg2OyCJ49v3ousHz',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5hgiOtB4ZOugLUQa4oet2R9m1sJpTb5FVCHSA',
       filename: 'fw25-image-24.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5fh2PXFZ7MwLfNjSr8PiFmg2OyCJ49v3ousHz',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5GpMxE8JDUHE8jhwQBumS4MyNJ1zKOn2PWdao',
       filename: 'fw25-image-25.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5tScbSAt1sIMDbYaw4Ki02yjLOTlufP68HSop',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5fVXbucZ7MwLfNjSr8PiFmg2OyCJ49v3ousHz',
       filename: 'fw25-image-26.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5oZZxP5Va5JKtXRFgQsOia31TfDuo8MPvznlL',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5aLth6JdfI0ENGWTiK3VtQs6A2k9FDM5RXdeB',
       filename: 'fw25-image-27.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN50Y3DbyPXEPKy3CSsVjZfLnuM5GdrpANbvzkI',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5TV0LBK7fU2XHGIho0RB9SPJmw6dQeajWMD75',
       filename: 'fw25-image-28.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5aGeUXqfI0ENGWTiK3VtQs6A2k9FDM5RXdeBj',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN54g7xxAovPg8Ej6VNX1niwby2CSLKMtxq9mkO',
       filename: 'fw25-image-29.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ccEmjgAAC8XpqHQoY3tExIyT1BvalJmP20Z7',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN50ktNF4XEPKy3CSsVjZfLnuM5GdrpANbvzkIF',
       filename: 'fw25-image-30.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5jx3ILq0i8Ml3urIKcgY5aozEwNGpshLq17SH',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5QIKhkRsnS05CJXFdom7LABrl32NtsciRUTMG',
       filename: 'fw25-image-31.jpg'
     },
     { 
-      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN578TVTjxaFNA09pgyriHKbJEsm18IZDQd365T',
+      url: 'https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5IR6O1xIvaNxEchdfrpk3OHPZGBWwXFCMJeLg',
       filename: 'fw25-image-32.jpg'
     }
   ];
