@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './page.module.css';
 import Image from 'next/image';
 import PhotoGridGallery from '../components/PhotoGridGallery.jsx'
+import { DateTime } from 'luxon'; // Import luxon for better timezone handling
 
 const fw25Images = () => {
   const [hasAccess, setHasAccess] = useState(true);
@@ -11,18 +12,22 @@ const fw25Images = () => {
 
   useEffect(() => {
     const updateCountdown = () => {
-      // Get today's date
-      const now = new Date();
+      // Get current time
+      const now = DateTime.local();
       
-      // Create target date for today at 7pm EST
-      const target = new Date();
-      target.setHours(19, 0, 0, 0); // 7pm
-      // Adjust for EST (UTC-5)
-      // target.setHours(target.getHours() + 5); // Convert from EST to UTC
+      // Create target date at 7pm EST (Eastern Time)
+      // Use luxon to handle the timezone correctly
+      const targetTime = DateTime.local().setZone("America/New_York").set({
+        hour: 19,
+        minute: 0,
+        second: 0,
+        millisecond: 0
+      });
       
-      let diff = target.getTime() - now.getTime();
+      // Calculate difference in milliseconds
+      const diff = targetTime.toMillis() - now.toMillis();
       
-      // If it's already past 7pm today, show zeros
+      // If it's already past 7pm EST today, set countdown to zeros
       if (diff <= 0) {
         setCountdown('00:00:00:00');
         return;
