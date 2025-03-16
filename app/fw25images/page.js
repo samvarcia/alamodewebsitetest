@@ -11,7 +11,7 @@ const fw25Images = () => {
 
   useEffect(() => {
     const updateCountdown = () => {
-      const target = new Date(2025, 2, 18, 0, 0, 0); // Month is 0-based, so 2 = March
+      const target = new Date(2025, 2, 17, 0, 0, 0); // Month is 0-based, so 2 = March
       const now = new Date();
       
       let diff = target.getTime() - now.getTime();
