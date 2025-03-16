@@ -42,25 +42,48 @@
 .galleryContainer {
   position: relative;
   width: 100%;
-  background-color: #01044C; /* Added background color here as well */
   min-height: 100vh;
-  padding: 0px 0; /* Add padding to account for fixed header and footer */
+  display: flex;
+  flex-direction: column;
+}
+
+.thankYouMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 24px;
+  color: white;
+  width: 100%;
+  padding: 20px;
+  margin: 0;
+  z-index: 200;
 }
 
 .stickyHeader {
   position: fixed;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .stickyFooter {
   position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .logo {

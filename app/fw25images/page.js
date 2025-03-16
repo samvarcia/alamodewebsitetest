@@ -6,45 +6,43 @@ import PhotoGridGallery from '../components/PhotoGridGallery.jsx'
 import { DateTime } from 'luxon'; // Import luxon for better timezone handling
 
 const fw25Images = () => {
-  const [hasAccess, setHasAccess] = useState(true);
+  const [hasAccess, setHasAccess] = useState(false);
   const [countdown, setCountdown] = useState('00:00:00:00');
+  const [isExpired, setIsExpired] = useState(false);
   const [inputValue] = useState('Takem3b3h1ndthe5e3n');
 
   useEffect(() => {
     const updateCountdown = () => {
-      // Get current time
-      const now = DateTime.local();
+      // Get current time in EST
+      const now = DateTime.now().setZone('America/New_York');
       
-      // Create target date at 7pm EST (Eastern Time)
-      // Use luxon to handle the timezone correctly
-      const targetTime = DateTime.local().setZone("America/New_York").set({
+      // Set target to 7PM today in EST
+      let target = now.set({
         hour: 19,
         minute: 0,
         second: 0,
         millisecond: 0
       });
-      
-      // Calculate difference in milliseconds
-      const diff = targetTime.toMillis() - now.toMillis();
-      
-      // If it's already past 7pm EST today, set countdown to zeros
-      if (diff <= 0) {
+
+      // If current time is past 7PM, the countdown should be at 0
+      if (now >= target) {
         setCountdown('00:00:00:00');
+        setIsExpired(true);
         return;
       }
 
-      // Calculate time units
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      // Calculate the duration until target
+      const diff = target.diff(now, ['hours', 'minutes', 'seconds']);
+      
+      // Format the countdown
+      const hours = Math.floor(diff.hours);
+      const minutes = Math.floor(diff.minutes);
+      const seconds = Math.floor(diff.seconds);
 
-      // Format the countdown string
-      const formattedCountdown = `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      const formattedCountdown = `00:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
       setCountdown(formattedCountdown);
     };
 
-    // Update immediately and then every second
     updateCountdown();
     const intervalId = setInterval(updateCountdown, 1000);
 
@@ -112,7 +110,13 @@ const fw25Images = () => {
             />
           </div>
           
-          <PhotoGridGallery />
+          {isExpired ? (
+            <div className={styles.thankYouMessage}>
+              Thank you for stepping behind the seen, see you at the next one
+            </div>
+          ) : (
+            <PhotoGridGallery />
+          )}
           
           <div className={styles.stickyFooter}>
             <div className={styles.countdown}>{countdown}</div>

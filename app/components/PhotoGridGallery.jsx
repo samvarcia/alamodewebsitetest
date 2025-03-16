@@ -184,13 +184,13 @@ const PhotoGrid = () => {
             className={styles.image}
             priority={index < 10} // Load first 4 images immediately
           />
-          <button 
-            className={styles.downloadButton}
+            <button 
+              className={styles.downloadButton}
             onClick={() => handleDownload(image.url, image.filename, index)}
-            aria-label="Download image"
-          >
-          </button>
-        </div>
+              aria-label="Download image"
+            >
+            </button>
+          </div>
       ))}
     </div>
   );
