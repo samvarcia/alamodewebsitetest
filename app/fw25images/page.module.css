@@ -44,7 +44,7 @@
   width: 100%;
   background-color: #01044C; /* Added background color here as well */
   min-height: 100vh;
-  padding: 80px 0; /* Add padding to account for fixed header and footer */
+  padding: 0px 0; /* Add padding to account for fixed header and footer */
 }
 
 .stickyHeader {

@@ -11,11 +11,18 @@ const fw25Images = () => {
 
   useEffect(() => {
     const updateCountdown = () => {
-      const target = new Date(2025, 2, 17, 0, 0, 0); // Month is 0-based, so 2 = March
+      // Get today's date
       const now = new Date();
+      
+      // Create target date for today at 7pm EST
+      const target = new Date();
+      target.setHours(19, 0, 0, 0); // 7pm
+      // Adjust for EST (UTC-5)
+      // target.setHours(target.getHours() + 5); // Convert from EST to UTC
       
       let diff = target.getTime() - now.getTime();
       
+      // If it's already past 7pm today, show zeros
       if (diff <= 0) {
         setCountdown('00:00:00:00');
         return;
