@@ -8,7 +8,7 @@ import { DateTime } from 'luxon'; // Import luxon for better timezone handling
 const fw25Images = () => {
   const [hasAccess, setHasAccess] = useState(true);
   const [countdown, setCountdown] = useState('00:00:00:00');
-  const [isExpired, setIsExpired] = useState(false);
+  const [isExpired, setIsExpired] = useState(true);
   const [inputValue] = useState('Takem3b3h1ndthe5e3n');
 
   useEffect(() => {
