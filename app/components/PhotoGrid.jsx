@@ -44,7 +44,7 @@ const PhotoGrid = () => {
   return (
     <div className={styles.container}>
         {/* <section className={styles.slideOne}>
-          <div className={styles.slideContent}>
+          <div className={styles.slideContent}> 
           </div>
         </section> */}
         <section className={styles.slideTwo}>
@@ -56,6 +56,18 @@ const PhotoGrid = () => {
           </div>
         </section>
         <section className={styles.slideFour}>
+          <div className={styles.slideContent}>
+          </div>
+        </section>
+        <section className={styles.slideSix}>
+          <div className={styles.slideContent}>
+          </div>
+        </section>
+        <section className={styles.slideSeven}>
+          <div className={styles.slideContent}>
+          </div>
+        </section>
+        <section className={styles.slideEight}>
           <div className={styles.slideContent}>
           </div>
         </section>
