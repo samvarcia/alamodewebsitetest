@@ -1,214 +1,33 @@
 .container {
-  position: relative;
-  min-height: 100vh;
   background-color: #01044C;
+  height: 100%;
 }
 
-/* Styles for the landing page */
-.topLogo {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
-
-.bottomCounter {
-  position: absolute;
-  top: calc(100vh - 80px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
-
-/* Styles for the gallery view */
-.galleryContainer {
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url('https://h8b8ligav2.ufs.sh/f/1HacuqBhXBpbAdMP4UV1K7rjv4VfITptsXM0ueLwNWyHUxhi');
+  background-size: cover;
+  background-position: center;
   position: relative;
-  width: 100%;
-  min-height: 100vh;
+}
+
+.mainContent {
   display: flex;
   flex-direction: column;
-}
-
-.stickyHeader {
-  position: fixed;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-}
-
-.stickyFooter {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo {
-  width: 260px;
+  width: 360px;
   height: auto;
 }
 
-.countdown {
-  font-family: monospace;
-  font-size: 2rem;
-  color: white;
-  letter-spacing: 2px;
-  text-align: center;
-}
-
-.landingContent {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.accessForm {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  max-width: 500px;
-  width: 100%;
-  padding: 0 20px;
-}
-
-.input {
-  padding: 0.5rem 1rem;
-  background-color: transparent;
-  border: none;
-  color: white;
-  width: 100%;
-  background: rgba(215, 216, 215, 0.13);
-  backdrop-filter: blur(50px);
-  border-radius: 12px;
-  font-family: inherit;
-  font-size: 1.2rem;
-}
-
-.input:focus,
-.input:active {
-  outline: none;
-}
-
-.input::placeholder {
-  color: #fff;
-}
-
-.accessButton {
-  padding: 0.5rem 1.3rem;
-  background: none;
-  color: white;
-  background: rgba(215, 216, 215, 0.13);
-  backdrop-filter: blur(50px);
-  border-radius: 12px;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 1rem;
-  border: 1px solid white;
-  transition: all 0.2s ease;
-  width: 200px;
-}
-
-.accessButton:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-/* Styles for after access is granted */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  background-color: rgba(1, 4, 76, 0.9);
-}
-
-@media screen and (max-width: 768px) {
-  .topLogo {
-    top: 30px;
-  }
-
-  .bottomCounter {
-    top: calc(100vh - 60px);
-  }
-
-  .logo {
-    width: 200px;
-  }
-
-  .countdown {
-    font-size: 1.5rem;
-  }
-
-  .galleryContainer {
-    padding: 0px 0;
-  }
-
-  .stickyHeader {
-    top: 20px;
-  }
-
-  .stickyFooter {
-    bottom: 20px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .topLogo {
-    top: 20px;
-  }
-
-  .bottomCounter {
-    top: calc(100vh - 40px);
-  }
-
-  .logo {
-    width: 160px;
-  }
-
-  .countdown {
-    font-size: 1.2rem;
-  }
-
-  .accessForm {
-    gap: 10px;
-  }
-
-  .galleryContainer {
-    padding: 0px 0;
-  }
-
-  .stickyHeader {
-    top: 10px;
-  }
-
-  .stickyFooter {
-    bottom: 10px;
-  }
-}
-
-.logoOverlay {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-top: 20px;
-}
-
 .fixedLogo {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
   width: 190px;
@@ -218,19 +37,99 @@
   transition: opacity 0.3s ease;
 }
 
-.thankYouMessage {
+.fixedLogoVisible {
+  opacity: 1;
+}
+
+.checkinDot {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-right: 20px;
+  margin-top: 20px;
+  background-color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.citiesList ul {
+  list-style-type: none;
   display: flex;
-  justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-size: 24px;
-  color: white;
+  justify-content: space-evenly;
   width: 100%;
-  padding: 20px;
-  margin: 0;
-  z-index: 200;
+  font-size: 2rem;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.citiesList li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 50px;
+}
+
+.citiesList li img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-width: 130px; /* Control maximum width */
+  transform: scale(0.95); /* Slightly reduce the scale */
+}
+
+
+@media (max-width: 768px) {
+  /* Specific adjustments for New York and London */
+.citiesList li:nth-child(1) img,
+.citiesList li:nth-child(2) img {
+  transform: scale(0.75); /* Further reduce scale for longer city names */
+}
+  .mainContent {
+    padding: 0 1rem;
+  }
+
+  .logo {
+    width: 90%;
+  }
+
+  .citiesList ul {
+    gap: 15px;
+    margin-top: 20px;
+    padding: 0;
+  }
+
+  .citiesList li {
+    width: 80px;
+    height: 30px;
+  }
+
+  .fixedLogo {
+    width: 120px !important;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 60%;
+  }
+
+  .citiesList ul {
+    gap: 10px;
+  }
+
+  .citiesList li {
+    width: 65px;
+    height: 25px;
+  }
+
+  .fixedLogo {
+    width: 100px !important;
+    bottom: 10px;
+    right: 10px;
+  }
 }
