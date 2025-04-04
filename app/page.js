@@ -6,6 +6,7 @@ import Image from 'next/image';
 import PhotoGrid from './components/PhotoGrid.jsx'
 import AboutFw25 from './components/AboutFw25';
 import Link from 'next/link';
+import SignUp from './components/SignUp';
 
 const FwPage = () => {
   const [showFixedLogo, setShowFixedLogo] = useState(false);
@@ -79,6 +80,7 @@ const FwPage = () => {
               </li>
             </ul>
           </div>
+          <SignUp/>
         </div>
       </main> 
 
