@@ -40,7 +40,7 @@ const FwPage = () => {
             priority
             className={styles.logo}
           />
-          <div className={styles.citiesList}>
+          {/* <div className={styles.citiesList}>
             <ul>
               <li>
                 <Image 
@@ -79,7 +79,7 @@ const FwPage = () => {
                   />
               </li>
             </ul>
-          </div>
+          </div> */}
           <SignUp/>
         </div>
       </main> 

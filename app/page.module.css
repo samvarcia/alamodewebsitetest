@@ -92,7 +92,7 @@
   }
 
   .logo {
-    width: 90%;
+    width: 100%;
   }
 
   .citiesList ul {
@@ -115,7 +115,7 @@
 
 @media (max-width: 480px) {
   .logo {
-    width: 60%;
+    width: 80%;
   }
 
   .citiesList ul {
