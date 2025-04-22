@@ -55,7 +55,7 @@ const fw25Images = () => {
 
   return (
     <div className={styles.container}>
-      {!hasAccess ? (
+      {/* {!hasAccess ? (
         <>
           <div className={styles.topLogo}>
             <Image 
@@ -114,7 +114,7 @@ const fw25Images = () => {
             <div className={styles.countdown}>{countdown}</div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
