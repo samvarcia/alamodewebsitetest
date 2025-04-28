@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 const PlaylistDetail = ({ playlist, onClose }) => {
   return (
-    <motion.div
+    <motion.div 
       className={styles.detail}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

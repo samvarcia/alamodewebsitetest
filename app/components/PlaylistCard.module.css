@@ -16,7 +16,6 @@
   position: relative;
   aspect-ratio: 1;
   cursor: pointer;
-  border-radius: 8px;
   overflow: hidden;
   background: #222;
 }
@@ -57,7 +56,6 @@
   max-width: 800px;
   padding: 2rem;
   background: #222;
-  border-radius: 12px;
 }
 
 .detailCover {
