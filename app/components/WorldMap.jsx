@@ -18,7 +18,7 @@ export default function WorldMap() {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
       // More precise zoom for mobile, focusing on US and Europe
-      setViewBox(mobile ? "0 150 1800 1000" : "0 0 2057 1242");
+      setViewBox(mobile ? "0 150 1800 1000" : "-40 50 2000 960");
     };
 
     handleResize();
@@ -53,7 +53,7 @@ export default function WorldMap() {
       </svg>
 
 
-      <Link href={"/fw25"}>
+      <Link href={"/"}>
         <div className={`${styles.logoContainer} ${styles.logoDefault} ${isModalOpen ? styles.logoHidden : ''}`}>
           <Image 
             src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
@@ -66,7 +66,7 @@ export default function WorldMap() {
       </Link>
 
 
-      <Link href={"/fw25"}>
+      <Link href={"/"}>
         <div className={`${styles.logoContainer} ${styles.logoModal} ${!isModalOpen ? styles.logoHidden : ''}`}>
           <Image 
             src="https://5b4ey7iavy.ufs.sh/f/sPxirgcVYJN5ziOWkkGWGeO9CyJiqhFg5S3kH6Q8afZc0DB1"
